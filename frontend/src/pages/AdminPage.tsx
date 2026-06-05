@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { getJugadoresAdmin, crearJugador, editarJugador, crearFichaje, cerrarFichaje, getEquipos, getHistorial, getJornadas, crearJornada, simularJornada, calcularPuntuaciones, getEstadisticasAdmin, editarEstadistica, getConfigPuntuacion, actualizarConfigPuntuacion, getUsuarios, toggleActivoUsuario, lanzarMercadoManual } from '../api/admin'
+import { getJugadoresAdmin, crearJugador, editarJugador, crearFichaje, cerrarFichaje, getEquipos, getHistorial, getJornadas, crearJornada, simularJornada, calcularPuntuaciones, getEstadisticasAdmin, editarEstadistica, getConfigPuntuacion, actualizarConfigPuntuacion, getUsuarios, toggleActivoUsuario, lanzarMercadoManual, getDashboard } from '../api/admin'
 import { DIVISION_LABEL, DIVISIONES } from '../constants/divisiones'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
 const POSICIONES = ['PORTERO', 'DEFENSA', 'CENTROCAMPISTA', 'DELANTERO', 'UNKNOWN']
 
@@ -34,10 +35,38 @@ interface ConfigPuntuacion {
   id: string; posicion: string | null; accion: string; puntos: number; descripcion: string | null
 }
 
-type Tab = 'jugadores' | 'jornadas' | 'estadisticas' | 'config' | 'usuarios' | 'historial'
+interface DashboardData {
+  usuarios: { total: number; nuevosUltimaSemana: number; accesosUltimaSemana: number }
+  ligas: { publicas: number; privadas: number; total: number }
+  jugadores: { total: number }
+  mercado: { ofertasActivas: number; ofertasVendidas: number; ofertasCanceladas: number; totalPujas: number }
+  registrosPorDia: { dia: string; usuarios: number }[]
+}
+
+type Tab = 'dashboard' | 'jugadores' | 'jornadas' | 'estadisticas' | 'config' | 'usuarios' | 'historial'
+
+const COLOR_CLASSES: Record<string, { bg: string; text: string; border: string }> = {
+  indigo: { bg: 'bg-indigo-50', text: 'text-indigo-700', border: 'border-indigo-100' },
+  emerald: { bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-emerald-100' },
+  sky: { bg: 'bg-sky-50', text: 'text-sky-700', border: 'border-sky-100' },
+  amber: { bg: 'bg-amber-50', text: 'text-amber-700', border: 'border-amber-100' },
+  violet: { bg: 'bg-violet-50', text: 'text-violet-700', border: 'border-violet-100' },
+  red: { bg: 'bg-red-50', text: 'text-red-700', border: 'border-red-100' },
+}
+
+function KpiCard({ label, value, color }: { label: string; value: number; color: string }) {
+  const c = COLOR_CLASSES[color] ?? COLOR_CLASSES.indigo
+  return (
+    <div className={`rounded-2xl border p-5 ${c.bg} ${c.border}`}>
+      <p className="text-xs font-medium text-gray-500 mb-1">{label}</p>
+      <p className={`text-3xl font-extrabold ${c.text}`}>{value.toLocaleString('es-ES')}</p>
+    </div>
+  )
+}
 
 export default function AdminPage() {
-  const [tab, setTab] = useState<Tab>('jugadores')
+  const [tab, setTab] = useState<Tab>('dashboard')
+  const [dashboard, setDashboard] = useState<DashboardData | null>(null)
   const [jugadores, setJugadores] = useState<Jugador[]>([])
   const [equipos, setEquipos] = useState<Equipo[]>([])
   const [historial, setHistorial] = useState<EntradaHistorial[]>([])
@@ -86,9 +115,11 @@ export default function AdminPage() {
 
   useEffect(() => {
     cargar().finally(() => setLoading(false))
+    getDashboard().then(r => setDashboard(r.data))
   }, [])
 
   useEffect(() => {
+    if (tab === 'dashboard') getDashboard().then(r => setDashboard(r.data))
     if (tab === 'historial') cargarHistorial()
     if (tab === 'jornadas' || tab === 'estadisticas') getJornadas().then(r => setJornadas(r.data))
     if (tab === 'config') getConfigPuntuacion().then(r => setConfig(r.data))
@@ -173,8 +204,8 @@ export default function AdminPage() {
       {ok    && <div className="mb-4 text-sm text-green-700 bg-green-50 border border-green-100 rounded-xl px-4 py-3">✓ {ok}</div>}
 
       {/* Tabs */}
-      <div className="flex gap-2 mb-6">
-        {([['jugadores', '👤 Jugadores'], ['jornadas', '📅 Jornadas'], ['estadisticas', '📊 Estadísticas'], ['config', '⚙️ Puntos'], ['usuarios', '🔑 Usuarios'], ['historial', '📋 Historial']] as [Tab, string][]).map(([t, label]) => (
+      <div className="flex flex-wrap gap-2 mb-6">
+        {([['dashboard', '📈 Dashboard'], ['jugadores', '👤 Jugadores'], ['jornadas', '📅 Jornadas'], ['estadisticas', '📊 Estadísticas'], ['config', '⚙️ Puntos'], ['usuarios', '🔑 Usuarios'], ['historial', '📋 Historial']] as [Tab, string][]).map(([t, label]) => (
           <button key={t} onClick={() => setTab(t)}
             className={`px-4 py-2 rounded-xl text-sm font-semibold border transition-all ${
               tab === t ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300'
@@ -183,6 +214,73 @@ export default function AdminPage() {
           </button>
         ))}
       </div>
+
+      {/* ── TAB DASHBOARD ── */}
+      {tab === 'dashboard' && (
+        <div className="space-y-6">
+          {!dashboard ? (
+            <p className="text-center py-12 text-gray-400 text-sm">Cargando datos...</p>
+          ) : (
+            <>
+              {/* Usuarios */}
+              <section>
+                <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Usuarios</h2>
+                <div className="grid grid-cols-3 gap-4">
+                  <KpiCard label="Total usuarios" value={dashboard.usuarios.total} color="indigo" />
+                  <KpiCard label="Registrados esta semana" value={dashboard.usuarios.nuevosUltimaSemana} color="emerald" />
+                  <KpiCard label="Accesos esta semana" value={dashboard.usuarios.accesosUltimaSemana} color="sky" />
+                </div>
+              </section>
+
+              {/* Ligas y jugadores */}
+              <section>
+                <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Ligas y jugadores</h2>
+                <div className="grid grid-cols-4 gap-4">
+                  <KpiCard label="Total ligas" value={dashboard.ligas.total} color="indigo" />
+                  <KpiCard label="Ligas públicas" value={dashboard.ligas.publicas} color="emerald" />
+                  <KpiCard label="Ligas privadas" value={dashboard.ligas.privadas} color="amber" />
+                  <KpiCard label="Jugadores en BD" value={dashboard.jugadores.total} color="violet" />
+                </div>
+              </section>
+
+              {/* Mercado */}
+              <section>
+                <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Mercado</h2>
+                <div className="grid grid-cols-4 gap-4">
+                  <KpiCard label="Ofertas activas" value={dashboard.mercado.ofertasActivas} color="emerald" />
+                  <KpiCard label="Ofertas vendidas" value={dashboard.mercado.ofertasVendidas} color="indigo" />
+                  <KpiCard label="Ofertas canceladas" value={dashboard.mercado.ofertasCanceladas} color="red" />
+                  <KpiCard label="Total pujas" value={dashboard.mercado.totalPujas} color="sky" />
+                </div>
+              </section>
+
+              {/* Gráfico registros */}
+              <section>
+                <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Registros últimos 7 días</h2>
+                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+                  <ResponsiveContainer width="100%" height={200}>
+                    <BarChart data={dashboard.registrosPorDia} margin={{ top: 4, right: 8, left: -20, bottom: 0 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                      <XAxis
+                        dataKey="dia"
+                        tick={{ fontSize: 11, fill: '#9ca3af' }}
+                        tickFormatter={d => new Date(d + 'T12:00:00').toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric' })}
+                      />
+                      <YAxis tick={{ fontSize: 11, fill: '#9ca3af' }} allowDecimals={false} />
+                      <Tooltip
+                        formatter={(v: number) => [v, 'Usuarios']}
+                        labelFormatter={d => new Date(d + 'T12:00:00').toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' })}
+                        contentStyle={{ borderRadius: '12px', border: '1px solid #e5e7eb', fontSize: '12px' }}
+                      />
+                      <Bar dataKey="usuarios" fill="#6366f1" radius={[6, 6, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </section>
+            </>
+          )}
+        </div>
+      )}
 
       {/* ── TAB JUGADORES ── */}
       {tab === 'jugadores' && (

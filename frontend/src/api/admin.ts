@@ -30,3 +30,6 @@ export const toggleActivoUsuario = (id: string) => api.patch(`/admin/usuarios/${
 
 // Mercado automático
 export const lanzarMercadoManual = () => api.post('/admin/mercado/lanzar')
+
+// Dashboard
+export const getDashboard = () => api.get('/admin/dashboard')
