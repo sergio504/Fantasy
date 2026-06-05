@@ -1,11 +1,12 @@
 import { useState, FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { crearLiga } from '../api/ligas'
+import { DIVISIONES, DIVISION_LABEL } from '../constants/divisiones'
 
 export default function CrearLigaPage() {
   const navigate = useNavigate()
   const [nombre, setNombre] = useState('')
-  const [division, setDivision] = useState('A')
+  const [division, setDivision] = useState(DIVISIONES[0])
   const [publica, setPublica] = useState(true)
   const [maxEquipos, setMaxEquipos] = useState(10)
   const [presupuestoInicial, setPresupuestoInicial] = useState(100)
@@ -84,8 +85,8 @@ export default function CrearLigaPage() {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">División</label>
-          <div className="grid grid-cols-3 gap-2">
-            {(['A', 'B', 'C'] as const).map(d => (
+          <div className="grid grid-cols-1 gap-2">
+            {DIVISIONES.map(d => (
               <button
                 key={d}
                 type="button"
@@ -96,7 +97,7 @@ export default function CrearLigaPage() {
                     : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300'
                 }`}
               >
-                División {d}
+                {DIVISION_LABEL[d]}
               </button>
             ))}
           </div>

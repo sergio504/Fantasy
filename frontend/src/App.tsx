@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
 import PublicOnlyRoute from './components/PublicOnlyRoute'
+import AdminRoute from './components/AdminRoute'
 import Navbar from './components/Navbar'
 import LandingPage from './pages/LandingPage'
 import LoginPage from './pages/LoginPage'
@@ -13,6 +14,8 @@ import LigaDetallePage from './pages/LigaDetallePage'
 import MercadoPage from './pages/MercadoPage'
 import TransferenciasPage from './pages/TransferenciasPage'
 import MisJugadoresPage from './pages/MisJugadoresPage'
+import HistorialAlineacionesPage from './pages/HistorialAlineacionesPage'
+import AdminPage from './pages/AdminPage'
 
 export default function App() {
   return (
@@ -37,7 +40,11 @@ export default function App() {
               <Route path="/ligas/:ligaId/jugadores" element={<MisJugadoresPage />} />
               <Route path="/ligas/:ligaId/mercado" element={<MercadoPage />} />
               <Route path="/ligas/:ligaId/transferencias" element={<TransferenciasPage />} />
+              <Route path="/ligas/:ligaId/historial" element={<HistorialAlineacionesPage />} />
             </Route>
+
+            {/* Ruta de administración */}
+            <Route path="/admin" element={<AdminRoute><AdminPage /></AdminRoute>} />
           </Routes>
         </div>
       </AuthProvider>

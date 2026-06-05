@@ -1,11 +1,17 @@
 import { useEffect, useState, FormEvent } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { getOfertas, pujar, cerrarOferta, cancelarOferta, crearOferta } from '../api/mercado'
-import { getMiEquipo } from '../api/ligas'
+import { getMiEquipo, getUltimaJornadaStats } from '../api/ligas'
 import { useAuth } from '../context/AuthContext'
 import Spinner from '../components/Spinner'
+import JugadorModal from '../components/JugadorModal'
 
-interface Jugador { id: string; nombre: string; posicion: string; equipoReal: string; valor: number }
+interface EquipoReal { nombre: string }
+interface Jugador {
+  id: string; nombre: string; nombreCompleto: string; posicion: string
+  edad: number | null; valor: number
+  historialEquipos: { equipo: EquipoReal }[]
+}
 interface Oferta {
   id: string; jugadorId: string; vendedorId: string | null; precioMinimo: number
   numPujas: number
@@ -15,6 +21,15 @@ interface Oferta {
   vendedor: { id: string; usuario: { username: string } } | null
 }
 interface JugadorEquipo { id: string; jugadorId: string; jugador: Jugador }
+
+function equipoNombre(j: Jugador) { return j.historialEquipos[0]?.equipo?.nombre ?? '—' }
+
+interface UltimaStats { puntos: number }
+function PtsBadge({ puntos }: { puntos: number | undefined }) {
+  if (puntos === undefined) return null
+  const color = puntos >= 8 ? 'bg-green-100 text-green-700' : puntos >= 4 ? 'bg-blue-100 text-blue-700' : puntos > 0 ? 'bg-gray-100 text-gray-600' : 'bg-red-100 text-red-600'
+  return <span className={`shrink-0 text-xs px-1.5 py-0.5 rounded-md font-bold ${color}`}>{puntos} pts</span>
+}
 
 function formatCaducidad(fecha: string | null): { texto: string; urgente: boolean } | null {
   if (!fecha) return null
@@ -39,6 +54,8 @@ export default function MercadoPage() {
   const [ofertas, setOfertas] = useState<Oferta[]>([])
   const [miEquipo, setMiEquipo] = useState<JugadorEquipo[]>([])
   const [miMiembroId, setMiMiembroId] = useState<string | null>(null)
+  const [ultimaStats, setUltimaStats] = useState<{ numJornada: number; stats: Record<string, UltimaStats> } | null>(null)
+  const [modalJugador, setModalJugador] = useState<{ id: string; nombreCompleto: string; posicion: string } | null>(null)
   const [loading, setLoading] = useState(true)
 
   const [pujaOfertaId, setPujaOfertaId] = useState<string | null>(null)
@@ -65,7 +82,11 @@ export default function MercadoPage() {
 
   useEffect(() => {
     if (!ligaId) return
-    Promise.all([cargarOfertas(), cargarEquipo()]).finally(() => setLoading(false))
+    Promise.all([
+      cargarOfertas(),
+      cargarEquipo(),
+      getUltimaJornadaStats(ligaId!).then(r => { if (r.data.jornada) setUltimaStats({ numJornada: r.data.jornada.numJornada, stats: r.data.stats }) }),
+    ]).finally(() => setLoading(false))
   }, [ligaId])
 
   useEffect(() => {
@@ -141,6 +162,15 @@ export default function MercadoPage() {
   if (loading) return <Spinner />
 
   return (
+    <>
+    {modalJugador && (
+      <JugadorModal
+        jugadorId={modalJugador.id}
+        nombreCompleto={modalJugador.nombreCompleto}
+        posicion={modalJugador.posicion}
+        onClose={() => setModalJugador(null)}
+      />
+    )}
     <main className="max-w-4xl mx-auto px-4 py-8">
       <div className="flex items-start justify-between mb-8">
         <div>
@@ -183,7 +213,7 @@ export default function MercadoPage() {
                   const pos = POS_STYLE[je.jugador.posicion]
                   return (
                     <option key={je.jugadorId} value={je.jugadorId}>
-                      [{pos?.label}] {je.jugador.nombre} — {je.jugador.equipoReal} · {je.jugador.valor}M
+                      [{pos?.label}] {je.jugador.nombreCompleto} — {equipoNombre(je.jugador)} · {je.jugador.valor}M
                     </option>
                   )
                 })}
@@ -268,8 +298,16 @@ export default function MercadoPage() {
                     {pos.label}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-gray-900">{oferta.jugador.nombre}</p>
-                    <p className="text-xs text-gray-500 font-medium">{oferta.jugador.equipoReal}</p>
+                    <div className="flex items-center gap-1.5">
+                      <button onClick={() => setModalJugador({ id: oferta.jugador.id, nombreCompleto: oferta.jugador.nombreCompleto, posicion: oferta.jugador.posicion })} className="font-semibold text-gray-900 hover:text-indigo-600 hover:underline text-left">
+                        {oferta.jugador.nombreCompleto}
+                      </button>
+                      <PtsBadge puntos={ultimaStats?.stats[oferta.jugador.id]?.puntos} />
+                    </div>
+                    <p className="text-xs text-gray-500 font-medium">
+                      {equipoNombre(oferta.jugador)}{oferta.jugador.edad ? ` · ${oferta.jugador.edad} años` : ''}
+                      {ultimaStats && ` · J${ultimaStats.numJornada}`}
+                    </p>
                     {oferta.vendedor && (
                       <p className="text-xs text-gray-400 mt-0.5">
                         {oferta.vendedor.usuario.username}{esMiOferta ? ' (tú)' : ''}
@@ -370,5 +408,6 @@ export default function MercadoPage() {
         </div>
       )}
     </main>
+    </>
   )
 }

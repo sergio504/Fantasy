@@ -5,6 +5,8 @@ interface Usuario {
   id: string
   email: string
   username: string
+  esAdmin: boolean
+  activo: boolean
 }
 
 interface AuthContextType {

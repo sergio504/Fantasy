@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { getLiga } from '../api/ligas'
 import { useAuth } from '../context/AuthContext'
 import Spinner from '../components/Spinner'
+import { DIVISION_LABEL, DIVISION_STYLE } from '../constants/divisiones'
 
 interface Miembro {
   id: string
@@ -24,11 +25,6 @@ interface Liga {
   miembros: Miembro[]
 }
 
-const DIV_STYLE: Record<string, { badge: string; bg: string; text: string }> = {
-  A: { badge: 'bg-amber-100 text-amber-700',      bg: 'from-amber-50',    text: 'text-amber-700'    },
-  B: { badge: 'bg-blue-100 text-blue-700',         bg: 'from-blue-50',     text: 'text-blue-700'     },
-  C: { badge: 'bg-emerald-100 text-emerald-700',   bg: 'from-emerald-50',  text: 'text-emerald-700'  },
-}
 
 const MEDAL = ['🥇', '🥈', '🥉']
 
@@ -58,7 +54,7 @@ export default function LigaDetallePage() {
   if (loading) return <Spinner />
   if (error || !liga) return <p className="text-center text-gray-400 py-16">{error || 'Liga no encontrada'}</p>
 
-  const d = DIV_STYLE[liga.division] ?? DIV_STYLE.A
+  const d = DIVISION_STYLE[liga.division] ?? DIVISION_STYLE.RFEF3_GRUPO_IV
   const miMiembro = liga.miembros.find(m => m.usuarioId === usuario?.id)
 
   return (
@@ -70,7 +66,7 @@ export default function LigaDetallePage() {
             <div className="flex items-center gap-2 mb-1">
               <h1 className="text-xl font-bold text-gray-900">{liga.nombre}</h1>
               <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${d.badge}`}>
-                Div. {liga.division}
+                {DIVISION_LABEL[liga.division] ?? liga.division}
               </span>
               {!liga.publica && (
                 <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 font-medium">
@@ -134,7 +130,13 @@ export default function LigaDetallePage() {
           to={`/ligas/${ligaId}/transferencias`}
           className="flex-1 sm:flex-none text-center text-sm px-4 py-2.5 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors font-medium"
         >
-          📋 Historial
+          📋 Transferencias
+        </Link>
+        <Link
+          to={`/ligas/${ligaId}/historial`}
+          className="flex-1 sm:flex-none text-center text-sm px-4 py-2.5 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors font-medium"
+        >
+          📅 Alineaciones
         </Link>
       </div>
 

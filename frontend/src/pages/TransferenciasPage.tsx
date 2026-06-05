@@ -3,11 +3,15 @@ import { useParams, Link } from 'react-router-dom'
 import { getTransferencias } from '../api/ligas'
 import Spinner from '../components/Spinner'
 
+interface EquipoReal { nombre: string }
 interface Transferencia {
   id: string
   precio: number
   fecha: string
-  jugador: { nombre: string; posicion: string; equipoReal: string }
+  jugador: {
+    nombre: string; nombreCompleto: string; posicion: string
+    historialEquipos: { equipo: EquipoReal }[]
+  }
   vendedor: { usuario: { username: string } } | null
   comprador: { usuario: { username: string } }
 }
@@ -56,7 +60,8 @@ export default function TransferenciasPage() {
                     {pos.label}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-gray-900 truncate">{t.jugador.nombre}</p>
+                    <p className="text-sm font-semibold text-gray-900 truncate">{t.jugador.nombreCompleto}</p>
+                    <p className="text-xs text-gray-400">{t.jugador.historialEquipos[0]?.equipo?.nombre ?? '—'}</p>
                     <p className="text-xs text-gray-400 flex items-center gap-1 mt-0.5">
                       <span className="font-medium text-gray-600">{t.vendedor ? t.vendedor.usuario.username : 'Sistema'}</span>
                       <span>→</span>

@@ -1,12 +1,27 @@
 import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { getMiEquipo, getAlineacion, guardarAlineacion } from '../api/ligas'
+import { getMiEquipo, getAlineacion, guardarAlineacion, getUltimaJornadaStats } from '../api/ligas'
 import { getOfertas, cerrarOferta, cancelarOferta } from '../api/mercado'
 import { useAuth } from '../context/AuthContext'
 import Spinner from '../components/Spinner'
+import JugadorModal from '../components/JugadorModal'
 
-interface Jugador { id: string; nombre: string; posicion: string; equipoReal: string; valor: number }
+interface EquipoReal { nombre: string }
+interface Jugador {
+  id: string; nombre: string; nombreCompleto: string; posicion: string
+  edad: number | null; valor: number
+  historialEquipos: { equipo: EquipoReal }[]
+}
 interface JugadorEquipo { id: string; jugadorId: string; jugador: Jugador }
+interface UltimaStats { puntos: number; convocado: boolean; titular: boolean; goles: number; resultado: string }
+
+function equipoNombre(j: Jugador) { return j.historialEquipos[0]?.equipo?.nombre ?? '—' }
+
+function PtsBadge({ puntos }: { puntos: number | undefined }) {
+  if (puntos === undefined) return null
+  const color = puntos >= 8 ? 'bg-green-100 text-green-700' : puntos >= 4 ? 'bg-blue-100 text-blue-700' : puntos > 0 ? 'bg-gray-100 text-gray-600' : 'bg-red-100 text-red-600'
+  return <span className={`shrink-0 text-xs px-1.5 py-0.5 rounded-md font-bold ${color}`}>{puntos} pts</span>
+}
 interface Oferta {
   id: string; jugadorId: string; vendedorId: string | null; precioMinimo: number
   numPujas: number
@@ -45,21 +60,25 @@ export default function MisJugadoresPage() {
   const [formacion, setFormacion] = useState<Formacion>('4-3-3')
   const [titularIds, setTitularIds] = useState<Set<string>>(new Set())
   const [capitanId, setCapitanId] = useState<string | null>(null)
+  const [ultimaStats, setUltimaStats] = useState<{ numJornada: number; stats: Record<string, UltimaStats> } | null>(null)
+  const [modalJugador, setModalJugador] = useState<{ id: string; nombreCompleto: string; posicion: string } | null>(null)
   const [loading, setLoading] = useState(true)
   const [guardando, setGuardando] = useState(false)
   const [guardadoOk, setGuardadoOk] = useState(false)
   const [error, setError] = useState('')
 
   const cargar = async () => {
-    const [equipoR, alineR, ofertasR] = await Promise.all([
+    const [equipoR, alineR, ofertasR, statsR] = await Promise.all([
       getMiEquipo(ligaId!),
       getAlineacion(ligaId!),
       getOfertas(ligaId!),
+      getUltimaJornadaStats(ligaId!),
     ])
     setJugadores(equipoR.data)
     setFormacion(alineR.data.formacion as Formacion)
     setTitularIds(new Set(alineR.data.titularIds))
     setCapitanId(alineR.data.capitanId ?? null)
+    if (statsR.data.jornada) setUltimaStats({ numJornada: statsR.data.jornada.numJornada, stats: statsR.data.stats })
 
     // Solo mis ofertas activas (donde soy el vendedor)
     const mias: Oferta[] = ofertasR.data.filter(
@@ -176,6 +195,15 @@ export default function MisJugadoresPage() {
   const jugadorMap = new Map(jugadores.map(je => [je.jugadorId, je]))
 
   return (
+    <>
+    {modalJugador && (
+      <JugadorModal
+        jugadorId={modalJugador.id}
+        nombreCompleto={modalJugador.nombreCompleto}
+        posicion={modalJugador.posicion}
+        onClose={() => setModalJugador(null)}
+      />
+    )}
     <main className="max-w-4xl mx-auto px-4 py-8">
       <Link to={`/ligas/${ligaId}`} className="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-gray-600 mb-6">
         ← Volver a la liga
@@ -247,12 +275,16 @@ export default function MisJugadoresPage() {
                       </span>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-1.5">
-                          <p className="text-sm font-medium text-gray-900 truncate">{je.jugador.nombre}</p>
+                          <button onClick={() => setModalJugador({ id: je.jugadorId, nombreCompleto: je.jugador.nombreCompleto, posicion: je.jugador.posicion })} className="text-sm font-medium text-gray-900 truncate hover:text-indigo-600 hover:underline text-left">{je.jugador.nombreCompleto}</button>
                           {esCapitan && (
                             <span className="shrink-0 text-xs bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-md font-bold">C</span>
                           )}
+                          <PtsBadge puntos={ultimaStats?.stats[je.jugadorId]?.puntos} />
                         </div>
-                        <p className="text-xs text-gray-500 font-medium">{je.jugador.equipoReal}</p>
+                        <p className="text-xs text-gray-500 font-medium">
+                          {equipoNombre(je.jugador)}{je.jugador.edad ? ` · ${je.jugador.edad} años` : ''}
+                          {ultimaStats && ` · J${ultimaStats.numJornada}`}
+                        </p>
                       </div>
                       <span className="text-xs text-gray-400 shrink-0">{je.jugador.valor}M</span>
                       {/* Botón capitán — solo visible para titulares */}
@@ -330,14 +362,19 @@ export default function MisJugadoresPage() {
                     {ps.label}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 truncate">{je.jugador.nombre}</p>
-                    <p className="text-xs text-gray-500 font-medium">{je.jugador.equipoReal}</p>
+                    <div className="flex items-center gap-1.5">
+                      <p className="text-sm font-medium text-gray-900 truncate">{je.jugador.nombreCompleto}</p>
+                      <PtsBadge puntos={ultimaStats?.stats[je.jugadorId]?.puntos} />
+                    </div>
+                    <p className="text-xs text-gray-500 font-medium">
+                      {equipoNombre(je.jugador)}{je.jugador.edad ? ` · ${je.jugador.edad} años` : ''}
+                    </p>
                   </div>
                   <span className="text-xs text-gray-400 shrink-0">{je.jugador.valor}M</span>
                   <button
                     onClick={async () => {
                       const precio = window.prompt(
-                        `Precio de mercado de ${je.jugador.nombre}: ${je.jugador.valor}M\n¿Qué precio mínimo quieres ponerle?`,
+                        `Precio de mercado de ${je.jugador.nombreCompleto}: ${je.jugador.valor}M\n¿Qué precio mínimo quieres ponerle?`,
                         String(je.jugador.valor)
                       )
                       if (precio === null) return
@@ -360,7 +397,7 @@ export default function MisJugadoresPage() {
                       })
                         .then(() => {
                           const duracion = dias > 0 ? ` · Caduca en ${dias} día${dias > 1 ? 's' : ''}` : ''
-                          alert(`✅ ${je.jugador.nombre} puesto en venta por ${num}M mínimo${duracion}`)
+                          alert(`✅ ${je.jugador.nombreCompleto} puesto en venta por ${num}M mínimo${duracion}`)
                           cargar()
                         })
                         .catch((err: any) => alert(err.response?.data?.error ?? 'Error al poner en venta'))
@@ -396,8 +433,10 @@ export default function MisJugadoresPage() {
                     {ps.label}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 truncate">{je.jugador.nombre}</p>
-                    <p className="text-xs text-gray-500 font-medium">{je.jugador.equipoReal}</p>
+                    <p className="text-sm font-medium text-gray-900 truncate">{je.jugador.nombreCompleto}</p>
+                    <p className="text-xs text-gray-500 font-medium">
+                      {equipoNombre(je.jugador)}{je.jugador.edad ? ` · ${je.jugador.edad} años` : ''}
+                    </p>
                     {oferta.fechaCaducidad && (() => {
                       const diff = new Date(oferta.fechaCaducidad).getTime() - Date.now()
                       const dias = Math.ceil(diff / (1000 * 60 * 60 * 24))
@@ -414,7 +453,7 @@ export default function MisJugadoresPage() {
                   </div>
                   <div className="flex gap-1.5 shrink-0">
                     <button
-                      onClick={() => handleAceptarPuja(oferta.id, je.jugador.nombre)}
+                      onClick={() => handleAceptarPuja(oferta.id, je.jugador.nombreCompleto)}
                       disabled={numPujas === 0}
                       className="text-xs px-3 py-1.5 rounded-xl font-semibold bg-green-600 text-white hover:bg-green-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                     >
@@ -434,5 +473,6 @@ export default function MisJugadoresPage() {
         </div>
       )}
     </main>
+    </>
   )
 }

@@ -9,7 +9,7 @@ const features = [
   {
     icon: '⚽',
     title: 'Ficha jugadores',
-    desc: 'Jugadores reales de divisiones A, B y C. 16 jugadores asignados al entrar.',
+    desc: 'Jugadores reales de 2ª RFEF, 3ª RFEF y División de Honor de Bizkaia. 16 jugadores asignados al entrar.',
   },
   {
     icon: '💰',

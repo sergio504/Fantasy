@@ -1,0 +1,4241 @@
+[
+  {
+    "equipo": {
+      "nombre": "Abanto Club",
+      "division": "HONOR_BIZKAIA"
+    },
+    "jugadores": [
+      {
+        "nombreCompleto": "Aimar Martín Vallejo",
+        "nombre": "Aimar Martín",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Haritz Jimenez Sánchez",
+        "nombre": "Haritz",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Iker Simon Mansilla",
+        "nombre": "Iker Simon",
+        "dorsal": null,
+        "edad": 20,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Íńigo Méndez Bilbao",
+        "nombre": "Íńigo",
+        "dorsal": null,
+        "edad": 27,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Pablo Pueyo Arias",
+        "nombre": "Pueyo",
+        "dorsal": null,
+        "edad": 27,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Eneko Berezo Prieto",
+        "nombre": "Berezo",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Derlis Anibal Armoa Medina",
+        "nombre": "Derlis Anibal Armoa",
+        "dorsal": null,
+        "edad": 30,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Derlis Armoa",
+        "nombre": "Derlis Armoa",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Diego Collantes Hinojosa",
+        "nombre": "Diego Collantes",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Gorka Iglesias Jiménez",
+        "nombre": "Gorka Iglesias",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Jon Gutiérrez Reyes",
+        "nombre": "Jon",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Mikel Cortázar Sánchez",
+        "nombre": "Korti",
+        "dorsal": null,
+        "edad": 26,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Alejandro Lastra Garay",
+        "nombre": "Lastra",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Oscar Ernesto Granja Cortes",
+        "nombre": "Oscar Ernesto Granja",
+        "dorsal": null,
+        "edad": 23,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Pablo Rodríguez González",
+        "nombre": "Pablo Rodríguez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Pedro Obama Massigui",
+        "nombre": "Pedro Obama",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Yuldor Gallo Yepes",
+        "nombre": "Yuldor",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Andrés Fabián Caicedo Quińónez",
+        "nombre": "Caicedo",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "David García Puente",
+        "nombre": "David García",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Ekaitz Lorenzo López",
+        "nombre": "Ekaitz Lorenzo",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Ibai Tapia Larrakoetxea",
+        "nombre": "Ibai Tapia",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Igor Vivanco Paraje",
+        "nombre": "Igor Vivanco",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Kevin Mané Pineda",
+        "nombre": "Kevin",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Miguel Ivan Maldonado Lopez",
+        "nombre": "Miguel Ivan Maldonado",
+        "dorsal": null,
+        "edad": 22,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Mikel Gandiaga Santín",
+        "nombre": "Mikel Gandiaga",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Yair Daniel Gomez Quintero",
+        "nombre": "Yair Daniel Gomez",
+        "dorsal": null,
+        "edad": 24,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Aimar Gómez Negro",
+        "nombre": "Aimar Negro",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Aitor Ayerbe Rubin",
+        "nombre": "Aitor Ayerbe",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Asier Torres García",
+        "nombre": "Asier Torres",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Asier Urruela López",
+        "nombre": "Asier Urruela",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Hodei Martinez Arteche",
+        "nombre": "Hodei",
+        "dorsal": null,
+        "edad": 20,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Hugo Ruiz Echeguren",
+        "nombre": "Hugo",
+        "dorsal": null,
+        "edad": 21,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Izei Ortiz Crespo",
+        "nombre": "Izei Ortiz",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Johan Garcia Palacios",
+        "nombre": "Johan Garcia",
+        "dorsal": null,
+        "edad": 27,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Rubén García Losada",
+        "nombre": "Rubén García",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Aiert Arraiz Corral",
+        "nombre": "Aiert Arraiz",
+        "dorsal": null,
+        "edad": 20,
+        "posicion": "UNKNOWN"
+      }
+    ]
+  },
+  {
+    "equipo": {
+      "nombre": "Sociedad Deportiva Amorebieta",
+      "division": "HONOR_BIZKAIA"
+    },
+    "jugadores": [
+      {
+        "nombreCompleto": "Jon Ander Garate Lafuente",
+        "nombre": "Jon Ander Garate",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Luka Aldazabal Etxegibel",
+        "nombre": "Luka",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Lukas Aldazabal Etxegibel",
+        "nombre": "Lukas",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Xabier Dávila Troncoso",
+        "nombre": "Xabi Dávila",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Xabier Murgoitio Agirre",
+        "nombre": "Xabi Murgoitio",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Aitor López Perea",
+        "nombre": "Aitor López",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Asier Vázquez Perugorría",
+        "nombre": "Asier",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Asier Hernaiz Tejada",
+        "nombre": "Asier Hernaiz",
+        "dorsal": null,
+        "edad": 21,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Daniel Muńoz Diaz",
+        "nombre": "Dani Muńoz",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Ibai Pérez Álvarez",
+        "nombre": "Ibai Pérez",
+        "dorsal": null,
+        "edad": 20,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Jon Goienetxe San Vicente de Los Dolores",
+        "nombre": "Jon",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Jon Guruziaga Gomez-Coronado",
+        "nombre": "Jon Guruziaga",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Julen García Ordeńana",
+        "nombre": "Julen García",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Lur Igartiburu Rodrigo",
+        "nombre": "Lur",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Aitor Mirandona Sanz",
+        "nombre": "Mirandona",
+        "dorsal": null,
+        "edad": 25,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Sergio López Ramos",
+        "nombre": "Sergio",
+        "dorsal": 5,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Unai Uberuaga Regulez",
+        "nombre": "Uberuaga",
+        "dorsal": null,
+        "edad": 25,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Unai Bikandi Ortega",
+        "nombre": "Unai Bikandi",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Xabier Lejarza Barrena",
+        "nombre": "Xabi Lejarza",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Abderrahim Issakhi Aoussani",
+        "nombre": "Abde",
+        "dorsal": null,
+        "edad": 23,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Jon Mikel Aranceta Garciá",
+        "nombre": "Aranceta",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Txaber Ajuriagoikoa García",
+        "nombre": "Txaber",
+        "dorsal": null,
+        "edad": 27,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Unai Bayón Troncoso",
+        "nombre": "Unai Bayón",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Xabier Cuesta Puente",
+        "nombre": "Xabi Cuesta",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Xabier Azurmendi Berrio",
+        "nombre": "Xabier",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Aitor Abella Sánchez",
+        "nombre": "Aitor Abella",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Asier Santos Arriaran",
+        "nombre": "Asier Santos",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Jon Manzanedo Otxandiano",
+        "nombre": "Jon",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Roberto Segundo Extremiana Verdejo",
+        "nombre": "Roberto",
+        "dorsal": 9,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Unai Arroita Gurtubay",
+        "nombre": "Unai Arroita",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Unax Benito Nieto",
+        "nombre": "Unax Benito",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Xabier Luaces Barrenetxea",
+        "nombre": "Xabi Luaces",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ińigo Beaskoetxea Gomez",
+        "nombre": "Ińigo Beaskoetxea",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "UNKNOWN"
+      }
+    ]
+  },
+  {
+    "equipo": {
+      "nombre": "Club Deportivo Aurrera De Ondarroa",
+      "division": "HONOR_BIZKAIA"
+    },
+    "jugadores": [
+      {
+        "nombreCompleto": "Asier Astorkia Aranzabal",
+        "nombre": "Astorkia",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Alesander Irusta Rodrigues",
+        "nombre": "Irusta",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Ander Ezkurra Badiola",
+        "nombre": "Ander Ezkurra",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Asier Ocariz Vital",
+        "nombre": "Asier Ocariz",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Eneko Barrenetxea Larrea",
+        "nombre": "Barrenetxea",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Beńat Irizar Landaribar",
+        "nombre": "Beńat Irizar",
+        "dorsal": null,
+        "edad": 25,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Danel Badiola Solabarrieta",
+        "nombre": "Danel Badiola",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Ibai Gutiérrez Arantzeta",
+        "nombre": "Ibai Gutiérrez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Josu Bereciartua Aldazabal",
+        "nombre": "Josu Bereciartua",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Malick Diouf",
+        "nombre": "Malick Diouf",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Yakhya Ndong Thiaw",
+        "nombre": "Ndong",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Iker Urresti Urrosolo",
+        "nombre": "Urresti",
+        "dorsal": null,
+        "edad": 25,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Ibai Arufe Balentziaga",
+        "nombre": "Arufe",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Enaitz Etxebarria Elustondo",
+        "nombre": "Enaitz",
+        "dorsal": null,
+        "edad": 22,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Asier Etxaburu Diz",
+        "nombre": "Etxaburu",
+        "dorsal": null,
+        "edad": 32,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Iker Basterretxea Martin",
+        "nombre": "Iker Basterretxea",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Enaitz Lizundia Nafarrate",
+        "nombre": "Lizundia",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Mikel Sagastizabal Zalba",
+        "nombre": "Mikel Sagastizabal",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Sabidon Ndiaye",
+        "nombre": "Ndiaye",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Sadibou Ndiaye Ndiaye",
+        "nombre": "Sadibou Ndiaye",
+        "dorsal": null,
+        "edad": 27,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Aitor Txakartegi Mendieta",
+        "nombre": "Txaka",
+        "dorsal": null,
+        "edad": 28,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Aimar Ortega Bengoetxea",
+        "nombre": "Aimar Ortega",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Enetz León Sagarna",
+        "nombre": "Enetz León",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ibon Presno Magunacelaya",
+        "nombre": "Ibon Presno",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Iraitz Larrańaga Aristondo",
+        "nombre": "Iraitz",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Manex Asategi Arrondo",
+        "nombre": "Manex Asategi",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Paul Ochoa De Aspuru Bueno",
+        "nombre": "Paul Ochoa",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Xabier Amoros Barrutia",
+        "nombre": "Xabi Amoros",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Danel Ochoa de Aspuru Bueno",
+        "nombre": "Danel",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Paul Aranceta Aramaio",
+        "nombre": "Paul Aranceta",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "UNKNOWN"
+      }
+    ]
+  },
+  {
+    "equipo": {
+      "nombre": "Sociedad Deportiva Balmaseda Fútbol Club",
+      "division": "HONOR_BIZKAIA"
+    },
+    "jugadores": [
+      {
+        "nombreCompleto": "Alain Arroita Domínguez",
+        "nombre": "Arroita",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Hugo Beraza Corino",
+        "nombre": "Beraza",
+        "dorsal": null,
+        "edad": 21,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Hernán García Peńa",
+        "nombre": "Hernán",
+        "dorsal": null,
+        "edad": 27,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Javier Moreno Romo",
+        "nombre": "Javi Moreno",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Sergio Fernández Asensio",
+        "nombre": "Sergio Fernández",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Abdelmalek Zoheir Azizi Azizi",
+        "nombre": "Abdelmalek Zoheir Azizi",
+        "dorsal": null,
+        "edad": 28,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Aitor Sáinz García",
+        "nombre": "Aitor Sáinz",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Asier Alcubilla Pernia",
+        "nombre": "Asier",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Asier Rodríguez Taranilla",
+        "nombre": "Asier Rodríguez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Abdelmalek Azizi",
+        "nombre": "Azizi",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Daniel Castillo Sagarminaga",
+        "nombre": "Dani Castillo",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Jon Díez Peńa",
+        "nombre": "Jon Díez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Kevin Llamosas De Jorge",
+        "nombre": "Kevin Llamosas",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Mikeldi Jimeno Ibargüen",
+        "nombre": "Mikeldi",
+        "dorsal": null,
+        "edad": 32,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Ander Zuluaga Nieves",
+        "nombre": "Zuluaga",
+        "dorsal": null,
+        "edad": 29,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Ander Zuluaga Sasiain",
+        "nombre": "A. Zuluaga",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Adrian Santolaya Salazar",
+        "nombre": "Adrian Santolaya",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Anaie Peńa Zulaika",
+        "nombre": "Anaie Peńa",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Ion Arribalzaga Gallego",
+        "nombre": "Arribalzaga",
+        "dorsal": null,
+        "edad": 26,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Jon Arano Esteban",
+        "nombre": "Jon Arano",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Mikel Terrones Argüeso",
+        "nombre": "Mikel Terrones",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Unai Padura Larrea",
+        "nombre": "Padura",
+        "dorsal": null,
+        "edad": 26,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Álvaro Sánchez Ruiz de Galarreta",
+        "nombre": "Álvaro Sánchez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Aitor Ańibarro Molina",
+        "nombre": "Ańibarro",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Arrizen Jauregui Santisteban",
+        "nombre": "Arrizen",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Cristian Ramos García",
+        "nombre": "Cristian Ramos",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Gonzalo Bodero Gomez",
+        "nombre": "Gonzalo Bodero",
+        "dorsal": null,
+        "edad": 20,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Koldo Ruiz",
+        "nombre": "Koldo Ruiz",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Koldobika Ruiz Garcia",
+        "nombre": "Koldobika Ruiz",
+        "dorsal": null,
+        "edad": 22,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Aimar Allende Acosta",
+        "nombre": "Aimar Allende",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Urko Araluce Garcia",
+        "nombre": "Urko Araluce",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      }
+    ]
+  },
+  {
+    "equipo": {
+      "nombre": "Club Deportivo Baskonia",
+      "division": "HONOR_BIZKAIA"
+    },
+    "jugadores": [
+      {
+        "nombreCompleto": "Ibai Altonaga Laguna",
+        "nombre": "Altonaga",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Ander Urquiri Letamendia",
+        "nombre": "Ander",
+        "dorsal": 1,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Sergio Quintas Ferreras",
+        "nombre": "Sergio Quintas",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Eder Vázquez Sánchez",
+        "nombre": "Eder Vázquez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Ibon Corbella Trujillano",
+        "nombre": "Ibon Corbella",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Jon A Marin Campo",
+        "nombre": "Jon Marin",
+        "dorsal": 3,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Jon Uraga Escapa",
+        "nombre": "Jon Uraga",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Julen Gallego Casado",
+        "nombre": "Julen Gallego",
+        "dorsal": 4,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Eńaut Kortázar Uribarri",
+        "nombre": "Kortázar",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Ardaitz Villorejo Hurtado",
+        "nombre": "Villarejo",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Aitor Perea Jiménez",
+        "nombre": "Aitor Perea",
+        "dorsal": 6,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Alain Llamosas Suarez",
+        "nombre": "Alain Llamosas",
+        "dorsal": 14,
+        "edad": 28,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Diego Tejeda Sierra",
+        "nombre": "Diego Tejeda",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Haitz Borja Muńoz",
+        "nombre": "Haitz Borja",
+        "dorsal": null,
+        "edad": 28,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Iraultza Rojo Iglesias",
+        "nombre": "Iraultza",
+        "dorsal": 8,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Mikel Gurruchaga Bartra",
+        "nombre": "Mikel Gurruchaga",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Mikel Lanzagorta Rodriguez",
+        "nombre": "Mikel Lanzagorta",
+        "dorsal": 6,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "David Sisinio Otogo Mangue",
+        "nombre": "Otogo",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Alexis Llamosas Penas",
+        "nombre": "Alexis Llamosas",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ernesto González Montero",
+        "nombre": "Ernesto",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ibón Esteban Miranda López",
+        "nombre": "Ibón Esteban",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ibon López Sáenz de Viteri",
+        "nombre": "Ibon López",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Jon Ander Areizaga Tomé",
+        "nombre": "Jon Ander",
+        "dorsal": 9,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Daniel Núńez Mendo",
+        "nombre": "Núńez",
+        "dorsal": 9,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Patxi Rodriguez Tejero",
+        "nombre": "Patxi Rodriguez",
+        "dorsal": 9,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ager Abuin Momoitio",
+        "nombre": "Ager Abuin",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Jon Lejarza Raton",
+        "nombre": "Jon Lejarza",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Oier Aparicio Cuadrado",
+        "nombre": "Oier Aparicio",
+        "dorsal": null,
+        "edad": 18,
+        "posicion": "UNKNOWN"
+      }
+    ]
+  },
+  {
+    "equipo": {
+      "nombre": "Bermeo Fútbol Taldea",
+      "division": "HONOR_BIZKAIA"
+    },
+    "jugadores": [
+      {
+        "nombreCompleto": "Ibon Bilbao Goitia",
+        "nombre": "Ibon Bilbao",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Asier Iruskieta Bilbao",
+        "nombre": "Iruskieta",
+        "dorsal": null,
+        "edad": 27,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Ager Enbeita Gerrikaetxebarría",
+        "nombre": "Ager",
+        "dorsal": null,
+        "edad": 32,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Eneko Santamaria Lorońo",
+        "nombre": "Eneko Santamaria",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Iker Anso Garcia",
+        "nombre": "Iker Anso",
+        "dorsal": null,
+        "edad": 21,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Jon Oribe Albizu",
+        "nombre": "Jon Oribe",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Jon Pedernales Pereira",
+        "nombre": "Jon Pedernales",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Oier Zabala Ojeda",
+        "nombre": "Oier Zabala",
+        "dorsal": null,
+        "edad": 20,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Oier Zabala Ojeda",
+        "nombre": "Oier Zabala",
+        "dorsal": null,
+        "edad": 20,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Ugaitz Urrutia Goicoechea",
+        "nombre": "Ugaitz Urrutia",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Iker Ugartemendia Telletxea",
+        "nombre": "Ugartemendia",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Unai Izcara Lorente",
+        "nombre": "Unai Izcara",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Ander Ziarsolo Belloso",
+        "nombre": "Ziarsolo",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Anaitz Leniz Aristegui",
+        "nombre": "Anaitz Leniz",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Axel Agustin Irrutia Irrutia",
+        "nombre": "Axel Agustin Irrutia",
+        "dorsal": null,
+        "edad": 26,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Borja Altamira Areizaga",
+        "nombre": "Borja Altamira",
+        "dorsal": null,
+        "edad": 30,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Carlos Uriarte Benito",
+        "nombre": "Carlos Uriarte",
+        "dorsal": null,
+        "edad": 34,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Endika Belaustegi Uriagereka",
+        "nombre": "Endika Belaustegi",
+        "dorsal": null,
+        "edad": 23,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Eneko Basaldua Otxoa",
+        "nombre": "Eneko Basaldua",
+        "dorsal": null,
+        "edad": 26,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Gotzon Basaldua Otxoa",
+        "nombre": "Gotzon Basaldua",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Julen Ereńozaga Ormaza",
+        "nombre": "Julen",
+        "dorsal": null,
+        "edad": 20,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Lander Oleaga Alzaga",
+        "nombre": "Oleaga",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Xabier Garai Asla",
+        "nombre": "Xabi Garai",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Eneko Andonegui Hormaza",
+        "nombre": "Eneko Andonegui",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Markel Bilbao Sardui",
+        "nombre": "Markel Bilbao",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Joseba Muruaga Urruela",
+        "nombre": "Muruaga",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Paul Undabarrena Kareaga",
+        "nombre": "Paul Undabarrena",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Garikoitz Txurruka Foruria",
+        "nombre": "Txurruka",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Arkaitz Urrutia Aguirre",
+        "nombre": "Urrutia",
+        "dorsal": null,
+        "edad": 22,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Alexis Ladislao Laucirica",
+        "nombre": "Alexis Ladislao",
+        "dorsal": null,
+        "edad": 33,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Asier Oseguera Gervasio",
+        "nombre": "Asier Oseguera",
+        "dorsal": null,
+        "edad": 23,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Ibai Rodriguez Renteria",
+        "nombre": "Ibai Rodriguez",
+        "dorsal": null,
+        "edad": 23,
+        "posicion": "UNKNOWN"
+      }
+    ]
+  },
+  {
+    "equipo": {
+      "nombre": "Sociedad Deportiva Erandio Club",
+      "division": "HONOR_BIZKAIA"
+    },
+    "jugadores": [
+      {
+        "nombreCompleto": "Amets Rodriguez Cearence",
+        "nombre": "Amets",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Ibai Achirica Fiz",
+        "nombre": "Ibai Achirica",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Jon Fano Martínez",
+        "nombre": "Jon Fano",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Xabier Garces Melero",
+        "nombre": "Xabier Garces",
+        "dorsal": null,
+        "edad": 20,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Eder Rodríguez Aguirre",
+        "nombre": "Eder",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Eneko Chaves Balenciaga",
+        "nombre": "Eneko Chaves",
+        "dorsal": null,
+        "edad": 20,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Josu Pérez Rojo",
+        "nombre": "Josu Pérez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Lander Arrillaga Totorica",
+        "nombre": "Lander Arrillaga",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Mikeldi Agirre Berasategi",
+        "nombre": "Mikeldi",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Raul Shnaider Justiniano Gongora",
+        "nombre": "Raul Shnaider Justiniano",
+        "dorsal": null,
+        "edad": 25,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Raúl Schnaider Justiniano",
+        "nombre": "Schnaider",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Xabier Aizpuru Martinez de Marigorta",
+        "nombre": "Txabo",
+        "dorsal": null,
+        "edad": 27,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Aitor Vázquez Rodríguez",
+        "nombre": "Aitor Vázquez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Eneko Belmonte Hernáez",
+        "nombre": "Belmon",
+        "dorsal": null,
+        "edad": 30,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ińigo Erreguerena García",
+        "nombre": "Erregerena",
+        "dorsal": null,
+        "edad": 28,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Imanol Garate Martinez",
+        "nombre": "Imanol Garate",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Aritz Landeta Vitorica",
+        "nombre": "Landeta",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Álvaro Marroquín Sánchez",
+        "nombre": "Marroquín",
+        "dorsal": null,
+        "edad": 32,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Mikeldi Aguirre",
+        "nombre": "Mikeldi",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Xabier Martínez Goiburu",
+        "nombre": "Xabi Martínez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Josu Zarraga De la Fuente",
+        "nombre": "Zarraga",
+        "dorsal": null,
+        "edad": 25,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Asier Pérez Flores",
+        "nombre": "Asier Pérez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Christian Carrillo Boiso",
+        "nombre": "Christian",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Iker Rouco Sagastizabal",
+        "nombre": "Iker Rouco",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Martin Rasche García",
+        "nombre": "Rasche",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Julen  Rodríguez Castro",
+        "nombre": "Zape",
+        "dorsal": null,
+        "edad": 23,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Kerman Llona Malaina",
+        "nombre": "Kerman Llona",
+        "dorsal": null,
+        "edad": 23,
+        "posicion": "UNKNOWN"
+      }
+    ]
+  },
+  {
+    "equipo": {
+      "nombre": "Club Deportivo Getxo",
+      "division": "HONOR_BIZKAIA"
+    },
+    "jugadores": [
+      {
+        "nombreCompleto": "Ager Argoitia Mendizabal",
+        "nombre": "Ager Argoitia",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Unai Josu GonzÃlez Labrador",
+        "nombre": "Unai Josu",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Javier Berenguer Grijalba",
+        "nombre": "Berenguer",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Oier Bernaola Lazkoz",
+        "nombre": "Bernaola",
+        "dorsal": null,
+        "edad": 29,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Iker Ansotegi Vallejo",
+        "nombre": "Iker Ansotegi",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Marcos MartÚnez Riego",
+        "nombre": "Marcos MartÚnez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Marcos MartÚnez Riego",
+        "nombre": "Marcos MartÚnez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Mikel GutiÕrrez Iturralde",
+        "nombre": "Mikel GutiÕrrez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Beþat FernÃndez Olano",
+        "nombre": "Beþat FernÃndez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Oier Canales Urtasun",
+        "nombre": "Canales",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Lesnar Fernando DÃvila GrÃdiz",
+        "nombre": "DÃvila",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Iker Alonso RodrÚguez",
+        "nombre": "Iker Alonso",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Iker Montes Arroyo",
+        "nombre": "Iker Montes",
+        "dorsal": null,
+        "edad": 27,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Imanol Luengo Rodrigo",
+        "nombre": "Imanol Luengo",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Jagoba Plaza SÃnchez",
+        "nombre": "Jagoba Plaza",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Koldo Azpiazu Zubizarreta",
+        "nombre": "Koldo Azpiazu",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Markel Garrido Torre",
+        "nombre": "Markel Garrido",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Iker Torralvo Miguelez",
+        "nombre": "Torralvo",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ander Pradera MartÚnez",
+        "nombre": "Ander Pradera",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ander Santos MartÚnez",
+        "nombre": "Ander Santos",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Andutz Izaola Olabarrieta",
+        "nombre": "Andutz Izaola",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ekain Eskurza GarcÚa",
+        "nombre": "Ekain Eskurza",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Hanot Otero FernÃndez",
+        "nombre": "Hanot Otero",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Julen  Ibarra HernÃndez",
+        "nombre": "Ibarra",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Iker êlvarez Doistua",
+        "nombre": "Iker êlvarez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Markel Pradera MartÚnez",
+        "nombre": "Markel Pradera",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Beþat Mateo Lezaola",
+        "nombre": "Mateo",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Andutz Izaola Olabarrieta",
+        "nombre": "Andutz Izaola",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Aratz Dionisio Castro",
+        "nombre": "Aratz Dionisio",
+        "dorsal": null,
+        "edad": 18,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Beþat Fernandez Olano",
+        "nombre": "Beþat Fernandez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Ekain Eskurza Garcia",
+        "nombre": "Ekain Eskurza",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Julen Fernandez Alfageme",
+        "nombre": "Julen Fernandez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Martin Cordoba Franco",
+        "nombre": "Martin Cordoba",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Oier Ortega Martinez",
+        "nombre": "Oier Ortega",
+        "dorsal": null,
+        "edad": 25,
+        "posicion": "UNKNOWN"
+      }
+    ]
+  },
+  {
+    "equipo": {
+      "nombre": "Sociedad Deportiva Indautxu",
+      "division": "HONOR_BIZKAIA"
+    },
+    "jugadores": [
+      {
+        "nombreCompleto": "Alexander Viles Revuelta",
+        "nombre": "Alexander Viles",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Jon Andoni Azpillaga Fraile",
+        "nombre": "Azpillaga",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Joanes Artiagoitia Huarte",
+        "nombre": "Joanes",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Joanes Temesgen Artiagoitia Huarte",
+        "nombre": "Joanes",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "AdriÃn  Rojo Torre",
+        "nombre": "AdriÃn Rojo",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Alfonso êlvarez GarcÚa",
+        "nombre": "Alfonso",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Ekaitz AzcuÕnaga Astorquiza",
+        "nombre": "Azkuenaga",
+        "dorsal": null,
+        "edad": 35,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Martin de la Maza Avendaþo",
+        "nombre": "De la Maza",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Egoitz RodrÚguez Osta",
+        "nombre": "Egoitz RodrÚguez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Ibai Hernando GonzÃlez",
+        "nombre": "Ibai Hernando",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Jon Atela Castaþos",
+        "nombre": "Jon Atela",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Jon Lambarri Trincado",
+        "nombre": "Jon Lambarri",
+        "dorsal": null,
+        "edad": 21,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Julen  Calvo MejÚa",
+        "nombre": "Julen Calvo",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Julen Cuesta Prieto",
+        "nombre": "Julen Cuesta",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Iker Madariaga Bascones",
+        "nombre": "Madariaga",
+        "dorsal": null,
+        "edad": 28,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Ignacio Angulo Govea",
+        "nombre": "Angulo",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Aritz Zamora Guardia",
+        "nombre": "Aritz Zamora",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Eritz MartÚnez GarcÚa",
+        "nombre": "Eritz MartÚnez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Iþigo Del Val Urrutia",
+        "nombre": "ëþigo Del Val",
+        "dorsal": null,
+        "edad": 22,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Angel Renes Comadira",
+        "nombre": "Renes",
+        "dorsal": null,
+        "edad": 26,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Unai RodrÚguez êlvarez",
+        "nombre": "Unai RodrÚguez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Aimar Ruiz Saldaþa",
+        "nombre": "Aimar Ruiz",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Asier Gµmez FernÃndez",
+        "nombre": "Asier Gµmez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Bittor Larrauri Ortiz de ZÃrate",
+        "nombre": "Bittor Larrauri",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Diego Gµmez Herrero",
+        "nombre": "Diego Gµmez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Hugo Muþoz De la Llosa",
+        "nombre": "Hugo Muþoz",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Iþigo Bravo De Prado",
+        "nombre": "Iþigo Bravo",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Faouzi Jakkal Marfouk",
+        "nombre": "Jakkal",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Julen  Bilbao Gea",
+        "nombre": "Julen Bilbao",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Alain Morin DÚez",
+        "nombre": "Morin",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Eder Corral Vidaurrazaga",
+        "nombre": "Eder Corral",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Eneko Gµmez SÃnchez",
+        "nombre": "Eneko Gµmez",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Fernando De Assis Da Silva",
+        "nombre": "Fernando",
+        "dorsal": null,
+        "edad": 34,
+        "posicion": "UNKNOWN"
+      }
+    ]
+  },
+  {
+    "equipo": {
+      "nombre": "Sociedad Deportiva Iturrigorri",
+      "division": "HONOR_BIZKAIA"
+    },
+    "jugadores": [
+      {
+        "nombreCompleto": "Alain Carmelo Pereira",
+        "nombre": "Alain Carmelo",
+        "dorsal": null,
+        "edad": 22,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Jokin Escobal Etxebarria",
+        "nombre": "Escobal",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Lander Hernandez Hernandez",
+        "nombre": "Lander Hernandez",
+        "dorsal": null,
+        "edad": 18,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Carlos Santibáńez Allende",
+        "nombre": "Santibáńez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Ińigo Beascoechea Chávarri",
+        "nombre": "Beascoechea",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Asier Cabezas Cabezas",
+        "nombre": "Cabezas",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Daniel  Molina Paisán",
+        "nombre": "Dani Molina",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Haimar Garrido del Río",
+        "nombre": "Haimar",
+        "dorsal": 4,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Iker Bragado Briongos",
+        "nombre": "Iker Bragado",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Iker Merino Macho",
+        "nombre": "Iker Merino",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Aitor Isidro Marcos",
+        "nombre": "Isidro",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Josu Portal Alonso",
+        "nombre": "Josu Portal",
+        "dorsal": null,
+        "edad": 25,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Mikel Vázquez García",
+        "nombre": "Mikel Vázquez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Xabier Revuelta Pinto",
+        "nombre": "Xabi Revuelta",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Dennis Martínez Campos",
+        "nombre": "Dennis",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Gorka López Incera",
+        "nombre": "Gorka López",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Harkaitz Pujana Cárdenas",
+        "nombre": "Harkaitz",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Imanol García Franco",
+        "nombre": "Imanol García",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Salvador Miko Mba Ayingono",
+        "nombre": "Mba",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Borja Medrano Peláez",
+        "nombre": "Medrano",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "David San Lázaro Aguilar",
+        "nombre": "San Lázaro",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Xabier Castillo Sierra",
+        "nombre": "Xabier Castillo",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Adrián  Rojo Torre",
+        "nombre": "Adrián Rojo",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Aitor Aguirre Ortube",
+        "nombre": "Aitor Aguirre",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ibai Domínguez Montero",
+        "nombre": "Ibai Domínguez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Jon  Monje Hurtado",
+        "nombre": "Monje",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Arkaitz Pujana Cárdenas",
+        "nombre": "Pujana",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ander Ińaki Varela Martínez",
+        "nombre": "Varela",
+        "dorsal": null,
+        "edad": 28,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Gaizka Acosta Carrizo",
+        "nombre": "Gaizka Acosta",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Joseba Alejandro Alfonso Correa",
+        "nombre": "Joseba Alejandro Alfonso",
+        "dorsal": null,
+        "edad": 20,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Liher Gomez Picaza",
+        "nombre": "Liher Gomez",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Oier Alberdi De la Cal",
+        "nombre": "Oier Alberdi",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Oihan Ruiz Parga",
+        "nombre": "Oihan Ruiz",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      }
+    ]
+  },
+  {
+    "equipo": {
+      "nombre": "Club Deportivo Padura",
+      "division": "HONOR_BIZKAIA"
+    },
+    "jugadores": [
+      {
+        "nombreCompleto": "Asier Vegas Vivar",
+        "nombre": "Asier",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Iker Fernandez Sagredo",
+        "nombre": "Iker Fernandez",
+        "dorsal": null,
+        "edad": 20,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Jon Vitoria Undabarrena",
+        "nombre": "Jon Vitoria",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Peio Fernández Santisteban",
+        "nombre": "Peio Fernández",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Yannick Pedrosa Morán",
+        "nombre": "Yannick",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Aarón Sanz Pereda",
+        "nombre": "Aarón Sanz",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Ander Cuartango Merino",
+        "nombre": "Ander",
+        "dorsal": null,
+        "edad": 21,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Aitor Dorronsoro González",
+        "nombre": "Dorron",
+        "dorsal": null,
+        "edad": 28,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Garikoitz Basaras Denche",
+        "nombre": "Garikoitz",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Iker Salvador Masa",
+        "nombre": "Iker Salvador",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Eugenio Gabriel Montiel Arzamendia",
+        "nombre": "Montiel",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Aitor Sollano Sierra",
+        "nombre": "Sollano",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Joritz Tamayo Escalante",
+        "nombre": "Tamayo",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Urtzi Oleg Díaz Sanz",
+        "nombre": "Urtzi",
+        "dorsal": 2,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Aitor Llorente Arroniz",
+        "nombre": "Aitor",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Alemu Plazaola Pereira",
+        "nombre": "Alemu",
+        "dorsal": null,
+        "edad": 21,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Oier Borobia Doistua",
+        "nombre": "Borobia",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Markel Elexpuru Madariaga",
+        "nombre": "Elexpuru",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Joaquín Hinojosa Gutiérrez",
+        "nombre": "Hinojosa",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Xabier Mayordomo González",
+        "nombre": "Mayordomo",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Rafael Carlos Villanueva Bastero",
+        "nombre": "Villanueva",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Alieu Kora Kora",
+        "nombre": "Alieu Kora",
+        "dorsal": null,
+        "edad": 20,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ángel Cazorla Guirado",
+        "nombre": "Cazorla",
+        "dorsal": null,
+        "edad": 22,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ander Herreros Viana",
+        "nombre": "Herreros",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Jon Fernández Expósito",
+        "nombre": "Jon Fernández",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Jon García Carrasco",
+        "nombre": "Jon García",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ahen Kora",
+        "nombre": "Kora",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Michael Tabe Egbe",
+        "nombre": "Michael",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Peio Albizua Escuza",
+        "nombre": "Peio Albizua",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Erlantz Rementeria Uribe",
+        "nombre": "Rementeria",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Jon A. Romero Corrales",
+        "nombre": "Romero",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Xabier Cortezón Goicoechea",
+        "nombre": "Xabi Cortezón",
+        "dorsal": null,
+        "edad": 33,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Aratz Linaza Garcia",
+        "nombre": "Aratz",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Unai Larrea Altube",
+        "nombre": "Unai Larrea",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      }
+    ]
+  },
+  {
+    "equipo": {
+      "nombre": "Sociedad Deportiva San Pedro",
+      "division": "HONOR_BIZKAIA"
+    },
+    "jugadores": [
+      {
+        "nombreCompleto": "Erik Muńoz Espańa",
+        "nombre": "Erik Muńoz",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Mikel Rivas Moirón",
+        "nombre": "Mikel Rivas",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Aarón Alejandro Ríos Sánchez",
+        "nombre": "Aarón",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Joritz Aguado Jiménez",
+        "nombre": "Aguado",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Alexander Basabe Areizaga",
+        "nombre": "Alexander Basabe",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Ekaitz Ramos Garcia",
+        "nombre": "Ekaitz Ramos",
+        "dorsal": null,
+        "edad": 17,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Lander Madrigal Uriarte",
+        "nombre": "Lander",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Lander Robles Acha",
+        "nombre": "Lander Robles",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Markel Domínguez Fernández",
+        "nombre": "Markel Domínguez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Ibon Ojinaga García",
+        "nombre": "Ojinaga",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Xavier Mendigutxia Balil",
+        "nombre": "Xavier Mendigutxia",
+        "dorsal": null,
+        "edad": 24,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Aimar Díez Fernández",
+        "nombre": "Aimar Díez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Ander  Pérez Pińeiro",
+        "nombre": "Ander Pérez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Lucas Juan Arrillaga Vado",
+        "nombre": "Arrillaga",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Ińigo Carazo García",
+        "nombre": "Carazo",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Gorka Fonseca Gorjón",
+        "nombre": "Fonseca",
+        "dorsal": null,
+        "edad": 28,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Iker Alday Díaz",
+        "nombre": "Iker Alday",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Izan Velasco López",
+        "nombre": "Izan Velasco",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Javier Cea Fernández",
+        "nombre": "Javi Cea",
+        "dorsal": null,
+        "edad": 25,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Markel Castillo de la Pinta",
+        "nombre": "Markel",
+        "dorsal": null,
+        "edad": 22,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Oier Maroto Virtus",
+        "nombre": "Maroto",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Unatz Castander Martin",
+        "nombre": "Unatz Castander",
+        "dorsal": null,
+        "edad": 22,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Aarón Ríos Sánchez",
+        "nombre": "Aarón Ríos",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Galder Dwomoh Lombas",
+        "nombre": "Galder",
+        "dorsal": null,
+        "edad": 36,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ibón Machado Siero",
+        "nombre": "Ibón Machado",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Iker Cid Margalef",
+        "nombre": "Iker",
+        "dorsal": null,
+        "edad": 26,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Markel Díaz Platón",
+        "nombre": "Markel Díaz",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Asier Olabarri López",
+        "nombre": "Olabarri",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Adrian Vich Rodríguez",
+        "nombre": "Vich",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Xabier Alayo Zarate",
+        "nombre": "Xabier Alayo",
+        "dorsal": null,
+        "edad": 21,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ibai Perez Morales",
+        "nombre": "Ibai Perez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Lamine Danso Danso",
+        "nombre": "Lamine Danso",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Seedy Dampha Dampha",
+        "nombre": "Seedy Dampha",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "UNKNOWN"
+      }
+    ]
+  },
+  {
+    "equipo": {
+      "nombre": "Santutxu Fútbol Club",
+      "division": "HONOR_BIZKAIA"
+    },
+    "jugadores": [
+      {
+        "nombreCompleto": "Aimar Dańobeitia Romero",
+        "nombre": "Aimar Dańobeitia",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Angel Esteban San Roman",
+        "nombre": "Angel",
+        "dorsal": null,
+        "edad": 18,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "David Río Alonso",
+        "nombre": "David Río",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Unai Goti Ezquerra",
+        "nombre": "Goti",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Ibai David Rio Alonso",
+        "nombre": "Ibai",
+        "dorsal": null,
+        "edad": 18,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Txomin Muniozguren Abad",
+        "nombre": "Txomin",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Adrián Pérez Valverde",
+        "nombre": "Adrián",
+        "dorsal": null,
+        "edad": 31,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Adrián Pérez",
+        "nombre": "Adrián Pérez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Anaitz Núńez Lázaro",
+        "nombre": "Anaitz Núńez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Ander Larrańaga Gomez",
+        "nombre": "Ander Larrańaga",
+        "dorsal": null,
+        "edad": 28,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Arkaitz López Elorriaga",
+        "nombre": "Arkaitz López",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Arnau Gómez Echeverría",
+        "nombre": "Arnau Gómez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Asier García Quintana",
+        "nombre": "Asier García",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Endika Laorden Gonzalo",
+        "nombre": "Endika",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Gaudentzi Martin Gortázar",
+        "nombre": "Gaudentzi",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Unai Barreńa Moreno",
+        "nombre": "Unai Barreńa",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Aitzol Urdinguio Barinagarrementeria",
+        "nombre": "Urdinguio",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Jon Acebo Mouro",
+        "nombre": "Acebo",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Ińigo Fano Larrea",
+        "nombre": "Fano",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Jon  Valle García",
+        "nombre": "Jon Valle",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Mario Esteban Martínez",
+        "nombre": "Mario",
+        "dorsal": null,
+        "edad": 18,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Unai Zárraga Bartolomé",
+        "nombre": "Unai Zárraga",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Nicolás Amarica Zalduendo",
+        "nombre": "Amarica",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Mikel Caballero Astondoa",
+        "nombre": "Caballero",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Eder Recouso Tejedor",
+        "nombre": "Eder Recouso",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Kerman Junquera Goikouria",
+        "nombre": "Kerman Junquera",
+        "dorsal": null,
+        "edad": 23,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ander Larrańaga",
+        "nombre": "Larrańaga",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Mikel García Badiola",
+        "nombre": "Mikel García",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Unai Arbulu Fernández",
+        "nombre": "Unai Arbulu",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      }
+    ]
+  },
+  {
+    "equipo": {
+      "nombre": "Sodupe Unión Club",
+      "division": "HONOR_BIZKAIA"
+    },
+    "jugadores": [
+      {
+        "nombreCompleto": "Mikel Ferrón Santidrián",
+        "nombre": "Ferrón",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Gorka Escalante Ibáńez",
+        "nombre": "Gorka Escalante",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Ińaki Axpe Gallego",
+        "nombre": "Ińaki Axpe",
+        "dorsal": null,
+        "edad": 28,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Aitor  Moreno Torrecilla",
+        "nombre": "Torrecilla",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Aimar Sanz Ponce",
+        "nombre": "Aimar Sanz",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Aitor  Álvarez Urigüen",
+        "nombre": "Aitor Álvarez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Markel Bárcenas Urueńa",
+        "nombre": "Bárcenas",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Iker Castańo Zapata",
+        "nombre": "Castańo",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Diego Gómez-Coronado Puente",
+        "nombre": "Diego Gómez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Jon Inhar Escudero De la Riva",
+        "nombre": "Escudero",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Heren Bernaola Lazkoz",
+        "nombre": "Heren",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Julen Muguruza Gregorio",
+        "nombre": "Muguruza",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Oier Gil Gil",
+        "nombre": "Oier Gil",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Ander Orue Lucha",
+        "nombre": "Orue",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Javier Bweya Tsapla",
+        "nombre": "Bweya",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Nomakoro Diarra",
+        "nombre": "Diarra",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Eleder Gamboa Lopez",
+        "nombre": "Eleder Gamboa",
+        "dorsal": null,
+        "edad": 32,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Eleder Gamboa",
+        "nombre": "Gamboa",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Unai Gochi López",
+        "nombre": "Gochi",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Iker Mota Arana",
+        "nombre": "Iker Mota",
+        "dorsal": null,
+        "edad": 25,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Ander Zárate Fernández",
+        "nombre": "Zárate",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Iker Herrero Sendino",
+        "nombre": "Iker Herrero",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Iker Javier Orlando Amaral",
+        "nombre": "Iker Javier Orlando",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Juan Pablo Pérez Ardila",
+        "nombre": "Juan Pablo Pérez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Namakoro Diarra",
+        "nombre": "Namakoro",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ugaitz Villada Lozano",
+        "nombre": "Villada",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Julen  Rodríguez Castro",
+        "nombre": "Zape",
+        "dorsal": null,
+        "edad": 23,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Markel Zorrilla Alonso",
+        "nombre": "Zorrilla",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Diego Alejandro Hinestroza Zapata",
+        "nombre": "Diego Alejandro Hinestroza",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Joan Inhar Escudero De la Riva",
+        "nombre": "Joan Inhar Escudero",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      }
+    ]
+  },
+  {
+    "equipo": {
+      "nombre": "Juventud Deportiva Somorrostro",
+      "division": "HONOR_BIZKAIA"
+    },
+    "jugadores": [
+      {
+        "nombreCompleto": "Joritz Bennett Molina",
+        "nombre": "Bennett",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Iker Martínez Alonso",
+        "nombre": "Iker",
+        "dorsal": null,
+        "edad": 26,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Ekaitz Peńalver Bilbao",
+        "nombre": "Peńalver",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Agustín Rodríguez Canobra",
+        "nombre": "Agustín",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "César Aláez Calvo",
+        "nombre": "Aláez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Ekain González Rada",
+        "nombre": "Ekain González",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Imanol Carrascosa Martín Buitrago",
+        "nombre": "Imanol",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Joar Hernández Rico",
+        "nombre": "Joar Hernández",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Jon Gutiérrez Reyes",
+        "nombre": "Jon",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Lander Martín Lopes",
+        "nombre": "Lander Martín",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Lucas Martínez Vicente",
+        "nombre": "Lucas Martínez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Markel Echabe Casamayor",
+        "nombre": "Markel Echabe",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Ander Mínguez González",
+        "nombre": "Ander Mínguez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Carlos Urquidi Diez",
+        "nombre": "Carlos Urquidi",
+        "dorsal": null,
+        "edad": 21,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Imanol Carrascosa Martín",
+        "nombre": "Carrascosa",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Gorka Martín Lopes",
+        "nombre": "Gorka Martín",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Markel Zuluaga Ojanguren",
+        "nombre": "Markel Zuluaga",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Jon Mendikote Díez",
+        "nombre": "Mendikote",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Íńigo Uraga Escapa",
+        "nombre": "Uraga",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Aner Torre Tueros",
+        "nombre": "Aner Torre",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Alejandro Bermúdez Alves",
+        "nombre": "Bermúdez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Eneko  García Etxebarrieta",
+        "nombre": "Eneko García",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Iraultz Lekerika Castresana",
+        "nombre": "Iraultz",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Jorge Ruiz Bilbao",
+        "nombre": "Jorge Ruiz",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Markel Garcia Etxebarrieta",
+        "nombre": "Markel Garcia",
+        "dorsal": null,
+        "edad": 21,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ibai Marińo Fernandez",
+        "nombre": "Ibai Marińo",
+        "dorsal": null,
+        "edad": 22,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Ińigo Legazpi Salvador",
+        "nombre": "Ińigo Legazpi",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Izan Peńa Crespo",
+        "nombre": "Izan",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      }
+    ]
+  },
+  {
+    "equipo": {
+      "nombre": "Urduliz Fútbol Taldea",
+      "division": "HONOR_BIZKAIA"
+    },
+    "jugadores": [
+      {
+        "nombreCompleto": "Ager Garcia Iratzagorria",
+        "nombre": "Ager",
+        "dorsal": null,
+        "edad": 18,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Hamza El Mouedden",
+        "nombre": "Hamza El",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Iraitz Gil Roz",
+        "nombre": "Iraitz",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Markel Unibaso Pérez",
+        "nombre": "Markel Unibaso",
+        "dorsal": 1,
+        "edad": 23,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Oier Roman Martinez De Greńo",
+        "nombre": "Oier",
+        "dorsal": null,
+        "edad": 18,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Ander Castańon Santiago",
+        "nombre": "Ander Castańon",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Asier Gaztelurrutia Andikoetxea",
+        "nombre": "Asier Gaztelurrutia",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Assane Mbe Guere",
+        "nombre": "Assane",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Aimar Elorrieta Méndez",
+        "nombre": "Elorrieta",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Gaizka Oza Izquierdo",
+        "nombre": "Gaizka Oza",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Gorka Acha Alonso",
+        "nombre": "Gorka Acha",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Ander Hormaetxe Zarraga",
+        "nombre": "Hormaetxe",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Jorge Bilbao Garcia",
+        "nombre": "Jorge",
+        "dorsal": null,
+        "edad": 20,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Kerman Martínez Ubieta",
+        "nombre": "Kerman",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Kevin Ruben Aguero Alfonzo",
+        "nombre": "Kevin Ruben Aguero",
+        "dorsal": null,
+        "edad": 27,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Asier Aimar Zelaia Lekue",
+        "nombre": "Zelaia",
+        "dorsal": 15,
+        "edad": 21,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Alexander Sánchez Domínguez",
+        "nombre": "Álex Sánchez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Ander Valls Díez",
+        "nombre": "Ander Valls",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Mikel Castrillejo Ponce",
+        "nombre": "Castrillejo",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Guillermo Gulias Zamanillo",
+        "nombre": "Guillermo",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Iker Merino Macho",
+        "nombre": "Iker Merino",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Ińaki Fernández Beristain",
+        "nombre": "Ińaki Fernández",
+        "dorsal": 22,
+        "edad": 23,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Ismael Marqués Urzáiz",
+        "nombre": "Marqués",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Oier Cancio Azkorra",
+        "nombre": "Oier Cancio",
+        "dorsal": 8,
+        "edad": 23,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Gorka Ventura Bilbao",
+        "nombre": "Ventura",
+        "dorsal": 7,
+        "edad": 25,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Eneko Ayala Fernández",
+        "nombre": "Eneko Ayala",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Eneko Durán Etxebarria",
+        "nombre": "Eneko Durán",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Cheich Gueye",
+        "nombre": "Gueye",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Gorka Telleria González",
+        "nombre": "Telleria",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Assane Mbeguere Mbeguere",
+        "nombre": "Assane Mbeguere",
+        "dorsal": null,
+        "edad": 30,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Beńat Urrutikoetxea Uraga",
+        "nombre": "Beńat Urrutikoetxea",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Ibai Ortiz de Zarate Nuńez",
+        "nombre": "Ibai",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Jon Gerediaga Vicente",
+        "nombre": "Jon Gerediaga",
+        "dorsal": null,
+        "edad": 21,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Julen Sanchez Gonzalez",
+        "nombre": "Julen Sanchez",
+        "dorsal": null,
+        "edad": 20,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Manex Acero Cortabitarte",
+        "nombre": "Manex Acero",
+        "dorsal": null,
+        "edad": 21,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Cheikh Oumar Foutiyou Gueye",
+        "nombre": "Oumar",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Unai Ramirez Lecanda",
+        "nombre": "Unai Ramirez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      }
+    ]
+  },
+  {
+    "equipo": {
+      "nombre": "Club Deportivo Uritarra",
+      "division": "HONOR_BIZKAIA"
+    },
+    "jugadores": [
+      {
+        "nombreCompleto": "Ander Alaygoicoa Petralanda",
+        "nombre": "Alaygoicoa",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Ander Alayogoicoa Petralanda",
+        "nombre": "Ander Alayogoicoa",
+        "dorsal": null,
+        "edad": 28,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Jon Olea Barrena",
+        "nombre": "Jon Olea",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Mikel Goiria Vázquez",
+        "nombre": "Mikel Goiria",
+        "dorsal": null,
+        "edad": 27,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Asier Izaguirre San José",
+        "nombre": "Asier Izaguirre",
+        "dorsal": null,
+        "edad": 27,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Eneko Castro Vegas",
+        "nombre": "Castro",
+        "dorsal": null,
+        "edad": 21,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Iker Izaguirre Legarreta",
+        "nombre": "Iker Izaguirre",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Jon  Martín García",
+        "nombre": "Jon Martín",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Asier Legarretaetxebarría Zelaia",
+        "nombre": "Legarreta",
+        "dorsal": null,
+        "edad": 27,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Markel Ateca Gonzalez",
+        "nombre": "Markel Ateca",
+        "dorsal": null,
+        "edad": 26,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Markel Núńez Manzanares",
+        "nombre": "Markel Núńez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Mikel Uribe Larrinaga",
+        "nombre": "Mikel Uribe",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Orlando Ańez Mercado",
+        "nombre": "Orlando",
+        "dorsal": null,
+        "edad": 21,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Javier Santoyo López-Para",
+        "nombre": "Santoyo",
+        "dorsal": null,
+        "edad": 20,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Martín Bárcena Guarrochena",
+        "nombre": "Bárcena",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Xabier Dańobeitia Burgos",
+        "nombre": "Dańobeitia",
+        "dorsal": null,
+        "edad": 26,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Eneko Mesa Perez",
+        "nombre": "Eneko Mesa",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Hodei De Abajo Petralanda",
+        "nombre": "Hodei",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Jon Irusta Braceras",
+        "nombre": "Irusta",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Izei Saratxu Aburto",
+        "nombre": "Izei Saratxu",
+        "dorsal": null,
+        "edad": 20,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Jon Calero Rodríguez",
+        "nombre": "Jon Calero",
+        "dorsal": null,
+        "edad": 25,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Xabier Lekerika De Cavia",
+        "nombre": "Lekerika",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Mikel Arana Sagastigordia",
+        "nombre": "Mikel Arana",
+        "dorsal": null,
+        "edad": 23,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Mikel Mato Monsuri",
+        "nombre": "Mikel Mato",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Oier Muńoz Urquijo",
+        "nombre": "Oier Muńoz",
+        "dorsal": null,
+        "edad": 29,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Oier Muńoz Urkijo",
+        "nombre": "Oier Muńoz",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Unai Alonso Anton",
+        "nombre": "Unai Alonso",
+        "dorsal": null,
+        "edad": 32,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Aitor Arevalillo Egileor",
+        "nombre": "Aitor Arevalillo",
+        "dorsal": null,
+        "edad": 22,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Álex Abián Sánchez",
+        "nombre": "Álex Abián",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ander Castańeira Barandica",
+        "nombre": "Ander Castańeira",
+        "dorsal": null,
+        "edad": 24,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Eritz Leonardo Hernandez Perez",
+        "nombre": "Eritz Leonardo Hernandez",
+        "dorsal": null,
+        "edad": 20,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Ander Ewan Wyatt Domercq",
+        "nombre": "Ewan",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Jenier Santoyo López-Para",
+        "nombre": "Jenier",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Josu Totorica Carbajosa",
+        "nombre": "Josu Totorica",
+        "dorsal": null,
+        "edad": 26,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Gorka Mena Calvo",
+        "nombre": "Mena",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Josu Totorika Carbajosa",
+        "nombre": "Totorika",
+        "dorsal": null,
+        "edad": 25,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Txaber Ortiz de Zárate Ereńo",
+        "nombre": "Txaber",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Koldo  Guarrotxena Zuluaga",
+        "nombre": "Guarrotxena",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Peio Kortazar Zugaza",
+        "nombre": "Peio Kortazar",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Peru Barandiaran Echarte",
+        "nombre": "Peru Barandiaran",
+        "dorsal": null,
+        "edad": 24,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Unai Martinez Aretxederreta",
+        "nombre": "Unai Martinez",
+        "dorsal": null,
+        "edad": 25,
+        "posicion": "UNKNOWN"
+      }
+    ]
+  },
+  {
+    "equipo": {
+      "nombre": "Zalla Unión Club",
+      "division": "HONOR_BIZKAIA"
+    },
+    "jugadores": [
+      {
+        "nombreCompleto": "Andima Chavarri Gorbeńa",
+        "nombre": "Andima",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Hugo Beraza Corino",
+        "nombre": "Beraza",
+        "dorsal": null,
+        "edad": 21,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Hernán García Peńa",
+        "nombre": "Hernán",
+        "dorsal": null,
+        "edad": 27,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Oier Louzao Alvarez",
+        "nombre": "Oier Louzao",
+        "dorsal": null,
+        "edad": 18,
+        "posicion": "PORTERO"
+      },
+      {
+        "nombreCompleto": "Alberto López Ibarbia",
+        "nombre": "Alberto López",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Alvaro Diez Peńa",
+        "nombre": "Alvaro Diez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Gilen Querendez Estebas",
+        "nombre": "Gilen Querendez",
+        "dorsal": null,
+        "edad": 28,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Igor Marín Somovilla",
+        "nombre": "Igor Marín",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Jagoba Garcia Hernandez",
+        "nombre": "Jagoba Garcia",
+        "dorsal": null,
+        "edad": 32,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Oier Ibarra Benitez",
+        "nombre": "Oier Ibarra",
+        "dorsal": null,
+        "edad": 17,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Jokin Queréndez Estebas",
+        "nombre": "Queréndez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Imanol Ureta Castillo",
+        "nombre": "Ureta",
+        "dorsal": null,
+        "edad": 33,
+        "posicion": "DEFENSA"
+      },
+      {
+        "nombreCompleto": "Alemu Plazaola Pereira",
+        "nombre": "Alemu",
+        "dorsal": null,
+        "edad": 21,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Peio Amezaga Martínez",
+        "nombre": "Amezaga",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Andres Guridi De Pedro",
+        "nombre": "Andres Guridi",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Dylan Andrés Cuervo Victoria",
+        "nombre": "Dylan",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Iker Calvo Macarrilla",
+        "nombre": "Iker Calvo",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Íńigo Tobía Cobos",
+        "nombre": "Ińigo",
+        "dorsal": null,
+        "edad": 28,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Ińigo García López",
+        "nombre": "Ińigo García",
+        "dorsal": null,
+        "edad": 29,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Izei Valcárcel Ibáńez de Opacua",
+        "nombre": "Izei",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Jagoba García",
+        "nombre": "Jagoba",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Oier Barrios Pomares",
+        "nombre": "Oier",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Unax Álvarez Arregui",
+        "nombre": "Unax Álvarez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Aitor Vellisca Rojas",
+        "nombre": "Vellisca",
+        "dorsal": null,
+        "edad": 28,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Xabier Prieto Velázquez",
+        "nombre": "Xabi Prieto",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "CENTROCAMPISTA"
+      },
+      {
+        "nombreCompleto": "Juan Del Río Prieto",
+        "nombre": "Del Río",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Dylan Andrés Cuervo",
+        "nombre": "Dylan",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Guillermo Ruiz Pérez",
+        "nombre": "Guille Ruiz",
+        "dorsal": null,
+        "edad": 31,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Iker Gómez Monasterio",
+        "nombre": "Iker Gómez",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Jon Martinez Perez",
+        "nombre": "Jon Martinez",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Miracle Daniel Kalu",
+        "nombre": "Kalu",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Marco Preira",
+        "nombre": "Marco Preira",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Markel Garcia Etxebarrieta",
+        "nombre": "Markel Garcia",
+        "dorsal": null,
+        "edad": 21,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Txaber Velasco Alonso",
+        "nombre": "Txaber Velasco",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "DELANTERO"
+      },
+      {
+        "nombreCompleto": "Eneko Corres Soullard",
+        "nombre": "Eneko Corres",
+        "dorsal": null,
+        "edad": null,
+        "posicion": "UNKNOWN"
+      },
+      {
+        "nombreCompleto": "Telmo Arteagabeitia Capetillo",
+        "nombre": "Telmo Arteagabeitia",
+        "dorsal": null,
+        "edad": 19,
+        "posicion": "UNKNOWN"
+      }
+    ]
+  }
+]

@@ -2,6 +2,7 @@ import { useEffect, useState, FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { getMisLigas, unirseConCodigo } from '../api/ligas'
 import Spinner from '../components/Spinner'
+import { DIVISION_LABEL, DIVISION_STYLE } from '../constants/divisiones'
 
 interface MiembroLiga {
   id: string
@@ -17,11 +18,6 @@ interface MiembroLiga {
   }
 }
 
-const DIV_STYLE: Record<string, { badge: string; bg: string; border: string }> = {
-  A: { badge: 'bg-amber-100 text-amber-700',  bg: 'bg-amber-50',  border: 'border-amber-200' },
-  B: { badge: 'bg-blue-100 text-blue-700',    bg: 'bg-blue-50',   border: 'border-blue-200'  },
-  C: { badge: 'bg-emerald-100 text-emerald-700', bg: 'bg-emerald-50', border: 'border-emerald-200' },
-}
 
 export default function DashboardPage() {
   const navigate = useNavigate()
@@ -120,7 +116,7 @@ export default function DashboardPage() {
       ) : (
         <div className="grid gap-4 sm:grid-cols-2">
           {membresias.map(m => {
-            const d = DIV_STYLE[m.liga.division] ?? DIV_STYLE.A
+            const d = DIVISION_STYLE[m.liga.division] ?? DIVISION_STYLE.RFEF3_GRUPO_IV
             return (
               <Link
                 key={m.id}
@@ -130,7 +126,7 @@ export default function DashboardPage() {
                 <div className="flex items-start justify-between mb-4">
                   <h2 className="font-semibold text-gray-900 text-sm leading-tight pr-2">{m.liga.nombre}</h2>
                   <span className={`shrink-0 text-xs px-2 py-0.5 rounded-full font-semibold ${d.badge}`}>
-                    Div. {m.liga.division}
+                    {DIVISION_LABEL[m.liga.division] ?? m.liga.division}
                   </span>
                 </div>
 

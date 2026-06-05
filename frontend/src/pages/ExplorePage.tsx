@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { getLigasPublicas, getMisLigas, unirseALiga } from '../api/ligas'
 import Spinner from '../components/Spinner'
+import { DIVISION_LABEL, DIVISION_STYLE } from '../constants/divisiones'
 
 interface Liga {
   id: string
@@ -12,11 +13,6 @@ interface Liga {
   _count: { miembros: number }
 }
 
-const DIV_STYLE: Record<string, { badge: string; bar: string }> = {
-  A: { badge: 'bg-amber-100 text-amber-700',    bar: 'bg-amber-400'   },
-  B: { badge: 'bg-blue-100 text-blue-700',       bar: 'bg-blue-400'    },
-  C: { badge: 'bg-emerald-100 text-emerald-700', bar: 'bg-emerald-400' },
-}
 
 export default function ExplorePage() {
   const navigate = useNavigate()
@@ -65,7 +61,7 @@ export default function ExplorePage() {
       ) : (
         <div className="grid gap-4 sm:grid-cols-2">
           {ligas.map(liga => {
-            const d = DIV_STYLE[liga.division] ?? DIV_STYLE.A
+            const d = DIVISION_STYLE[liga.division] ?? DIVISION_STYLE.RFEF3_GRUPO_IV
             const llena = liga._count.miembros >= liga.maxEquipos
             const esMiembro = misLigaIds.has(liga.id)
             const pct = Math.round((liga._count.miembros / liga.maxEquipos) * 100)
@@ -75,7 +71,7 @@ export default function ExplorePage() {
                 <div className="flex items-start justify-between mb-4">
                   <h2 className="font-semibold text-gray-900 text-sm leading-tight pr-2">{liga.nombre}</h2>
                   <span className={`shrink-0 text-xs px-2 py-0.5 rounded-full font-semibold ${d.badge}`}>
-                    Div. {liga.division}
+                    {DIVISION_LABEL[liga.division] ?? liga.division}
                   </span>
                 </div>
 
