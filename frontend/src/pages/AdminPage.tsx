@@ -268,7 +268,7 @@ export default function AdminPage() {
                       />
                       <YAxis tick={{ fontSize: 11, fill: '#9ca3af' }} allowDecimals={false} />
                       <Tooltip
-                        formatter={(v: number) => [v, 'Usuarios']}
+                        formatter={(v) => [v as number, 'Usuarios']}
                         labelFormatter={d => new Date(d + 'T12:00:00').toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' })}
                         contentStyle={{ borderRadius: '12px', border: '1px solid #e5e7eb', fontSize: '12px' }}
                       />

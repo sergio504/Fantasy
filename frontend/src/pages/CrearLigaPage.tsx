@@ -1,4 +1,4 @@
-import { useState, FormEvent } from 'react'
+import { useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { crearLiga } from '../api/ligas'
 import { DIVISIONES, DIVISION_LABEL } from '../constants/divisiones'

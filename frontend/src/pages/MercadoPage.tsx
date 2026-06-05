@@ -1,4 +1,4 @@
-import { useEffect, useState, FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { getOfertas, pujar, cerrarOferta, cancelarOferta, crearOferta } from '../api/mercado'
 import { getMiEquipo, getUltimaJornadaStats } from '../api/ligas'

@@ -1,4 +1,4 @@
-import { useEffect, useState, FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { getMisLigas, unirseConCodigo } from '../api/ligas'
 import Spinner from '../components/Spinner'
