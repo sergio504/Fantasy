@@ -20,7 +20,7 @@ interface Oferta {
   jugador: Jugador
   vendedor: { id: string; usuario: { username: string } } | null
 }
-interface JugadorEquipo { id: string; jugadorId: string; jugador: Jugador }
+interface JugadorEquipo { id: string; jugadorId: string; esTitular: boolean; jugador: Jugador }
 
 function equipoNombre(j: Jugador) { return j.historialEquipos[0]?.equipo?.nombre ?? '—' }
 
@@ -55,7 +55,7 @@ export default function MercadoPage() {
   const [miEquipo, setMiEquipo] = useState<JugadorEquipo[]>([])
   const [miMiembroId, setMiMiembroId] = useState<string | null>(null)
   const [ultimaStats, setUltimaStats] = useState<{ numJornada: number; stats: Record<string, UltimaStats> } | null>(null)
-  const [modalJugador, setModalJugador] = useState<{ id: string; nombreCompleto: string; posicion: string } | null>(null)
+  const [modalJugador, setModalJugador] = useState<{ id: string; nombreCompleto: string; posicion: string; equipo?: string; ligaId?: string } | null>(null)
   const [loading, setLoading] = useState(true)
 
   const [pujaOfertaId, setPujaOfertaId] = useState<string | null>(null)
@@ -157,7 +157,7 @@ export default function MercadoPage() {
   const ofertasActivasMias = new Set(
     ofertas.filter(o => o.vendedorId === miMiembroId || o.vendedor?.usuario.username === usuario?.username).map(o => o.jugadorId)
   )
-  const jugadoresVendibles = miEquipo.filter(je => !ofertasActivasMias.has(je.jugadorId))
+  const jugadoresVendibles = miEquipo.filter(je => !je.esTitular && !ofertasActivasMias.has(je.jugadorId))
 
   if (loading) return <Spinner />
 
@@ -168,6 +168,8 @@ export default function MercadoPage() {
         jugadorId={modalJugador.id}
         nombreCompleto={modalJugador.nombreCompleto}
         posicion={modalJugador.posicion}
+        equipo={modalJugador.equipo}
+        ligaId={modalJugador.ligaId}
         onClose={() => setModalJugador(null)}
       />
     )}
@@ -213,7 +215,7 @@ export default function MercadoPage() {
                   const pos = POS_STYLE[je.jugador.posicion]
                   return (
                     <option key={je.jugadorId} value={je.jugadorId}>
-                      [{pos?.label}] {je.jugador.nombreCompleto} — {equipoNombre(je.jugador)} · {je.jugador.valor}M
+                      [{pos?.label}] {je.jugador.nombre} — {equipoNombre(je.jugador)} · {je.jugador.valor}M
                     </option>
                   )
                 })}
@@ -299,8 +301,8 @@ export default function MercadoPage() {
                   </span>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1.5">
-                      <button onClick={() => setModalJugador({ id: oferta.jugador.id, nombreCompleto: oferta.jugador.nombreCompleto, posicion: oferta.jugador.posicion })} className="font-semibold text-gray-900 hover:text-indigo-600 hover:underline text-left">
-                        {oferta.jugador.nombreCompleto}
+                      <button onClick={() => setModalJugador({ id: oferta.jugador.id, nombreCompleto: oferta.jugador.nombreCompleto, posicion: oferta.jugador.posicion, equipo: equipoNombre(oferta.jugador), ligaId: ligaId ?? undefined })} className="font-semibold text-gray-900 hover:text-indigo-600 hover:underline text-left">
+                        {oferta.jugador.nombre}
                       </button>
                       <PtsBadge puntos={ultimaStats?.stats[oferta.jugador.id]?.puntos} />
                     </div>
@@ -308,11 +310,15 @@ export default function MercadoPage() {
                       {equipoNombre(oferta.jugador)}{oferta.jugador.edad ? ` · ${oferta.jugador.edad} años` : ''}
                       {ultimaStats && ` · J${ultimaStats.numJornada}`}
                     </p>
-                    {oferta.vendedor && (
-                      <p className="text-xs text-gray-400 mt-0.5">
-                        {oferta.vendedor.usuario.username}{esMiOferta ? ' (tú)' : ''}
-                      </p>
-                    )}
+                    <p className="text-xs mt-1">
+                      <span className="text-gray-400">Vende: </span>
+                      {oferta.vendedor
+                        ? <span className={`font-semibold ${esMiOferta ? 'text-orange-600' : 'text-indigo-500'}`}>
+                            {oferta.vendedor.usuario.username}{esMiOferta ? ' (tú)' : ''}
+                          </span>
+                        : <span className="font-semibold text-gray-400">Sistema</span>
+                      }
+                    </p>
                     {caducidad && (
                       <p className={`text-xs mt-0.5 font-medium ${caducidad.urgente ? 'text-red-500' : 'text-gray-400'}`}>
                         ⏱ {caducidad.texto}
@@ -343,20 +349,36 @@ export default function MercadoPage() {
 
                   <div className="flex gap-2">
                     {!esMiOferta && (
-                      <button
-                        onClick={() => {
-                          setPujaOfertaId(pujandoEsta ? null : oferta.id)
-                          setPujaError('')
-                          setPujaCantidad('')
-                        }}
-                        className={`text-sm px-4 py-2 rounded-xl font-medium transition-colors ${
-                          pujandoEsta
-                            ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                            : 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm shadow-indigo-200'
-                        }`}
-                      >
-                        {pujandoEsta ? 'Cancelar' : oferta.miPuja ? '✏️ Mejorar puja' : '💰 Pujar'}
-                      </button>
+                      <>
+                        {oferta.miPuja && !pujandoEsta && (
+                          <button
+                            onClick={async () => {
+                              if (!window.confirm('¿Retirar tu puja de esta oferta?')) return
+                              const { retirarPuja } = await import('../api/mercado')
+                              retirarPuja(ligaId!, oferta.id)
+                                .then(() => cargarOfertas())
+                                .catch((err: any) => alert(err.response?.data?.error ?? 'Error al retirar la puja'))
+                            }}
+                            className="text-sm px-3 py-2 rounded-xl border border-gray-200 text-gray-500 hover:bg-gray-50 transition-colors font-medium"
+                          >
+                            Retirar puja
+                          </button>
+                        )}
+                        <button
+                          onClick={() => {
+                            setPujaOfertaId(pujandoEsta ? null : oferta.id)
+                            setPujaError('')
+                            setPujaCantidad('')
+                          }}
+                          className={`text-sm px-4 py-2 rounded-xl font-medium transition-colors ${
+                            pujandoEsta
+                              ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                              : 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm shadow-indigo-200'
+                          }`}
+                        >
+                          {pujandoEsta ? 'Cancelar' : oferta.miPuja ? '✏️ Mejorar puja' : '💰 Pujar'}
+                        </button>
+                      </>
                     )}
                     {esMiOferta && (
                       <>

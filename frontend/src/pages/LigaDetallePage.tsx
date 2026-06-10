@@ -4,6 +4,7 @@ import { getLiga } from '../api/ligas'
 import { useAuth } from '../context/AuthContext'
 import Spinner from '../components/Spinner'
 import { DIVISION_LABEL, DIVISION_STYLE } from '../constants/divisiones'
+import AlineacionModal from '../components/AlineacionModal'
 
 interface Miembro {
   id: string
@@ -35,6 +36,7 @@ export default function LigaDetallePage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [copiado, setCopiado] = useState(false)
+  const [modalMiembro, setModalMiembro] = useState<{ id: string; username: string } | null>(null)
 
   useEffect(() => {
     if (!ligaId) return
@@ -54,10 +56,21 @@ export default function LigaDetallePage() {
   if (loading) return <Spinner />
   if (error || !liga) return <p className="text-center text-gray-400 py-16">{error || 'Liga no encontrada'}</p>
 
+  const renderModal = modalMiembro && ligaId && (
+    <AlineacionModal
+      ligaId={ligaId}
+      miembroId={modalMiembro.id}
+      username={modalMiembro.username}
+      onClose={() => setModalMiembro(null)}
+    />
+  )
+
   const d = DIVISION_STYLE[liga.division] ?? DIVISION_STYLE.RFEF3_GRUPO_IV
   const miMiembro = liga.miembros.find(m => m.usuarioId === usuario?.id)
 
   return (
+    <>
+    {renderModal}
     <main className="max-w-4xl mx-auto px-4 py-8">
       {/* Hero de liga */}
       <div className={`bg-linear-to-br ${d.bg} via-white to-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6`}>
@@ -132,12 +145,6 @@ export default function LigaDetallePage() {
         >
           📋 Transferencias
         </Link>
-        <Link
-          to={`/ligas/${ligaId}/historial`}
-          className="flex-1 sm:flex-none text-center text-sm px-4 py-2.5 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors font-medium"
-        >
-          📅 Alineaciones
-        </Link>
       </div>
 
       {/* Clasificación */}
@@ -149,11 +156,12 @@ export default function LigaDetallePage() {
           {liga.miembros.map((m, i) => {
             const esTuyo = m.usuarioId === usuario?.id
             return (
-              <div
+              <button
                 key={m.id}
-                className={`flex items-center px-5 py-3.5 gap-3 ${esTuyo ? 'bg-indigo-50/50' : ''}`}
+                onClick={() => setModalMiembro({ id: m.id, username: m.usuario.username })}
+                className={`w-full flex items-center px-5 py-3.5 gap-3 text-left hover:bg-gray-50 transition-colors ${esTuyo ? 'bg-indigo-50/50 hover:bg-indigo-50' : ''}`}
               >
-                <span className="text-base w-6 text-center">
+                <span className="text-base w-6 text-center shrink-0">
                   {i < 3 ? MEDAL[i] : <span className="text-sm font-bold text-gray-400">{i + 1}</span>}
                 </span>
                 <span className="flex-1 text-sm font-medium text-gray-900">
@@ -168,14 +176,15 @@ export default function LigaDetallePage() {
                 {esTuyo && (
                   <span className="text-xs text-gray-400">{(m as any).presupuestoRestante}M</span>
                 )}
-                <span className="text-sm font-bold text-gray-900 w-16 text-right">
+                <span className="text-sm font-bold text-gray-900 w-16 text-right shrink-0">
                   {m.puntuacion} pts
                 </span>
-              </div>
+              </button>
             )
           })}
         </div>
       </div>
     </main>
+    </>
   )
 }

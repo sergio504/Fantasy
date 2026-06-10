@@ -20,7 +20,7 @@ interface Estadistica {
 }
 
 interface JugadorJornada {
-  jugador: { nombreCompleto: string; posicion: string }
+  jugador: { nombreCompleto: string; nombre: string; posicion: string }
   esCapitan: boolean
   estadistica: Estadistica | null
   puntos: number | null
@@ -132,7 +132,7 @@ export default function HistorialAlineacionesPage() {
                           </span>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-1.5">
-                              <p className="text-sm font-medium text-gray-900 truncate">{jj.jugador.nombreCompleto}</p>
+                              <p className="text-sm font-medium text-gray-900 truncate">{jj.jugador.nombre}</p>
                               {jj.esCapitan && (
                                 <span className="shrink-0 text-xs bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-md font-bold">C</span>
                               )}

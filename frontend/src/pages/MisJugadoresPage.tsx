@@ -61,7 +61,7 @@ export default function MisJugadoresPage() {
   const [titularIds, setTitularIds] = useState<Set<string>>(new Set())
   const [capitanId, setCapitanId] = useState<string | null>(null)
   const [ultimaStats, setUltimaStats] = useState<{ numJornada: number; stats: Record<string, UltimaStats> } | null>(null)
-  const [modalJugador, setModalJugador] = useState<{ id: string; nombreCompleto: string; posicion: string } | null>(null)
+  const [modalJugador, setModalJugador] = useState<{ id: string; nombreCompleto: string; posicion: string; equipo?: string; ligaId?: string } | null>(null)
   const [loading, setLoading] = useState(true)
   const [guardando, setGuardando] = useState(false)
   const [guardadoOk, setGuardadoOk] = useState(false)
@@ -201,6 +201,8 @@ export default function MisJugadoresPage() {
         jugadorId={modalJugador.id}
         nombreCompleto={modalJugador.nombreCompleto}
         posicion={modalJugador.posicion}
+        equipo={modalJugador.equipo}
+        ligaId={modalJugador.ligaId}
         onClose={() => setModalJugador(null)}
       />
     )}
@@ -275,7 +277,7 @@ export default function MisJugadoresPage() {
                       </span>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-1.5">
-                          <button onClick={() => setModalJugador({ id: je.jugadorId, nombreCompleto: je.jugador.nombreCompleto, posicion: je.jugador.posicion })} className="text-sm font-medium text-gray-900 truncate hover:text-indigo-600 hover:underline text-left">{je.jugador.nombreCompleto}</button>
+                          <button onClick={() => setModalJugador({ id: je.jugadorId, nombreCompleto: je.jugador.nombreCompleto, posicion: je.jugador.posicion, equipo: equipoNombre(je.jugador), ligaId: ligaId ?? undefined })} className="text-sm font-medium text-gray-900 truncate hover:text-indigo-600 hover:underline text-left">{je.jugador.nombre}</button>
                           {esCapitan && (
                             <span className="shrink-0 text-xs bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-md font-bold">C</span>
                           )}
@@ -363,7 +365,7 @@ export default function MisJugadoresPage() {
                   </span>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1.5">
-                      <p className="text-sm font-medium text-gray-900 truncate">{je.jugador.nombreCompleto}</p>
+                      <p className="text-sm font-medium text-gray-900 truncate">{je.jugador.nombre}</p>
                       <PtsBadge puntos={ultimaStats?.stats[je.jugadorId]?.puntos} />
                     </div>
                     <p className="text-xs text-gray-500 font-medium">
@@ -371,41 +373,56 @@ export default function MisJugadoresPage() {
                     </p>
                   </div>
                   <span className="text-xs text-gray-400 shrink-0">{je.jugador.valor}M</span>
-                  <button
-                    onClick={async () => {
-                      const precio = window.prompt(
-                        `Precio de mercado de ${je.jugador.nombreCompleto}: ${je.jugador.valor}M\n¿Qué precio mínimo quieres ponerle?`,
-                        String(je.jugador.valor)
-                      )
-                      if (precio === null) return
-                      const num = Number(precio)
-                      if (isNaN(num) || num <= 0) { alert('Precio no válido'); return }
+                  <div className="flex gap-1.5 shrink-0">
+                    <button
+                      onClick={async () => {
+                        const precio = window.prompt(
+                          `Precio de mercado de ${je.jugador.nombre}: ${je.jugador.valor}M\n¿Qué precio mínimo quieres ponerle?`,
+                          String(je.jugador.valor)
+                        )
+                        if (precio === null) return
+                        const num = Number(precio)
+                        if (isNaN(num) || num <= 0) { alert('Precio no válido'); return }
 
-                      const diasStr = window.prompt(
-                        `¿Cuántos días quieres que dure la oferta?\n(Escribe 0 o déjalo vacío para oferta sin caducidad)`,
-                        '0'
-                      )
-                      if (diasStr === null) return
-                      const dias = Number(diasStr)
-                      if (isNaN(dias) || dias < 0) { alert('Días no válido'); return }
+                        const diasStr = window.prompt(
+                          `¿Cuántos días quieres que dure la oferta?\n(Escribe 0 o déjalo vacío para oferta sin caducidad)`,
+                          '0'
+                        )
+                        if (diasStr === null) return
+                        const dias = Number(diasStr)
+                        if (isNaN(dias) || dias < 0) { alert('Días no válido'); return }
 
-                      const { crearOferta } = await import('../api/mercado')
-                      crearOferta(ligaId!, {
-                        jugadorId: je.jugadorId,
-                        precioMinimo: num,
-                        ...(dias > 0 && { diasCaducidad: dias }),
-                      })
-                        .then(() => {
-                          const duracion = dias > 0 ? ` · Caduca en ${dias} día${dias > 1 ? 's' : ''}` : ''
-                          alert(`✅ ${je.jugador.nombreCompleto} puesto en venta por ${num}M mínimo${duracion}`)
-                          cargar()
+                        const { crearOferta } = await import('../api/mercado')
+                        crearOferta(ligaId!, {
+                          jugadorId: je.jugadorId,
+                          precioMinimo: num,
+                          ...(dias > 0 && { diasCaducidad: dias }),
                         })
-                        .catch((err: any) => alert(err.response?.data?.error ?? 'Error al poner en venta'))
-                    }}
-                    className="shrink-0 text-xs px-3 py-1.5 rounded-xl font-semibold border border-orange-200 text-orange-600 hover:bg-orange-50 transition-colors"
-                  >
-                    Vender
-                  </button>
+                          .then(() => {
+                            const duracion = dias > 0 ? ` · Caduca en ${dias} día${dias > 1 ? 's' : ''}` : ''
+                            alert(`✅ ${je.jugador.nombre} puesto en venta por ${num}M mínimo${duracion}`)
+                            cargar()
+                          })
+                          .catch((err: any) => alert(err.response?.data?.error ?? 'Error al poner en venta'))
+                      }}
+                      className="shrink-0 text-xs px-3 py-1.5 rounded-xl font-semibold border border-orange-200 text-orange-600 hover:bg-orange-50 transition-colors"
+                    >
+                      Mercado
+                    </button>
+                    <button
+                      onClick={async () => {
+                        const precioRapido = Math.floor(je.jugador.valor / 2)
+                        if (!window.confirm(`Por esta venta rápida de ${je.jugador.nombre} recibirás ${precioRapido}M.\n¿Deseas confirmarla?`)) return
+                        const { ventaRapida } = await import('../api/mercado')
+                        ventaRapida(ligaId!, je.jugadorId)
+                          .then(() => { cargar() })
+                          .catch((err: any) => alert(err.response?.data?.error ?? 'Error en la venta rápida'))
+                      }}
+                      className="shrink-0 text-xs px-3 py-1.5 rounded-xl font-semibold border border-gray-200 text-gray-500 hover:bg-gray-50 transition-colors"
+                    >
+                      Venta rápida
+                    </button>
+                  </div>
                 </div>
               )
             })}
@@ -433,7 +450,7 @@ export default function MisJugadoresPage() {
                     {ps.label}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 truncate">{je.jugador.nombreCompleto}</p>
+                    <p className="text-sm font-medium text-gray-900 truncate">{je.jugador.nombre}</p>
                     <p className="text-xs text-gray-500 font-medium">
                       {equipoNombre(je.jugador)}{je.jugador.edad ? ` · ${je.jugador.edad} años` : ''}
                     </p>
@@ -453,7 +470,7 @@ export default function MisJugadoresPage() {
                   </div>
                   <div className="flex gap-1.5 shrink-0">
                     <button
-                      onClick={() => handleAceptarPuja(oferta.id, je.jugador.nombreCompleto)}
+                      onClick={() => handleAceptarPuja(oferta.id, je.jugador.nombre)}
                       disabled={numPujas === 0}
                       className="text-xs px-3 py-1.5 rounded-xl font-semibold bg-green-600 text-white hover:bg-green-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                     >

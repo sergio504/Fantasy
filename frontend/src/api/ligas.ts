@@ -13,5 +13,6 @@ export const getAlineacion = (ligaId: string) => api.get(`/ligas/${ligaId}/mi-al
 export const guardarAlineacion = (ligaId: string, data: { formacion: string; jugadorIds: string[]; capitanId: string | null }) =>
   api.post(`/ligas/${ligaId}/mi-alineacion`, data)
 export const getUltimaJornadaStats    = (ligaId: string)    => api.get(`/ligas/${ligaId}/ultima-jornada-stats`)
-export const getEstadisticasJugador   = (jugadorId: string) => api.get(`/jugadores/${jugadorId}/estadisticas`)
+export const getEstadisticasJugador   = (jugadorId: string, ligaId?: string) => api.get(`/jugadores/${jugadorId}/estadisticas${ligaId ? `?ligaId=${ligaId}` : ''}`)
 export const getHistorialAlineaciones = (ligaId: string) => api.get(`/ligas/${ligaId}/historial-alineaciones`)
+export const getHistorialMiembro      = (ligaId: string, miembroId: string) => api.get(`/ligas/${ligaId}/miembros/${miembroId}/historial`)

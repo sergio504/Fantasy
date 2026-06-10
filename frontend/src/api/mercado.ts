@@ -8,3 +8,7 @@ export const cerrarOferta = (ligaId: string, ofertaId: string) =>
   api.post(`/ligas/${ligaId}/mercado/${ofertaId}/cerrar`)
 export const cancelarOferta = (ligaId: string, ofertaId: string) =>
   api.delete(`/ligas/${ligaId}/mercado/${ofertaId}`)
+export const retirarPuja = (ligaId: string, ofertaId: string) =>
+  api.delete(`/ligas/${ligaId}/mercado/${ofertaId}/pujar`)
+export const ventaRapida = (ligaId: string, jugadorId: string) =>
+  api.post(`/ligas/${ligaId}/mercado/venta-rapida`, { jugadorId })
