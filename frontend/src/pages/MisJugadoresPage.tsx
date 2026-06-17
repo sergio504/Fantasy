@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { getMiEquipo, getAlineacion, guardarAlineacion, getUltimaJornadaStats } from '../api/ligas'
+import { getMiEquipo, getAlineacion, guardarAlineacion, getUltimaJornadaStats, invertirEnClausula } from '../api/ligas'
 import { getOfertas, cerrarOferta, cancelarOferta } from '../api/mercado'
 import { useAuth } from '../context/AuthContext'
 import Spinner from '../components/Spinner'
@@ -12,7 +12,10 @@ interface Jugador {
   edad: number | null; valor: number
   historialEquipos: { equipo: EquipoReal }[]
 }
-interface JugadorEquipo { id: string; jugadorId: string; jugador: Jugador }
+interface JugadorEquipo {
+  id: string; jugadorId: string; jugador: Jugador
+  clausula: number; jornadasBloqueo: number; clausulazoPendiente: boolean
+}
 interface UltimaStats { puntos: number; convocado: boolean; titular: boolean; goles: number; resultado: string }
 
 function equipoNombre(j: Jugador) { return j.historialEquipos[0]?.equipo?.nombre ?? '—' }
@@ -162,6 +165,23 @@ export default function MisJugadoresPage() {
     }
   }
 
+  const handleInvertirClausula = async (je: JugadorEquipo) => {
+    const raw = window.prompt(
+      `Cláusula actual de ${je.jugador.nombre}: ${je.clausula.toLocaleString('es-ES')}\n` +
+      `Cada unidad que inviertas aumenta la cláusula en 2 (el dinero desaparece).\n\n¿Cuánto quieres invertir?`
+    )
+    if (raw === null) return
+    const importe = Number(raw)
+    if (isNaN(importe) || importe <= 0) { alert('Importe no válido'); return }
+    try {
+      const r = await invertirEnClausula(ligaId!, je.jugadorId, importe)
+      alert(r.data.mensaje)
+      cargar()
+    } catch (err: any) {
+      alert(err.response?.data?.error ?? 'Error al invertir')
+    }
+  }
+
   const handleAceptarPuja = async (ofertaId: string, jugadorNombre: string) => {
     if (!confirm(`¿Aceptar la puja más alta por ${jugadorNombre}? El jugador pasará al equipo del mejor postor.`)) return
     try {
@@ -271,7 +291,13 @@ export default function MisJugadoresPage() {
                   const ps = POS_STYLE[pos]
 
                   return (
-                    <div key={je.id} className={`flex items-center px-5 py-3 gap-2 ${esTitular ? 'bg-indigo-50/40' : ''}`}>
+                    <div key={je.id} className={`flex flex-col px-5 py-3 gap-1 ${esTitular ? 'bg-indigo-50/40' : ''}`}>
+                      {je.clausulazoPendiente && (
+                        <div className="w-full mb-1 px-3 py-2 rounded-lg bg-amber-50 border border-amber-100 text-xs text-amber-700 font-medium">
+                          ⚠️ Han pagado la cláusula por este jugador. A partir de la siguiente jornada ya no dispondrás de él.
+                        </div>
+                      )}
+                      <div className="flex items-center gap-2">
                       <span className={`shrink-0 text-xs px-2 py-1 rounded-lg font-bold ${ps.color}`}>
                         {ps.label}
                       </span>
@@ -286,6 +312,12 @@ export default function MisJugadoresPage() {
                         <p className="text-xs text-gray-500 font-medium">
                           {equipoNombre(je.jugador)}{je.jugador.edad ? ` · ${je.jugador.edad} años` : ''}
                           {ultimaStats && ` · J${ultimaStats.numJornada}`}
+                        </p>
+                        <p className="text-xs mt-0.5">
+                          <span className="text-indigo-500 font-semibold">Cláusula: {je.clausula.toLocaleString('es-ES')}</span>
+                          {je.jornadasBloqueo > 0 && (
+                            <span className="ml-2 text-gray-400">🔒 bloqueado {je.jornadasBloqueo}j</span>
+                          )}
                         </p>
                       </div>
                       <span className="text-xs text-gray-400 shrink-0">{je.jugador.valor}M</span>
@@ -316,6 +348,14 @@ export default function MisJugadoresPage() {
                       >
                         {esTitular ? '✓ Titular' : 'Suplente'}
                       </button>
+                      <button
+                        onClick={() => handleInvertirClausula(je)}
+                        title="Invertir en cláusula"
+                        className="shrink-0 text-xs px-2 py-1.5 rounded-xl font-semibold border border-indigo-100 text-indigo-400 hover:bg-indigo-50 transition-colors"
+                      >
+                        +C
+                      </button>
+                      </div>
                     </div>
                   )
                 })}
@@ -371,6 +411,12 @@ export default function MisJugadoresPage() {
                     <p className="text-xs text-gray-500 font-medium">
                       {equipoNombre(je.jugador)}{je.jugador.edad ? ` · ${je.jugador.edad} años` : ''}
                     </p>
+                    <p className="text-xs mt-0.5">
+                      <span className="text-indigo-500 font-semibold">Cláusula: {je.clausula.toLocaleString('es-ES')}</span>
+                      {je.jornadasBloqueo > 0 && (
+                        <span className="ml-2 text-gray-400">🔒 {je.jornadasBloqueo}j</span>
+                      )}
+                    </p>
                   </div>
                   <span className="text-xs text-gray-400 shrink-0">{je.jugador.valor}M</span>
                   <div className="flex gap-1.5 shrink-0">
@@ -421,6 +467,12 @@ export default function MisJugadoresPage() {
                       className="shrink-0 text-xs px-3 py-1.5 rounded-xl font-semibold border border-gray-200 text-gray-500 hover:bg-gray-50 transition-colors"
                     >
                       Venta rápida
+                    </button>
+                    <button
+                      onClick={() => handleInvertirClausula(je)}
+                      className="shrink-0 text-xs px-2 py-1.5 rounded-xl font-semibold border border-indigo-100 text-indigo-400 hover:bg-indigo-50 transition-colors"
+                    >
+                      +C
                     </button>
                   </div>
                 </div>

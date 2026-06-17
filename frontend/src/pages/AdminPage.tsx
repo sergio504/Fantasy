@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getJugadoresAdmin, crearJugador, editarJugador, crearFichaje, cerrarFichaje, getEquipos, getHistorial, getJornadas, crearJornada, simularJornada, calcularPuntuaciones, getEstadisticasAdmin, editarEstadistica, getConfigPuntuacion, actualizarConfigPuntuacion, getUsuarios, toggleActivoUsuario, lanzarMercadoManual, getDashboard } from '../api/admin'
+import { getJugadoresAdmin, crearJugador, editarJugador, crearFichaje, cerrarFichaje, getEquipos, getHistorial, getJornadas, crearJornada, editarJornada, simularJornada, generarSnapshot, calcularPuntosPorJugador, calcularPuntuaciones, getEstadisticasAdmin, editarEstadistica, getConfigPuntuacion, actualizarConfigPuntuacion, getConfigEconomia, actualizarConfigEconomia, getConfigRevalorizacion, actualizarConfigRevalorizacion, getUsuarios, toggleActivoUsuario, lanzarMercadoManual, getDashboard, getAliasesEquipos, crearAliasEquipo, eliminarAliasEquipo, getAliasesJugadores, crearAliasJugador, eliminarAliasJugador, getHistorialConfigAdmin } from '../api/admin'
 import { DIVISION_LABEL, DIVISIONES } from '../constants/divisiones'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
@@ -35,6 +35,16 @@ interface ConfigPuntuacion {
   id: string; posicion: string | null; accion: string; puntos: number; descripcion: string | null
 }
 
+interface HistorialConfigEntry {
+  id: string
+  tipo: string
+  campo: string
+  valorAnterior: number | null
+  valorNuevo: number
+  creadoEn: string
+  admin: { username: string }
+}
+
 interface DashboardData {
   usuarios: { total: number; nuevosUltimaSemana: number; accesosUltimaSemana: number }
   ligas: { publicas: number; privadas: number; total: number }
@@ -43,7 +53,10 @@ interface DashboardData {
   registrosPorDia: { dia: string; usuarios: number }[]
 }
 
-type Tab = 'dashboard' | 'jugadores' | 'jornadas' | 'estadisticas' | 'config' | 'usuarios' | 'historial'
+type Tab = 'dashboard' | 'jugadores' | 'jornadas' | 'estadisticas' | 'config' | 'usuarios' | 'historial' | 'aliases'
+
+interface AliasEquipo  { alias: { id: string; alias: string }; equipo:  { id: string; nombre: string } }
+interface AliasJugador { alias: { id: string; alias: string }; jugador: { id: string; nombreCompleto: string } }
 
 const COLOR_CLASSES: Record<string, { bg: string; text: string; border: string }> = {
   indigo: { bg: 'bg-indigo-50', text: 'text-indigo-700', border: 'border-indigo-100' },
@@ -78,6 +91,20 @@ export default function AdminPage() {
   const [config, setConfig] = useState<ConfigPuntuacion[]>([])
   const [editandoConfig, setEditandoConfig] = useState<string | null>(null)
   const [configPuntos, setConfigPuntos] = useState<Record<string, string>>({})
+  const [configEco, setConfigEco] = useState<{ clave: string; valor: number; descripcion: string; id: string | null }[]>([])
+  const [editandoEco, setEditandoEco] = useState<string | null>(null)
+  const [ecoValores, setEcoValores] = useState<Record<string, string>>({})
+  const [configReval, setConfigReval] = useState<{ id: string | null; orden: number; puntosHasta: number | null; porcentaje: number; descripcion: string }[]>([
+    { id: null, orden: 1, puntosHasta: 0,    porcentaje: -8, descripcion: '0 puntos' },
+    { id: null, orden: 2, puntosHasta: 4,    porcentaje: -5, descripcion: '1-4 puntos' },
+    { id: null, orden: 3, puntosHasta: 8,    porcentaje: -2, descripcion: '5-8 puntos' },
+    { id: null, orden: 4, puntosHasta: 12,   porcentaje:  3, descripcion: '9-12 puntos' },
+    { id: null, orden: 5, puntosHasta: 17,   porcentaje:  7, descripcion: '13-17 puntos' },
+    { id: null, orden: 6, puntosHasta: null, porcentaje: 12, descripcion: '18+ puntos' },
+  ])
+  const [editandoReval, setEditandoReval] = useState<number | null>(null)
+  const [revalValores, setRevalValores] = useState<Record<number, string>>({})
+  const [historialConfig, setHistorialConfig] = useState<HistorialConfigEntry[]>([])
   const [usuarios, setUsuarios] = useState<UsuarioAdmin[]>([])
   const [busqueda, setBusqueda] = useState('')
   const [loading, setLoading] = useState(true)
@@ -85,6 +112,11 @@ export default function AdminPage() {
   // Nueva jornada
   const [formJornada, setFormJornada] = useState({ division: DIVISIONES[0], numJornada: '1', fechaCierre: '' })
   const [mostrarFormJornada, setMostrarFormJornada] = useState(false)
+
+  // Edición de fechas de jornada
+  const [filtroDivJornada, setFiltroDivJornada] = useState(DIVISIONES[0])
+  const [editandoFechaJornada, setEditandoFechaJornada] = useState<string | null>(null)
+  const [formFechaJornada, setFormFechaJornada] = useState({ fechaCierre: '', fechaImportacion: '' })
 
   // Edición
   const [editando, setEditando] = useState<Jugador | null>(null)
@@ -98,6 +130,14 @@ export default function AdminPage() {
   const [fichandoId, setFichandoId] = useState<string | null>(null)
   const [fichajeEquipoId, setFichajeEquipoId] = useState('')
   const [fichajeDesde, setFichajeDesde] = useState('')
+
+  const [aliasesEquipos, setAliasesEquipos]     = useState<AliasEquipo[]>([])
+  const [aliasesJugadores, setAliasesJugadores] = useState<AliasJugador[]>([])
+  const [formAliasEquipo, setFormAliasEquipo]   = useState({ equipoId: '', alias: '' })
+  const [formAliasJugador, setFormAliasJugador] = useState({ jugadorId: '', alias: '' })
+  const [filtroAliasDiv, setFiltroAliasDiv]     = useState('')
+  const [filtroAliasDivJug, setFiltroAliasDivJug] = useState('')
+  const [filtroAliasEquipoJug, setFiltroAliasEquipoJug] = useState('')
 
   const [error, setError] = useState('')
   const [ok, setOk] = useState('')
@@ -122,8 +162,17 @@ export default function AdminPage() {
     if (tab === 'dashboard') getDashboard().then(r => setDashboard(r.data))
     if (tab === 'historial') cargarHistorial()
     if (tab === 'jornadas' || tab === 'estadisticas') getJornadas().then(r => setJornadas(r.data))
-    if (tab === 'config') getConfigPuntuacion().then(r => setConfig(r.data))
+    if (tab === 'config') {
+      getConfigPuntuacion().then(r => setConfig(r.data))
+      getConfigEconomia().then(r => setConfigEco(r.data))
+      getConfigRevalorizacion().then(r => setConfigReval(r.data)).catch(() => {})
+      getHistorialConfigAdmin().then(r => setHistorialConfig(r.data)).catch(() => {})
+    }
     if (tab === 'usuarios') getUsuarios().then(r => setUsuarios(r.data))
+    if (tab === 'aliases') {
+      getAliasesEquipos().then(r => setAliasesEquipos(r.data))
+      getAliasesJugadores().then(r => setAliasesJugadores(r.data))
+    }
   }, [tab])
 
   const flash = (msg: string, esError = false) => {
@@ -205,7 +254,7 @@ export default function AdminPage() {
 
       {/* Tabs */}
       <div className="flex flex-wrap gap-2 mb-6">
-        {([['dashboard', '📈 Dashboard'], ['jugadores', '👤 Jugadores'], ['jornadas', '📅 Jornadas'], ['estadisticas', '📊 Estadísticas'], ['config', '⚙️ Puntos'], ['usuarios', '🔑 Usuarios'], ['historial', '📋 Historial']] as [Tab, string][]).map(([t, label]) => (
+        {([['dashboard', '📈 Dashboard'], ['jugadores', '👤 Jugadores'], ['jornadas', '📅 Jornadas'], ['estadisticas', '📊 Estadísticas'], ['config', '⚙️ Config'], ['usuarios', '🔑 Usuarios'], ['historial', '📋 Historial'], ['aliases', '🏷️ Aliases']] as [Tab, string][]).map(([t, label]) => (
           <button key={t} onClick={() => setTab(t)}
             className={`px-4 py-2 rounded-xl text-sm font-semibold border transition-all ${
               tab === t ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300'
@@ -507,48 +556,153 @@ export default function AdminPage() {
 
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
             <div className="divide-y divide-gray-50">
-              {jornadas.map(j => (
-                <div key={j.id} className="px-5 py-4 flex items-center gap-3">
-                  <div className="flex-1">
-                    <p className="text-sm font-semibold text-gray-900">
-                      Jornada {j.numJornada} · {DIVISION_LABEL[j.division] ?? j.division}
-                    </p>
-                    <p className="text-xs text-gray-400 mt-0.5">
-                      Cierre: {new Date(j.fechaCierre).toLocaleString('es-ES')}
-                      {' · '}{j._count.estadisticas} stats · {j._count.snapshots} snapshots · {j._count.puntuaciones} puntuaciones
-                    </p>
+              {jornadas.map(j => {
+                const recargar = async () => { const jr = await getJornadas(); setJornadas(jr.data) }
+                const paso = (hecho: boolean, label: string) => (
+                  <span className={`inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-medium ${hecho ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-400'}`}>
+                    {hecho ? '✓' : '○'} {label}
+                  </span>
+                )
+                return (
+                  <div key={j.id} className="px-5 py-4 border-b border-gray-50 last:border-0">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex-1">
+                        <p className="text-sm font-semibold text-gray-900">
+                          Jornada {j.numJornada} · {DIVISION_LABEL[j.division] ?? j.division}
+                        </p>
+                        <p className="text-xs text-gray-400 mt-0.5">
+                          Cierre: {new Date(j.fechaCierre).toLocaleString('es-ES')}
+                          {j.fechaImportacion && <> · Import: {new Date(j.fechaImportacion).toLocaleString('es-ES')}</>}
+                        </p>
+                        <div className="flex flex-wrap gap-1.5 mt-2">
+                          {paso(j.snapshotGenerado,           'Snapshot')}
+                          {paso(j.statsImportadas,            'Stats')}
+                          {paso(j.puntosPorJugadorCalculados, 'Pts jugador')}
+                          {paso(j.puntuacionesCalculadas,     'Clasificación')}
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-1.5 shrink-0 items-end">
+                        <button
+                          onClick={async () => {
+                            try { const r = await generarSnapshot(j.id); flash(r.data.mensaje); await recargar() }
+                            catch (e: any) { flash(e.response?.data?.error ?? 'Error', true) }
+                          }}
+                          disabled={j.snapshotGenerado}
+                          className="text-xs px-3 py-1.5 rounded-xl border border-purple-200 text-purple-600 hover:bg-purple-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
+                          Snapshot
+                        </button>
+                        <button
+                          onClick={async () => {
+                            try { const r = await simularJornada(j.id); flash(r.data.mensaje); await recargar() }
+                            catch (e: any) { flash(e.response?.data?.error ?? 'Error al simular', true) }
+                          }}
+                          disabled={j.statsImportadas || j._count.estadisticas > 0}
+                          className="text-xs px-3 py-1.5 rounded-xl border border-blue-200 text-blue-600 hover:bg-blue-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
+                          Simular stats
+                        </button>
+                        <button
+                          onClick={async () => {
+                            try { const r = await calcularPuntosPorJugador(j.id); flash(r.data.mensaje); await recargar() }
+                            catch (e: any) { flash(e.response?.data?.error ?? 'Error', true) }
+                          }}
+                          disabled={j._count.estadisticas === 0 || j.puntosPorJugadorCalculados}
+                          className="text-xs px-3 py-1.5 rounded-xl border border-orange-200 text-orange-600 hover:bg-orange-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
+                          Calcular pts jugador
+                        </button>
+                        <button
+                          onClick={async () => {
+                            try { const r = await calcularPuntuaciones(j.id); flash(r.data.mensaje); await recargar() }
+                            catch (e: any) { flash(e.response?.data?.error ?? 'Error al calcular', true) }
+                          }}
+                          disabled={!j.puntosPorJugadorCalculados || j.puntuacionesCalculadas}
+                          className="text-xs px-3 py-1.5 rounded-xl border border-green-200 text-green-600 hover:bg-green-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
+                          Calcular clasificación
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex gap-2 shrink-0">
-                    <button
-                      onClick={async () => {
-                        try {
-                          const r = await simularJornada(j.id)
-                          flash(r.data.mensaje)
-                          const jr = await getJornadas(); setJornadas(jr.data)
-                        } catch (e: any) { flash(e.response?.data?.error ?? 'Error al simular', true) }
-                      }}
-                      disabled={j._count.estadisticas > 0}
-                      className="text-xs px-3 py-1.5 rounded-xl border border-blue-200 text-blue-600 hover:bg-blue-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
-                      Simular
-                    </button>
-                    <button
-                      onClick={async () => {
-                        try {
-                          const r = await calcularPuntuaciones(j.id)
-                          flash(r.data.mensaje)
-                          const jr = await getJornadas(); setJornadas(jr.data)
-                        } catch (e: any) { flash(e.response?.data?.error ?? 'Error al calcular', true) }
-                      }}
-                      disabled={j._count.estadisticas === 0}
-                      className="text-xs px-3 py-1.5 rounded-xl border border-green-200 text-green-600 hover:bg-green-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
-                      Calcular pts
-                    </button>
-                  </div>
-                </div>
-              ))}
+                )
+              })}
               {jornadas.length === 0 && (
                 <p className="px-5 py-8 text-sm text-gray-400 text-center">No hay jornadas creadas</p>
               )}
+            </div>
+          </div>
+
+          {/* ── Editar fechas ── */}
+          <div className="mt-6">
+            <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Editar fechas</h2>
+            <div className="flex gap-2 mb-3">
+              {DIVISIONES.map(d => (
+                <button key={d} onClick={() => setFiltroDivJornada(d)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors ${filtroDivJornada === d ? 'bg-indigo-600 text-white' : 'border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>
+                  {DIVISION_LABEL[d]}
+                </button>
+              ))}
+            </div>
+            <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden">
+              {jornadas.filter(j => j.division === filtroDivJornada).length === 0 ? (
+                <p className="px-5 py-6 text-sm text-gray-400 text-center">No hay jornadas en esta división</p>
+              ) : jornadas.filter(j => j.division === filtroDivJornada).map(j => {
+                const editando = editandoFechaJornada === j.id
+                const fmtLocal = (iso: string) => iso ? iso.slice(0, 16) : ''
+                return (
+                  <div key={j.id} className="flex items-center gap-4 px-5 py-3 border-b border-gray-100 last:border-0">
+                    <span className="text-sm font-semibold text-gray-900 w-20 shrink-0">Jornada {j.numJornada}</span>
+                    {editando ? (
+                      <div className="flex flex-wrap items-center gap-2 flex-1">
+                        <div className="flex flex-col gap-0.5">
+                          <span className="text-xs text-gray-400">Cierre (snapshot)</span>
+                          <input type="datetime-local" value={formFechaJornada.fechaCierre}
+                            onChange={e => setFormFechaJornada(p => ({ ...p, fechaCierre: e.target.value }))}
+                            className="border border-gray-200 rounded-xl px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                        </div>
+                        <div className="flex flex-col gap-0.5">
+                          <span className="text-xs text-gray-400">Importación (scraper)</span>
+                          <input type="datetime-local" value={formFechaJornada.fechaImportacion}
+                            onChange={e => setFormFechaJornada(p => ({ ...p, fechaImportacion: e.target.value }))}
+                            className="border border-gray-200 rounded-xl px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                        </div>
+                        <div className="flex gap-2 mt-4">
+                          <button onClick={async () => {
+                            try {
+                              await editarJornada(j.id, {
+                                fechaCierre:      formFechaJornada.fechaCierre      || undefined,
+                                fechaImportacion: formFechaJornada.fechaImportacion || null,
+                              })
+                              flash('Fechas actualizadas')
+                              const jr = await getJornadas(); setJornadas(jr.data)
+                              setEditandoFechaJornada(null)
+                            } catch (e: any) { flash(e.response?.data?.error ?? 'Error', true) }
+                          }} className="px-3 py-1.5 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-700">
+                            Guardar
+                          </button>
+                          <button onClick={() => setEditandoFechaJornada(null)}
+                            className="px-3 py-1.5 border border-gray-200 text-gray-500 rounded-xl text-xs hover:bg-gray-50">
+                            Cancelar
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-4 flex-1">
+                        <div className="flex-1 text-xs text-gray-500 space-y-0.5">
+                          <p>Cierre: <span className="text-gray-800">{new Date(j.fechaCierre).toLocaleString('es-ES')}</span></p>
+                          <p>Import: <span className="text-gray-800">{j.fechaImportacion ? new Date(j.fechaImportacion).toLocaleString('es-ES') : '—'}</span></p>
+                        </div>
+                        <button onClick={() => {
+                          setEditandoFechaJornada(j.id)
+                          setFormFechaJornada({
+                            fechaCierre:      fmtLocal(new Date(j.fechaCierre).toISOString()),
+                            fechaImportacion: j.fechaImportacion ? fmtLocal(new Date(j.fechaImportacion).toISOString()) : '',
+                          })
+                        }} className="text-xs text-indigo-600 hover:text-indigo-800">
+                          Editar
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
             </div>
           </div>
         </div>
@@ -688,6 +842,9 @@ export default function AdminPage() {
 
       {/* ── TAB CONFIG PUNTOS ── */}
       {tab === 'config' && (
+        <div className="space-y-6">
+        <div>
+          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Puntuación por acción</h2>
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
           <div className="px-5 py-3 border-b border-gray-50">
             <p className="text-xs text-gray-400">Al guardar se crea una nueva versión manteniendo el historial anterior.</p>
@@ -747,6 +904,142 @@ export default function AdminPage() {
               )
             })}
           </div>
+        </div>
+        </div>
+
+        {/* ── Config economía ── */}
+        <div className="mt-6">
+          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Ingresos por jornada</h2>
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            <div className="divide-y divide-gray-50">
+              {configEco.map(c => {
+                const editando = editandoEco === c.clave
+                return (
+                  <div key={c.clave} className="flex items-center px-5 py-3 gap-3">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold text-gray-900">{c.clave.replace(/_/g, ' ')}</p>
+                      <p className="text-xs text-gray-400">{c.descripcion}</p>
+                    </div>
+                    {editando ? (
+                      <div className="flex items-center gap-2 shrink-0">
+                        <input type="number" value={ecoValores[c.clave] ?? String(c.valor)}
+                          onChange={e => setEcoValores(p => ({ ...p, [c.clave]: e.target.value }))}
+                          className="w-28 border border-gray-200 rounded-xl px-3 py-1.5 text-sm text-center focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                        <button onClick={async () => {
+                          try {
+                            await actualizarConfigEconomia(c.clave, { valor: Number(ecoValores[c.clave]) })
+                            flash('Actualizado')
+                            const r = await getConfigEconomia(); setConfigEco(r.data)
+                            setEditandoEco(null)
+                          } catch (e: any) { flash(e.response?.data?.error ?? 'Error', true) }
+                        }} className="px-3 py-1.5 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-700">
+                          Guardar
+                        </button>
+                        <button onClick={() => setEditandoEco(null)} className="px-3 py-1.5 border border-gray-200 text-gray-500 rounded-xl text-xs hover:bg-gray-50">
+                          Cancelar
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-3 shrink-0">
+                        <span className="text-sm font-extrabold text-indigo-600">{c.valor.toLocaleString('es-ES')}</span>
+                        <button onClick={() => { setEditandoEco(c.clave); setEcoValores(p => ({ ...p, [c.clave]: String(c.valor) })) }}
+                          className="text-xs text-indigo-600 hover:text-indigo-800">Editar</button>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* ── Config revalorización ── */}
+        <div className="mt-6">
+          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Revalorización de jugadores</h2>
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            <div className="divide-y divide-gray-50">
+              {configReval.map(c => {
+                const editando = editandoReval === c.orden
+                return (
+                  <div key={c.orden} className="flex items-center px-5 py-3 gap-3">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold text-gray-900">{c.descripcion}</p>
+                      <p className="text-xs text-gray-400">
+                        {c.puntosHasta === null ? 'Sin límite superior' : `Hasta ${c.puntosHasta} puntos`}
+                      </p>
+                    </div>
+                    {editando ? (
+                      <div className="flex items-center gap-2 shrink-0">
+                        <input type="number" value={revalValores[c.orden] ?? String(c.porcentaje)}
+                          onChange={e => setRevalValores(p => ({ ...p, [c.orden]: e.target.value }))}
+                          className="w-20 border border-gray-200 rounded-xl px-3 py-1.5 text-sm text-center focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                        <span className="text-sm text-gray-500">%</span>
+                        <button onClick={async () => {
+                          if (!c.id) { flash('Primero ejecuta el SQL de inicialización', true); return }
+                          try {
+                            await actualizarConfigRevalorizacion(c.id, { porcentaje: Number(revalValores[c.orden]) })
+                            flash('Actualizado')
+                            const r = await getConfigRevalorizacion(); setConfigReval(r.data)
+                            setEditandoReval(null)
+                          } catch (e: any) { flash(e.response?.data?.error ?? 'Error', true) }
+                        }} className="px-3 py-1.5 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-700">
+                          Guardar
+                        </button>
+                        <button onClick={() => setEditandoReval(null)} className="px-3 py-1.5 border border-gray-200 text-gray-500 rounded-xl text-xs hover:bg-gray-50">
+                          Cancelar
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-3 shrink-0">
+                        <span className={`text-sm font-extrabold ${c.porcentaje >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+                          {c.porcentaje >= 0 ? '+' : ''}{c.porcentaje}%
+                        </span>
+                        <button onClick={() => { setEditandoReval(c.orden); setRevalValores(p => ({ ...p, [c.orden]: String(c.porcentaje) })) }}
+                          className="text-xs text-indigo-600 hover:text-indigo-800">Editar</button>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* ── Historial de cambios de config ── */}
+        <div className="mt-6">
+          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Historial de cambios</h2>
+          {historialConfig.length === 0 ? (
+            <p className="text-sm text-gray-400 text-center py-6">Sin cambios registrados aún.</p>
+          ) : (
+            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+              <div className="divide-y divide-gray-50">
+                {[...historialConfig].reverse().map(h => {
+                  const tipoBadge =
+                    h.tipo === 'PUNTUACION' ? 'bg-indigo-100 text-indigo-700'
+                    : h.tipo === 'ECONOMIA' ? 'bg-amber-100 text-amber-700'
+                    : 'bg-emerald-100 text-emerald-700'
+                  return (
+                    <div key={h.id} className="flex items-center px-5 py-3 gap-3">
+                      <span className={`text-xs px-2 py-0.5 rounded-lg font-semibold shrink-0 ${tipoBadge}`}>
+                        {h.tipo === 'PUNTUACION' ? 'Punt.' : h.tipo === 'ECONOMIA' ? 'Econ.' : 'Reval.'}
+                      </span>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-gray-800 truncate">{h.campo}</p>
+                        <p className="text-xs text-gray-400">
+                          {h.valorAnterior != null ? `${h.valorAnterior} → ` : '— → '}{h.valorNuevo}
+                          <span className="ml-2">· {h.admin.username}</span>
+                        </p>
+                      </div>
+                      <p className="text-xs text-gray-400 shrink-0">
+                        {new Date(h.creadoEn).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })}
+                      </p>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+        </div>
         </div>
       )}
 
@@ -874,6 +1167,135 @@ export default function AdminPage() {
           </div>
         </div>
       )}
+      {/* ── TAB ALIASES ── */}
+      {tab === 'aliases' && (
+        <div className="space-y-8">
+
+          {/* Aliases de equipos */}
+          <section>
+            <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Aliases de equipos</h2>
+            <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden mb-4">
+              {aliasesEquipos.length === 0 ? (
+                <p className="px-5 py-6 text-sm text-gray-400 text-center">Sin aliases definidos</p>
+              ) : aliasesEquipos.map(({ alias, equipo: eq }) => (
+                <div key={alias.id} className="flex items-center justify-between px-5 py-3 border-b border-gray-100 last:border-0">
+                  <div>
+                    <span className="text-sm font-medium text-gray-900">{alias.alias}</span>
+                    <span className="text-xs text-gray-400 ml-2">→ {eq.nombre}</span>
+                  </div>
+                  <button onClick={async () => {
+                    await eliminarAliasEquipo(alias.id)
+                    setAliasesEquipos(prev => prev.filter(a => a.alias.id !== alias.id))
+                    flash('Alias eliminado')
+                  }} className="text-xs text-red-500 hover:text-red-700">Eliminar</button>
+                </div>
+              ))}
+            </div>
+            {/* Formulario con filtro por división */}
+            <div className="flex gap-2 flex-wrap">
+              <select value={filtroAliasDiv} onChange={e => {
+                setFiltroAliasDiv(e.target.value)
+                setFormAliasEquipo(p => ({ ...p, equipoId: '' }))
+              }} className="border border-gray-200 rounded-xl px-3 py-2 text-sm">
+                <option value="">Todas las divisiones</option>
+                {DIVISIONES.map(d => <option key={d} value={d}>{DIVISION_LABEL[d]}</option>)}
+              </select>
+              <select value={formAliasEquipo.equipoId} onChange={e => setFormAliasEquipo(p => ({ ...p, equipoId: e.target.value }))}
+                className="flex-1 min-w-[180px] border border-gray-200 rounded-xl px-3 py-2 text-sm">
+                <option value="">Selecciona equipo...</option>
+                {equipos
+                  .filter(e => !filtroAliasDiv || e.division === filtroAliasDiv)
+                  .map(e => <option key={e.id} value={e.id}>{e.nombre}</option>)}
+              </select>
+              <input value={formAliasEquipo.alias} onChange={e => setFormAliasEquipo(p => ({ ...p, alias: e.target.value }))}
+                placeholder="Alias del scraper" className="flex-1 min-w-[160px] border border-gray-200 rounded-xl px-3 py-2 text-sm" />
+              <button onClick={async () => {
+                if (!formAliasEquipo.equipoId || !formAliasEquipo.alias) return
+                try {
+                  const r = await crearAliasEquipo(formAliasEquipo)
+                  const eq = equipos.find(e => e.id === formAliasEquipo.equipoId)!
+                  setAliasesEquipos(prev => [...prev, { alias: r.data, equipo: { id: eq.id, nombre: eq.nombre } }])
+                  setFormAliasEquipo({ equipoId: '', alias: '' })
+                  flash('Alias creado')
+                } catch (e: any) { flash(e.response?.data?.error ?? 'Error', true) }
+              }} className="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold hover:bg-indigo-700">
+                Añadir
+              </button>
+            </div>
+          </section>
+
+          {/* Aliases de jugadores */}
+          <section>
+            <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Aliases de jugadores</h2>
+            <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden mb-4">
+              {aliasesJugadores.length === 0 ? (
+                <p className="px-5 py-6 text-sm text-gray-400 text-center">Sin aliases definidos</p>
+              ) : aliasesJugadores.map(({ alias, jugador: jug }) => (
+                <div key={alias.id} className="flex items-center justify-between px-5 py-3 border-b border-gray-100 last:border-0">
+                  <div>
+                    <span className="text-sm font-medium text-gray-900">{alias.alias}</span>
+                    <span className="text-xs text-gray-400 ml-2">→ {jug.nombreCompleto}</span>
+                  </div>
+                  <button onClick={async () => {
+                    await eliminarAliasJugador(alias.id)
+                    setAliasesJugadores(prev => prev.filter(a => a.alias.id !== alias.id))
+                    flash('Alias eliminado')
+                  }} className="text-xs text-red-500 hover:text-red-700">Eliminar</button>
+                </div>
+              ))}
+            </div>
+            {/* Formulario con filtros por división y equipo */}
+            <div className="flex gap-2 flex-wrap">
+              <select value={filtroAliasDivJug} onChange={e => {
+                setFiltroAliasDivJug(e.target.value)
+                setFiltroAliasEquipoJug('')
+                setFormAliasJugador(p => ({ ...p, jugadorId: '' }))
+              }} className="border border-gray-200 rounded-xl px-3 py-2 text-sm">
+                <option value="">Todas las divisiones</option>
+                {DIVISIONES.map(d => <option key={d} value={d}>{DIVISION_LABEL[d]}</option>)}
+              </select>
+              <select value={filtroAliasEquipoJug} onChange={e => {
+                setFiltroAliasEquipoJug(e.target.value)
+                setFormAliasJugador(p => ({ ...p, jugadorId: '' }))
+              }} className="border border-gray-200 rounded-xl px-3 py-2 text-sm">
+                <option value="">Todos los equipos</option>
+                {equipos
+                  .filter(e => !filtroAliasDivJug || e.division === filtroAliasDivJug)
+                  .map(e => <option key={e.id} value={e.id}>{e.nombre}</option>)}
+              </select>
+              <select value={formAliasJugador.jugadorId} onChange={e => setFormAliasJugador(p => ({ ...p, jugadorId: e.target.value }))}
+                className="flex-1 min-w-[180px] border border-gray-200 rounded-xl px-3 py-2 text-sm">
+                <option value="">Selecciona jugador...</option>
+                {jugadores
+                  .filter(j => {
+                    const activo = j.historialEquipos.find(h => h.activo)
+                    if (!activo) return false
+                    if (filtroAliasEquipoJug && activo.equipo.id !== filtroAliasEquipoJug) return false
+                    if (filtroAliasDivJug && activo.equipo.division !== filtroAliasDivJug) return false
+                    return true
+                  })
+                  .map(j => <option key={j.id} value={j.id}>{j.nombreCompleto}</option>)}
+              </select>
+              <input value={formAliasJugador.alias} onChange={e => setFormAliasJugador(p => ({ ...p, alias: e.target.value }))}
+                placeholder="Alias del scraper" className="flex-1 min-w-[160px] border border-gray-200 rounded-xl px-3 py-2 text-sm" />
+              <button onClick={async () => {
+                if (!formAliasJugador.jugadorId || !formAliasJugador.alias) return
+                try {
+                  const r = await crearAliasJugador(formAliasJugador)
+                  const jug = jugadores.find(j => j.id === formAliasJugador.jugadorId)!
+                  setAliasesJugadores(prev => [...prev, { alias: r.data, jugador: { id: jug.id, nombreCompleto: jug.nombreCompleto } }])
+                  setFormAliasJugador({ jugadorId: '', alias: '' })
+                  flash('Alias creado')
+                } catch (e: any) { flash(e.response?.data?.error ?? 'Error', true) }
+              }} className="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold hover:bg-indigo-700">
+                Añadir
+              </button>
+            </div>
+          </section>
+
+        </div>
+      )}
+
     </main>
   )
 }

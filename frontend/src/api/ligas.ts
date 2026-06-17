@@ -16,3 +16,14 @@ export const getUltimaJornadaStats    = (ligaId: string)    => api.get(`/ligas/$
 export const getEstadisticasJugador   = (jugadorId: string, ligaId?: string) => api.get(`/jugadores/${jugadorId}/estadisticas${ligaId ? `?ligaId=${ligaId}` : ''}`)
 export const getHistorialAlineaciones = (ligaId: string) => api.get(`/ligas/${ligaId}/historial-alineaciones`)
 export const getHistorialMiembro      = (ligaId: string, miembroId: string) => api.get(`/ligas/${ligaId}/miembros/${miembroId}/historial`)
+
+// Histórico
+export const getHistorialSaldo        = (ligaId: string) => api.get(`/ligas/${ligaId}/historial-saldo`)
+export const getHistorialValorJugador = (jugadorId: string) => api.get(`/jugadores/${jugadorId}/historial-valor`)
+export const getClasificacion    = (ligaId: string, modo?: string, num?: number) =>
+  api.get(`/ligas/${ligaId}/clasificacion`, { params: { modo, num } })
+
+// Clausulazos
+export const getPlantillasLiga    = (ligaId: string)                          => api.get(`/ligas/${ligaId}/plantillas`)
+export const ejecutarClausulazo   = (ligaId: string, jugadorId: string)       => api.post(`/ligas/${ligaId}/plantillas/${jugadorId}/clausulazo`)
+export const invertirEnClausula   = (ligaId: string, jugadorId: string, importe: number) => api.post(`/ligas/${ligaId}/plantillas/${jugadorId}/clausula-inversion`, { importe })

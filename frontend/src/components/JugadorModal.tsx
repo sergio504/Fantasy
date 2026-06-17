@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getEstadisticasJugador } from '../api/ligas'
+import { getEstadisticasJugador, getHistorialValorJugador } from '../api/ligas'
 
 interface Desglose {
   convocado?: number
@@ -18,6 +18,14 @@ interface EstadisticaJornada {
   resultado: string; puntosCalculados: number; desglose: Desglose | null
   jornada: { numJornada: number; division: string; fechaCierre: string }
   propietario: string | null
+}
+
+interface HistorialValorEntry {
+  id: string
+  valorAnterior: number
+  valorNuevo: number
+  numJornada: number
+  creadoEn: string
 }
 
 interface Props {
@@ -96,6 +104,9 @@ export default function JugadorModal({ jugadorId, nombreCompleto, posicion, equi
   const [estadisticas, setEstadisticas] = useState<EstadisticaJornada[]>([])
   const [loading, setLoading] = useState(true)
   const [abiertos, setAbiertos] = useState<Set<string>>(new Set())
+  const [seccion, setSeccion] = useState<'stats' | 'valor'>('stats')
+  const [historialValor, setHistorialValor] = useState<HistorialValorEntry[]>([])
+  const [loadingValor, setLoadingValor] = useState(false)
 
   useEffect(() => {
     getEstadisticasJugador(jugadorId, ligaId)
@@ -109,6 +120,16 @@ export default function JugadorModal({ jugadorId, nombreCompleto, posicion, equi
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [jugadorId])
+
+  const handleSeccionValor = () => {
+    setSeccion('valor')
+    if (historialValor.length === 0 && !loadingValor) {
+      setLoadingValor(true)
+      getHistorialValorJugador(jugadorId)
+        .then(r => setHistorialValor(r.data))
+        .finally(() => setLoadingValor(false))
+    }
+  }
 
   const totalPuntos = estadisticas.reduce((sum, e) => sum + e.puntosCalculados, 0)
 
@@ -150,8 +171,24 @@ export default function JugadorModal({ jugadorId, nombreCompleto, posicion, equi
             </div>
           </div>
 
+          {/* Tabs */}
+          <div className="flex gap-1 mt-3">
+            <button
+              onClick={() => setSeccion('stats')}
+              className={`text-xs px-3 py-1 rounded-lg font-semibold transition-colors ${seccion === 'stats' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
+            >
+              Estadísticas
+            </button>
+            <button
+              onClick={handleSeccionValor}
+              className={`text-xs px-3 py-1 rounded-lg font-semibold transition-colors ${seccion === 'valor' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
+            >
+              Valor de mercado
+            </button>
+          </div>
+
           {/* Estadísticas agregadas */}
-          {estadisticas.length > 0 && (() => {
+          {seccion === 'stats' && estadisticas.length > 0 && (() => {
             const convocados    = estadisticas.filter(e => e.convocado).length
             const titulares     = estadisticas.filter(e => e.titular).length
             const mas60         = estadisticas.filter(e => e.minutosJugados > 60).length
@@ -184,7 +221,38 @@ export default function JugadorModal({ jugadorId, nombreCompleto, posicion, equi
 
         {/* Content */}
         <div className="overflow-y-auto flex-1 p-4 space-y-2">
-          {loading ? (
+          {seccion === 'valor' ? (
+            loadingValor ? (
+              <p className="text-center text-sm text-gray-400 py-8">Cargando...</p>
+            ) : historialValor.length === 0 ? (
+              <p className="text-center text-sm text-gray-400 py-8">Sin historial de valor disponible</p>
+            ) : (
+              <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                <div className="divide-y divide-gray-50">
+                  {[...historialValor].reverse().map(h => {
+                    const diff = h.valorNuevo - h.valorAnterior
+                    const pct = h.valorAnterior > 0 ? ((diff / h.valorAnterior) * 100).toFixed(1) : null
+                    return (
+                      <div key={h.id} className="flex items-center px-4 py-3 gap-3">
+                        <span className="text-xs font-semibold text-gray-500 w-6 shrink-0">J{h.numJornada}</span>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs text-gray-400">
+                            {h.valorAnterior.toLocaleString('es-ES')} → <span className="font-semibold text-gray-700">{h.valorNuevo.toLocaleString('es-ES')}</span>
+                          </p>
+                        </div>
+                        <div className="shrink-0 text-right">
+                          <p className={`text-sm font-bold ${diff >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+                            {diff >= 0 ? '+' : ''}{diff.toLocaleString('es-ES')}
+                          </p>
+                          {pct && <p className="text-xs text-gray-400">{diff >= 0 ? '+' : ''}{pct}%</p>}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )
+          ) : loading ? (
             <p className="text-center text-sm text-gray-400 py-8">Cargando...</p>
           ) : estadisticas.length === 0 ? (
             <p className="text-center text-sm text-gray-400 py-8">Sin estadísticas disponibles</p>

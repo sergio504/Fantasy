@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { getLiga } from '../api/ligas'
+import { getLiga, getClasificacion } from '../api/ligas'
 import { useAuth } from '../context/AuthContext'
 import Spinner from '../components/Spinner'
 import { DIVISION_LABEL, DIVISION_STYLE } from '../constants/divisiones'
@@ -12,6 +12,11 @@ interface Miembro {
   puntuacion: number
   presupuestoRestante: number
   usuario: { id: string; username: string }
+}
+
+interface ClasifEntry {
+  id: string; usuarioId: string; username: string
+  presupuestoRestante: number; puntos: number
 }
 
 interface Liga {
@@ -37,6 +42,10 @@ export default function LigaDetallePage() {
   const [error, setError] = useState('')
   const [copiado, setCopiado] = useState(false)
   const [modalMiembro, setModalMiembro] = useState<{ id: string; username: string } | null>(null)
+  const [filtroClasif, setFiltroClasif] = useState<'total' | 'jornada' | 'acumulado'>('total')
+  const [filtroNum, setFiltroNum] = useState(1)
+  const [clasifData, setClasifData] = useState<ClasifEntry[] | null>(null)
+  const [cargandoClasif, setCargandoClasif] = useState(false)
 
   useEffect(() => {
     if (!ligaId) return
@@ -45,6 +54,16 @@ export default function LigaDetallePage() {
       .catch(() => setError('No se pudo cargar la liga'))
       .finally(() => setLoading(false))
   }, [ligaId])
+
+  const cargarClasif = async (modo: string, num?: number) => {
+    if (!ligaId) return
+    setCargandoClasif(true)
+    try {
+      const r = await getClasificacion(ligaId, modo, num)
+      setClasifData(r.data)
+    } catch { /* mantener los datos de liga como fallback */ }
+    finally { setCargandoClasif(false) }
+  }
 
   const copiarCodigo = () => {
     if (!liga?.codigoInvitacion) return
@@ -145,43 +164,103 @@ export default function LigaDetallePage() {
         >
           📋 Transferencias
         </Link>
+        <Link
+          to={`/ligas/${ligaId}/clausulazos`}
+          className="flex-1 sm:flex-none text-center text-sm px-4 py-2.5 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors font-medium"
+        >
+          ⚡ Clausulazos
+        </Link>
+        <Link
+          to={`/ligas/${ligaId}/historial-saldo`}
+          className="flex-1 sm:flex-none text-center text-sm px-4 py-2.5 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors font-medium"
+        >
+          💳 Mi saldo
+        </Link>
       </div>
 
       {/* Clasificación */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
         <div className="px-5 py-4 border-b border-gray-50">
-          <h2 className="text-sm font-semibold text-gray-700">Clasificación</h2>
+          <div className="flex items-center justify-between gap-2 flex-wrap">
+            <h2 className="text-sm font-semibold text-gray-700">Clasificación</h2>
+            <div className="flex items-center gap-1.5 flex-wrap">
+              {(['total', 'jornada', 'acumulado'] as const).map(f => (
+                <button key={f} onClick={() => {
+                  setFiltroClasif(f)
+                  if (f === 'total') { setClasifData(null) }
+                  else { cargarClasif(f, filtroNum) }
+                }}
+                  className={`text-xs px-2.5 py-1 rounded-lg font-semibold transition-colors ${
+                    filtroClasif === f ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                  }`}
+                >
+                  {f === 'total' ? 'Total' : f === 'jornada' ? 'Jornada' : 'Hasta J'}
+                </button>
+              ))}
+              {filtroClasif !== 'total' && (
+                <div className="flex items-center gap-1">
+                  <input
+                    type="number" min={1} value={filtroNum}
+                    onChange={e => {
+                      const n = parseInt(e.target.value)
+                      if (!isNaN(n) && n > 0) {
+                        setFiltroNum(n)
+                        cargarClasif(filtroClasif, n)
+                      }
+                    }}
+                    className="w-14 text-xs px-2 py-1 border border-gray-200 rounded-lg text-center font-semibold text-gray-700"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+          {filtroClasif !== 'total' && (
+            <p className="text-xs text-gray-400 mt-1">
+              {filtroClasif === 'jornada' ? `Puntos solo de la jornada ${filtroNum}` : `Puntos acumulados hasta la jornada ${filtroNum}`}
+            </p>
+          )}
         </div>
         <div className="divide-y divide-gray-50">
-          {liga.miembros.map((m, i) => {
-            const esTuyo = m.usuarioId === usuario?.id
-            return (
-              <button
-                key={m.id}
-                onClick={() => setModalMiembro({ id: m.id, username: m.usuario.username })}
-                className={`w-full flex items-center px-5 py-3.5 gap-3 text-left hover:bg-gray-50 transition-colors ${esTuyo ? 'bg-indigo-50/50 hover:bg-indigo-50' : ''}`}
-              >
-                <span className="text-base w-6 text-center shrink-0">
-                  {i < 3 ? MEDAL[i] : <span className="text-sm font-bold text-gray-400">{i + 1}</span>}
-                </span>
-                <span className="flex-1 text-sm font-medium text-gray-900">
-                  {m.usuario.username}
-                  {m.usuarioId === liga.creadorId && (
-                    <span className="ml-2 text-xs text-gray-400 font-normal">creador</span>
+          {(() => {
+            // Si hay datos filtrados, usarlos; si no, usar los datos de la liga
+            const filas: { id: string; usuarioId: string; username: string; puntos: number; presupuesto?: number }[] =
+              clasifData
+                ? clasifData.map(e => ({ id: e.id, usuarioId: e.usuarioId, username: e.username, puntos: e.puntos, presupuesto: e.presupuestoRestante }))
+                : [...liga.miembros]
+                    .sort((a, b) => b.puntuacion - a.puntuacion)
+                    .map(m => ({ id: m.id, usuarioId: m.usuarioId, username: m.usuario.username, puntos: m.puntuacion, presupuesto: m.presupuestoRestante }))
+
+            return filas.map((m, i) => {
+              const esTuyo = m.usuarioId === usuario?.id
+              const miembroOrig = liga.miembros.find(orig => orig.id === m.id)
+              return (
+                <button
+                  key={m.id}
+                  onClick={() => miembroOrig && setModalMiembro({ id: m.id, username: m.username })}
+                  className={`w-full flex items-center px-5 py-3.5 gap-3 text-left hover:bg-gray-50 transition-colors ${esTuyo ? 'bg-indigo-50/50 hover:bg-indigo-50' : ''} ${cargandoClasif ? 'opacity-50' : ''}`}
+                >
+                  <span className="text-base w-6 text-center shrink-0">
+                    {i < 3 ? MEDAL[i] : <span className="text-sm font-bold text-gray-400">{i + 1}</span>}
+                  </span>
+                  <span className="flex-1 text-sm font-medium text-gray-900">
+                    {m.username}
+                    {m.usuarioId === liga.creadorId && (
+                      <span className="ml-2 text-xs text-gray-400 font-normal">creador</span>
+                    )}
+                    {esTuyo && (
+                      <span className="ml-2 text-xs text-indigo-500 font-semibold">tú</span>
+                    )}
+                  </span>
+                  {esTuyo && m.presupuesto != null && (
+                    <span className="text-xs text-gray-400">{m.presupuesto.toLocaleString('es-ES')}</span>
                   )}
-                  {esTuyo && (
-                    <span className="ml-2 text-xs text-indigo-500 font-semibold">tú</span>
-                  )}
-                </span>
-                {esTuyo && (
-                  <span className="text-xs text-gray-400">{(m as any).presupuestoRestante}M</span>
-                )}
-                <span className="text-sm font-bold text-gray-900 w-16 text-right shrink-0">
-                  {m.puntuacion} pts
-                </span>
-              </button>
-            )
-          })}
+                  <span className="text-sm font-bold text-gray-900 w-16 text-right shrink-0">
+                    {m.puntos} pts
+                  </span>
+                </button>
+              )
+            })
+          })()}
         </div>
       </div>
     </main>

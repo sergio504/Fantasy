@@ -14,6 +14,8 @@ import LigaDetallePage from './pages/LigaDetallePage'
 import MercadoPage from './pages/MercadoPage'
 import TransferenciasPage from './pages/TransferenciasPage'
 import MisJugadoresPage from './pages/MisJugadoresPage'
+import ClausulazosPage from './pages/ClausulazosPage'
+import HistorialSaldoPage from './pages/HistorialSaldoPage'
 import AdminPage from './pages/AdminPage'
 
 export default function App() {
@@ -39,6 +41,8 @@ export default function App() {
               <Route path="/ligas/:ligaId/jugadores" element={<MisJugadoresPage />} />
               <Route path="/ligas/:ligaId/mercado" element={<MercadoPage />} />
               <Route path="/ligas/:ligaId/transferencias" element={<TransferenciasPage />} />
+              <Route path="/ligas/:ligaId/clausulazos" element={<ClausulazosPage />} />
+              <Route path="/ligas/:ligaId/historial-saldo" element={<HistorialSaldoPage />} />
             </Route>
 
             {/* Ruta de administración */}
