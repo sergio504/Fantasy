@@ -1,0 +1,37 @@
+# Dependencias
+node_modules/
+
+# Variables de entorno
+.env
+.env.local
+.env.production
+
+# Build
+dist/
+build/
+
+# Estadísticas scrapeadas (JSONs de jornadas)
+backend/Estadisticas/
+
+# Archivos de debug
+backend/debug_*.html
+backend/test_*.py
+backend/*.txt
+
+# Archivos temporales de desarrollo
+backend/jornada_1_partido_1.json
+backend/jornada_1_partido_2.json
+
+# Datos sensibles en raíz
+cookies.txt
+
+# Docker (solo para desarrollo local)
+docker-compose.yml
+
+# Logs
+*.log
+npm-debug.log*
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
