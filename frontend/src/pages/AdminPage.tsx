@@ -22,7 +22,11 @@ interface UsuarioAdmin {
   _count: { membresias: number; ligasCreadas: number }
 }
 interface Jornada {
-  id: string; division: string; numJornada: number; fechaCierre: string
+  id: string; division: string; numJornada: number
+  fechaInicioJornada: string | null; fechaFinJornada: string | null
+  fechaImportacion: string | null
+  snapshotGenerado: boolean; statsImportadas: boolean
+  puntosPorJugadorCalculados: boolean; puntuacionesCalculadas: boolean
   _count: { estadisticas: number; snapshots: number; puntuaciones: number }
 }
 interface EstadisticaAdmin {
@@ -571,7 +575,7 @@ export default function AdminPage() {
                           Jornada {j.numJornada} · {DIVISION_LABEL[j.division] ?? j.division}
                         </p>
                         <p className="text-xs text-gray-400 mt-0.5">
-                          Cierre: {new Date(j.fechaCierre).toLocaleString('es-ES')}
+                          Inicio: {j.fechaInicioJornada ? new Date(j.fechaInicioJornada).toLocaleString('es-ES') : '—'}
                           {j.fechaImportacion && <> · Import: {new Date(j.fechaImportacion).toLocaleString('es-ES')}</>}
                         </p>
                         <div className="flex flex-wrap gap-1.5 mt-2">

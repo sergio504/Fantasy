@@ -37,8 +37,6 @@ interface Props {
   onClose: () => void
 }
 
-const RES_LABEL: Record<string, string> = { VICTORIA: 'Victoria', EMPATE: 'Empate', DERROTA: 'Derrota' }
-const RES_COLOR: Record<string, string> = { VICTORIA: 'text-green-600', EMPATE: 'text-yellow-600', DERROTA: 'text-red-500' }
 
 function lineaDesglose(label: string, puntos: number, extra = '') {
   const color = puntos > 0 ? 'text-green-700' : puntos < 0 ? 'text-red-600' : 'text-gray-400'
