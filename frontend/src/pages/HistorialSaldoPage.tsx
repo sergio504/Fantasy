@@ -44,7 +44,6 @@ export default function HistorialSaldoPage() {
 
   if (loading) return <Spinner />
 
-  const saldoInicial = movimientos[0]?.saldoResultante - (movimientos[0]?.importe ?? 0)
   const saldoActual  = movimientos.at(-1)?.saldoResultante ?? 0
   const totalGastos  = movimientos.filter(m => m.importe < 0).reduce((s, m) => s + Math.abs(m.importe), 0)
   const totalIngresos = movimientos.filter(m => m.importe > 0).reduce((s, m) => s + m.importe, 0)

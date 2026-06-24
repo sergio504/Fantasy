@@ -114,13 +114,13 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true)
 
   // Nueva jornada
-  const [formJornada, setFormJornada] = useState({ division: DIVISIONES[0], numJornada: '1', fechaCierre: '' })
+  const [formJornada, setFormJornada] = useState({ division: DIVISIONES[0], numJornada: '1', fechaInicioJornada: '' })
   const [mostrarFormJornada, setMostrarFormJornada] = useState(false)
 
   // Edición de fechas de jornada
   const [filtroDivJornada, setFiltroDivJornada] = useState(DIVISIONES[0])
   const [editandoFechaJornada, setEditandoFechaJornada] = useState<string | null>(null)
-  const [formFechaJornada, setFormFechaJornada] = useState({ fechaCierre: '', fechaImportacion: '' })
+  const [formFechaJornada, setFormFechaJornada] = useState({ fechaInicioJornada: '', fechaFinJornada: '', fechaImportacion: '' })
 
   // Edición
   const [editando, setEditando] = useState<Jugador | null>(null)
@@ -535,14 +535,14 @@ export default function AdminPage() {
                 <input type="number" placeholder="Nº jornada" value={formJornada.numJornada}
                   onChange={e => setFormJornada(p => ({ ...p, numJornada: e.target.value }))}
                   className="border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-                <input type="datetime-local" value={formJornada.fechaCierre}
-                  onChange={e => setFormJornada(p => ({ ...p, fechaCierre: e.target.value }))}
+                <input type="datetime-local" value={formJornada.fechaInicioJornada}
+                  onChange={e => setFormJornada(p => ({ ...p, fechaInicioJornada: e.target.value }))}
                   className="border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
               </div>
               <div className="flex gap-2">
                 <button onClick={async () => {
                   try {
-                    await crearJornada({ division: formJornada.division, numJornada: Number(formJornada.numJornada), fechaCierre: formJornada.fechaCierre })
+                    await crearJornada({ division: formJornada.division, numJornada: Number(formJornada.numJornada), fechaInicioJornada: formJornada.fechaInicioJornada })
                     flash('Jornada creada')
                     setMostrarFormJornada(false)
                     const r = await getJornadas(); setJornadas(r.data)
@@ -656,23 +656,24 @@ export default function AdminPage() {
                     {editando ? (
                       <div className="flex flex-wrap items-center gap-2 flex-1">
                         <div className="flex flex-col gap-0.5">
-                          <span className="text-xs text-gray-400">Cierre (snapshot)</span>
-                          <input type="datetime-local" value={formFechaJornada.fechaCierre}
-                            onChange={e => setFormFechaJornada(p => ({ ...p, fechaCierre: e.target.value }))}
+                          <span className="text-xs text-gray-400">Inicio (snapshot)</span>
+                          <input type="datetime-local" value={formFechaJornada.fechaInicioJornada}
+                            onChange={e => setFormFechaJornada(p => ({ ...p, fechaInicioJornada: e.target.value }))}
                             className="border border-gray-200 rounded-xl px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
                         </div>
                         <div className="flex flex-col gap-0.5">
-                          <span className="text-xs text-gray-400">Importación (scraper)</span>
-                          <input type="datetime-local" value={formFechaJornada.fechaImportacion}
-                            onChange={e => setFormFechaJornada(p => ({ ...p, fechaImportacion: e.target.value }))}
+                          <span className="text-xs text-gray-400">Fin (scraper)</span>
+                          <input type="datetime-local" value={formFechaJornada.fechaFinJornada}
+                            onChange={e => setFormFechaJornada(p => ({ ...p, fechaFinJornada: e.target.value }))}
                             className="border border-gray-200 rounded-xl px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
                         </div>
                         <div className="flex gap-2 mt-4">
                           <button onClick={async () => {
                             try {
                               await editarJornada(j.id, {
-                                fechaCierre:      formFechaJornada.fechaCierre      || undefined,
-                                fechaImportacion: formFechaJornada.fechaImportacion || null,
+                                fechaInicioJornada: formFechaJornada.fechaInicioJornada || undefined,
+                                fechaFinJornada:    formFechaJornada.fechaFinJornada    || undefined,
+                                fechaImportacion:   formFechaJornada.fechaImportacion   || null,
                               })
                               flash('Fechas actualizadas')
                               const jr = await getJornadas(); setJornadas(jr.data)
@@ -690,14 +691,15 @@ export default function AdminPage() {
                     ) : (
                       <div className="flex items-center gap-4 flex-1">
                         <div className="flex-1 text-xs text-gray-500 space-y-0.5">
-                          <p>Cierre: <span className="text-gray-800">{new Date(j.fechaCierre).toLocaleString('es-ES')}</span></p>
-                          <p>Import: <span className="text-gray-800">{j.fechaImportacion ? new Date(j.fechaImportacion).toLocaleString('es-ES') : '—'}</span></p>
+                          <p>Inicio: <span className="text-gray-800">{j.fechaInicioJornada ? new Date(j.fechaInicioJornada).toLocaleString('es-ES') : '—'}</span></p>
+                          <p>Fin: <span className="text-gray-800">{j.fechaFinJornada ? new Date(j.fechaFinJornada).toLocaleString('es-ES') : '—'}</span></p>
                         </div>
                         <button onClick={() => {
                           setEditandoFechaJornada(j.id)
                           setFormFechaJornada({
-                            fechaCierre:      fmtLocal(new Date(j.fechaCierre).toISOString()),
-                            fechaImportacion: j.fechaImportacion ? fmtLocal(new Date(j.fechaImportacion).toISOString()) : '',
+                            fechaInicioJornada: j.fechaInicioJornada ? fmtLocal(new Date(j.fechaInicioJornada).toISOString()) : '',
+                            fechaFinJornada:    j.fechaFinJornada    ? fmtLocal(new Date(j.fechaFinJornada).toISOString())    : '',
+                            fechaImportacion:   j.fechaImportacion   ? fmtLocal(new Date(j.fechaImportacion).toISOString())   : '',
                           })
                         }} className="text-xs text-indigo-600 hover:text-indigo-800">
                           Editar

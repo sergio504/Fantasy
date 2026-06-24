@@ -27,7 +27,7 @@ interface JugadorJornada {
 }
 
 interface JornadaHistorial {
-  jornada: { id: string; numJornada: number; fechaCierre: string }
+  jornada: { id: string; numJornada: number; fechaInicioJornada: string | null }
   totalPuntos: number | null
   jugadores: JugadorJornada[]
 }
@@ -103,7 +103,7 @@ export default function HistorialAlineacionesPage() {
                   <div className="text-left">
                     <p className="text-sm font-bold text-gray-900">Jornada {jornada.numJornada}</p>
                     <p className="text-xs text-gray-400 mt-0.5">
-                      {new Date(jornada.fechaCierre).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })}
+                      {jornada.fechaInicioJornada ? new Date(jornada.fechaInicioJornada).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' }) : '—'}
                     </p>
                   </div>
                   <div className="flex items-center gap-3">

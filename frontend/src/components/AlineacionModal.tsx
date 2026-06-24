@@ -11,7 +11,7 @@ interface JugadorSnap {
 }
 
 interface JornadaHistorial {
-  jornada: { id: string; numJornada: number; fechaCierre: string }
+  jornada: { id: string; numJornada: number; fechaInicioJornada: string | null }
   totalPuntos: number | null
   jugadores: JugadorSnap[]
 }

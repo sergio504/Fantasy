@@ -16,7 +16,7 @@ interface EstadisticaJornada {
   convocado: boolean; titular: boolean; minutosJugados: number
   goles: number; tarjetasAmarillas: number; tarjetaRoja: boolean
   resultado: string; puntosCalculados: number; desglose: Desglose | null
-  jornada: { numJornada: number; division: string; fechaCierre: string }
+  jornada: { numJornada: number; division: string; fechaInicioJornada: string | null }
   propietario: string | null
 }
 
