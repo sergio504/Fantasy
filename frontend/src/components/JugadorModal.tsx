@@ -30,7 +30,7 @@ interface HistorialValorEntry {
 
 interface Props {
   jugadorId: string
-  nombreCompleto: string
+  nombre: string
   posicion: string
   equipo?: string
   ligaId?: string
@@ -98,7 +98,7 @@ function Desglose({ d: raw, e, esCapitan }: { d: Desglose | null; e: Estadistica
   )
 }
 
-export default function JugadorModal({ jugadorId, nombreCompleto, posicion, equipo, ligaId, onClose }: Props) {
+export default function JugadorModal({ jugadorId, nombre, posicion, equipo, ligaId, onClose }: Props) {
   const [estadisticas, setEstadisticas] = useState<EstadisticaJornada[]>([])
   const [loading, setLoading] = useState(true)
   const [abiertos, setAbiertos] = useState<Set<string>>(new Set())
@@ -148,7 +148,7 @@ export default function JugadorModal({ jugadorId, nombreCompleto, posicion, equi
         <div className="p-5 border-b border-gray-100">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <h2 className="text-base font-bold text-gray-900 leading-tight">{nombreCompleto}</h2>
+              <h2 className="text-base font-bold text-gray-900 leading-tight">{nombre}</h2>
               <p className="text-xs text-gray-400 mt-0.5">
                 {posicion}{equipo ? ` · ${equipo}` : ''}
               </p>

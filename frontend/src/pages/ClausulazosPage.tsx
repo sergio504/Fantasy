@@ -118,7 +118,7 @@ export default function ClausulazosPage() {
                       {ps.label}
                     </span>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-gray-900 truncate">{p.jugador.nombreCompleto}</p>
+                      <p className="text-sm font-semibold text-gray-900 truncate">{p.jugador.nombre}</p>
                       <p className="text-xs text-gray-400">
                         {p.jugador.equipo ?? '—'}{p.jugador.dorsal ? ` · #${p.jugador.dorsal}` : ''}
                         {' · '}<span className="font-medium text-gray-500">{fmt(p.jugador.valor)}</span>

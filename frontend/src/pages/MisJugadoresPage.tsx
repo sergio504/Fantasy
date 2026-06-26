@@ -64,7 +64,7 @@ export default function MisJugadoresPage() {
   const [titularIds, setTitularIds] = useState<Set<string>>(new Set())
   const [capitanId, setCapitanId] = useState<string | null>(null)
   const [ultimaStats, setUltimaStats] = useState<{ numJornada: number; stats: Record<string, UltimaStats> } | null>(null)
-  const [modalJugador, setModalJugador] = useState<{ id: string; nombreCompleto: string; posicion: string; equipo?: string; ligaId?: string } | null>(null)
+  const [modalJugador, setModalJugador] = useState<{ id: string; nombre: string; posicion: string; equipo?: string; ligaId?: string } | null>(null)
   const [loading, setLoading] = useState(true)
   const [guardando, setGuardando] = useState(false)
   const [guardadoOk, setGuardadoOk] = useState(false)
@@ -219,7 +219,7 @@ export default function MisJugadoresPage() {
     {modalJugador && (
       <JugadorModal
         jugadorId={modalJugador.id}
-        nombreCompleto={modalJugador.nombreCompleto}
+        nombre={modalJugador.nombre}
         posicion={modalJugador.posicion}
         equipo={modalJugador.equipo}
         ligaId={modalJugador.ligaId}
@@ -303,7 +303,7 @@ export default function MisJugadoresPage() {
                       </span>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-1.5">
-                          <button onClick={() => setModalJugador({ id: je.jugadorId, nombreCompleto: je.jugador.nombreCompleto, posicion: je.jugador.posicion, equipo: equipoNombre(je.jugador), ligaId: ligaId ?? undefined })} className="text-sm font-medium text-gray-900 truncate hover:text-indigo-600 hover:underline text-left">{je.jugador.nombre}</button>
+                          <button onClick={() => setModalJugador({ id: je.jugadorId, nombre: je.jugador.nombre, posicion: je.jugador.posicion, equipo: equipoNombre(je.jugador), ligaId: ligaId ?? undefined })} className="text-sm font-medium text-gray-900 truncate hover:text-indigo-600 hover:underline text-left">{je.jugador.nombre}</button>
                           {esCapitan && (
                             <span className="shrink-0 text-xs bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-md font-bold">C</span>
                           )}
@@ -405,7 +405,7 @@ export default function MisJugadoresPage() {
                   </span>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1.5">
-                      <p className="text-sm font-medium text-gray-900 truncate">{je.jugador.nombre}</p>
+                      <button onClick={() => setModalJugador({ id: je.jugadorId, nombre: je.jugador.nombre, posicion: je.jugador.posicion, equipo: equipoNombre(je.jugador), ligaId: ligaId ?? undefined })} className="text-sm font-medium text-gray-900 truncate hover:text-indigo-600 hover:underline text-left">{je.jugador.nombre}</button>
                       <PtsBadge puntos={ultimaStats?.stats[je.jugadorId]?.puntos} />
                     </div>
                     <p className="text-xs text-gray-500 font-medium">

@@ -26,6 +26,16 @@ export default function Navbar() {
         {usuario ? (
           <div className="flex items-center gap-1">
             <Link
+              to="/explorar"
+              className={`hidden sm:block text-sm px-3 py-1.5 rounded-lg transition-colors ${
+                isActive('/explorar')
+                  ? 'bg-indigo-50 text-indigo-600 font-medium'
+                  : 'text-gray-600 hover:bg-gray-50'
+              }`}
+            >
+              Explorar
+            </Link>
+            <Link
               to="/ligas"
               className={`hidden sm:block text-sm px-3 py-1.5 rounded-lg transition-colors ${
                 isActive('/ligas')
@@ -33,7 +43,7 @@ export default function Navbar() {
                   : 'text-gray-600 hover:bg-gray-50'
               }`}
             >
-              Explorar
+              Ligas públicas
             </Link>
             <Link
               to="/inicio"

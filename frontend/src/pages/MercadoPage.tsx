@@ -55,7 +55,7 @@ export default function MercadoPage() {
   const [miEquipo, setMiEquipo] = useState<JugadorEquipo[]>([])
   const [miMiembroId, setMiMiembroId] = useState<string | null>(null)
   const [ultimaStats, setUltimaStats] = useState<{ numJornada: number; stats: Record<string, UltimaStats> } | null>(null)
-  const [modalJugador, setModalJugador] = useState<{ id: string; nombreCompleto: string; posicion: string; equipo?: string; ligaId?: string } | null>(null)
+  const [modalJugador, setModalJugador] = useState<{ id: string; nombre: string; posicion: string; equipo?: string; ligaId?: string } | null>(null)
   const [loading, setLoading] = useState(true)
 
   const [pujaOfertaId, setPujaOfertaId] = useState<string | null>(null)
@@ -166,7 +166,7 @@ export default function MercadoPage() {
     {modalJugador && (
       <JugadorModal
         jugadorId={modalJugador.id}
-        nombreCompleto={modalJugador.nombreCompleto}
+        nombre={modalJugador.nombre}
         posicion={modalJugador.posicion}
         equipo={modalJugador.equipo}
         ligaId={modalJugador.ligaId}
@@ -301,7 +301,7 @@ export default function MercadoPage() {
                   </span>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1.5">
-                      <button onClick={() => setModalJugador({ id: oferta.jugador.id, nombreCompleto: oferta.jugador.nombreCompleto, posicion: oferta.jugador.posicion, equipo: equipoNombre(oferta.jugador), ligaId: ligaId ?? undefined })} className="font-semibold text-gray-900 hover:text-indigo-600 hover:underline text-left">
+                      <button onClick={() => setModalJugador({ id: oferta.jugador.id, nombre: oferta.jugador.nombre, posicion: oferta.jugador.posicion, equipo: equipoNombre(oferta.jugador), ligaId: ligaId ?? undefined })} className="font-semibold text-gray-900 hover:text-indigo-600 hover:underline text-left">
                         {oferta.jugador.nombre}
                       </button>
                       <PtsBadge puntos={ultimaStats?.stats[oferta.jugador.id]?.puntos} />

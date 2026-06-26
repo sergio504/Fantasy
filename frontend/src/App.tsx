@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import DashboardPage from './pages/DashboardPage'
 import ExplorePage from './pages/ExplorePage'
+import LigasPublicasPage from './pages/LigasPublicasPage'
 import CrearLigaPage from './pages/CrearLigaPage'
 import LigaDetallePage from './pages/LigaDetallePage'
 import MercadoPage from './pages/MercadoPage'
@@ -35,7 +36,8 @@ export default function App() {
             {/* Rutas protegidas */}
             <Route element={<ProtectedRoute />}>
               <Route path="/inicio" element={<DashboardPage />} />
-              <Route path="/ligas" element={<ExplorePage />} />
+              <Route path="/explorar" element={<ExplorePage />} />
+              <Route path="/ligas" element={<LigasPublicasPage />} />
               <Route path="/ligas/crear" element={<CrearLigaPage />} />
               <Route path="/ligas/:ligaId" element={<LigaDetallePage />} />
               <Route path="/ligas/:ligaId/jugadores" element={<MisJugadoresPage />} />

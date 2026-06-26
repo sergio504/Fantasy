@@ -40,7 +40,7 @@ export default function AlineacionModal({ ligaId, miembroId, username, onClose }
   const [historial, setHistorial] = useState<JornadaHistorial[]>([])
   const [idx, setIdx]             = useState(0)
   const [loading, setLoading]     = useState(true)
-  const [modalJugador, setModalJugador] = useState<{ id: string; nombreCompleto: string; posicion: string; equipo: string } | null>(null)
+  const [modalJugador, setModalJugador] = useState<{ id: string; nombre: string; posicion: string; equipo: string } | null>(null)
 
   useEffect(() => {
     getHistorialMiembro(ligaId, miembroId)
@@ -70,7 +70,7 @@ export default function AlineacionModal({ ligaId, miembroId, username, onClose }
     {modalJugador && (
       <JugadorModal
         jugadorId={modalJugador.id}
-        nombreCompleto={modalJugador.nombreCompleto}
+        nombre={modalJugador.nombre}
         posicion={modalJugador.posicion}
         equipo={modalJugador.equipo}
         ligaId={ligaId}
@@ -157,7 +157,7 @@ export default function AlineacionModal({ ligaId, miembroId, username, onClose }
                     return (
                       <button
                         key={i}
-                        onClick={() => setModalJugador({ id: jj.jugadorId, nombreCompleto: jj.jugador.nombreCompleto, posicion: jj.jugador.posicion, equipo: jj.equipo })}
+                        onClick={() => setModalJugador({ id: jj.jugadorId, nombre: jj.jugador.nombre, posicion: jj.jugador.posicion, equipo: jj.equipo })}
                         className="w-full flex items-center gap-3 px-5 py-2.5 border-b border-gray-50 last:border-0 hover:bg-gray-50 transition-colors text-left"
                       >
                         <span className={`shrink-0 text-xs px-2 py-0.5 rounded-lg font-bold ${ps.color}`}>

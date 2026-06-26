@@ -1,113 +1,281 @@
 import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { getLigasPublicas, getMisLigas, unirseALiga } from '../api/ligas'
+import { getRankings } from '../api/explorar'
 import Spinner from '../components/Spinner'
-import { DIVISION_LABEL, DIVISION_STYLE } from '../constants/divisiones'
+import JugadorModal from '../components/JugadorModal'
+import AlineacionModal from '../components/AlineacionModal'
+import { DIVISION_LABEL, DIVISION_STYLE, DIVISIONES } from '../constants/divisiones'
 
-interface Liga {
-  id: string
-  nombre: string
-  division: string
-  maxEquipos: number
-  presupuestoInicial: number
-  _count: { miembros: number }
+const POSICION_LABEL: Record<string, string> = {
+  PORTERO: 'POR',
+  DEFENSA: 'DEF',
+  CENTROCAMPISTA: 'CEN',
+  DELANTERO: 'DEL',
+  UNKNOWN: '?',
 }
 
+interface JugadorRanking {
+  jugadorId: string
+  nombre: string
+  posicion: string
+  valor: number
+  equipoNombre: string
+  totalPuntos?: string | null
+}
+
+interface UsuarioRanking {
+  usuarioId: string
+  username: string
+  puntuacion: number
+  miembroLigaId: string
+  ligaId: string
+  ligaNombre: string
+}
+
+interface Rankings {
+  jugadoresPorPuntos: JugadorRanking[]
+  jugadoresPorValor: JugadorRanking[]
+  usuariosPorPuntos: UsuarioRanking[]
+}
+
+interface ModalJugador {
+  id: string
+  nombre: string
+  posicion: string
+  equipo: string
+}
+
+interface ModalUsuario {
+  ligaId: string
+  miembroId: string
+  username: string
+}
 
 export default function ExplorePage() {
-  const navigate = useNavigate()
-  const [ligas, setLigas] = useState<Liga[]>([])
-  const [misLigaIds, setMisLigaIds] = useState<Set<string>>(new Set())
+  const [division, setDivision] = useState(DIVISIONES[0])
+  const [rankings, setRankings] = useState<Rankings | null>(null)
   const [loading, setLoading] = useState(true)
-  const [joining, setJoining] = useState<string | null>(null)
-  const [error, setError] = useState<Record<string, string>>({})
+  const [fetchError, setFetchError] = useState(false)
+  const [modalJugador, setModalJugador] = useState<ModalJugador | null>(null)
+  const [modalUsuario, setModalUsuario] = useState<ModalUsuario | null>(null)
 
   useEffect(() => {
-    Promise.all([getLigasPublicas(), getMisLigas()])
-      .then(([ligasR, misR]) => {
-        setLigas(ligasR.data)
-        setMisLigaIds(new Set(misR.data.map((m: any) => m.liga.id)))
-      })
+    setLoading(true)
+    setRankings(null)
+    setFetchError(false)
+    getRankings(division)
+      .then(r => setRankings(r.data))
+      .catch(() => setFetchError(true))
       .finally(() => setLoading(false))
-  }, [])
+  }, [division])
 
-  const handleUnirse = async (ligaId: string) => {
-    setJoining(ligaId)
-    setError(prev => ({ ...prev, [ligaId]: '' }))
-    try {
-      await unirseALiga(ligaId)
-      navigate(`/ligas/${ligaId}`)
-    } catch (err: any) {
-      setError(prev => ({ ...prev, [ligaId]: err.response?.data?.error ?? 'No se pudo unir' }))
-    } finally {
-      setJoining(null)
-    }
-  }
+  const d = DIVISION_STYLE[division] ?? DIVISION_STYLE.RFEF3_GRUPO_IV
 
   return (
-    <main className="max-w-4xl mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Explorar ligas</h1>
-        <p className="text-sm text-gray-500 mt-0.5">Únete a una liga pública disponible</p>
-      </div>
-
-      {loading ? (
-        <Spinner />
-      ) : ligas.length === 0 ? (
-        <div className="text-center py-20 bg-white rounded-2xl border border-gray-100">
-          <span className="text-5xl block mb-4">🔍</span>
-          <p className="text-gray-600 font-medium">No hay ligas públicas disponibles</p>
+    <>
+      {modalJugador && (
+        <JugadorModal
+          jugadorId={modalJugador.id}
+          nombre={modalJugador.nombre}
+          posicion={modalJugador.posicion}
+          equipo={modalJugador.equipo}
+          onClose={() => setModalJugador(null)}
+        />
+      )}
+      {modalUsuario && (
+        <AlineacionModal
+          ligaId={modalUsuario.ligaId}
+          miembroId={modalUsuario.miembroId}
+          username={modalUsuario.username}
+          onClose={() => setModalUsuario(null)}
+        />
+      )}
+      <main className="max-w-4xl mx-auto px-4 py-8">
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-gray-900">Explorar</h1>
+          <p className="text-sm text-gray-500 mt-0.5">Rankings por división</p>
         </div>
-      ) : (
-        <div className="grid gap-4 sm:grid-cols-2">
-          {ligas.map(liga => {
-            const d = DIVISION_STYLE[liga.division] ?? DIVISION_STYLE.RFEF3_GRUPO_IV
-            const llena = liga._count.miembros >= liga.maxEquipos
-            const esMiembro = misLigaIds.has(liga.id)
-            const pct = Math.round((liga._count.miembros / liga.maxEquipos) * 100)
 
+        {/* Selector de división */}
+        <div className="flex gap-2 mb-8 flex-wrap">
+          {DIVISIONES.map(div => {
+            const style = DIVISION_STYLE[div] ?? DIVISION_STYLE.RFEF3_GRUPO_IV
+            const activo = div === division
             return (
-              <div key={liga.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-                <div className="flex items-start justify-between mb-4">
-                  <h2 className="font-semibold text-gray-900 text-sm leading-tight pr-2">{liga.nombre}</h2>
-                  <span className={`shrink-0 text-xs px-2 py-0.5 rounded-full font-semibold ${d.badge}`}>
-                    {DIVISION_LABEL[liga.division] ?? liga.division}
-                  </span>
-                </div>
-
-                <div className="mb-4">
-                  <div className="flex justify-between text-xs text-gray-500 mb-1.5">
-                    <span>{liga._count.miembros}/{liga.maxEquipos} equipos</span>
-                    <span>{liga.presupuestoInicial}M iniciales</span>
-                  </div>
-                  <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                    <div className={`h-full rounded-full transition-all ${d.bar}`} style={{ width: `${pct}%` }} />
-                  </div>
-                </div>
-
-                {error[liga.id] && <p className="text-xs text-red-600 mb-2">{error[liga.id]}</p>}
-
-                {esMiembro ? (
-                  <Link
-                    to={`/ligas/${liga.id}`}
-                    className="block w-full text-center text-sm py-2 rounded-xl bg-indigo-50 text-indigo-600 hover:bg-indigo-100 transition-colors font-semibold border border-indigo-200"
-                  >
-                    Ver liga →
-                  </Link>
-                ) : (
-                  <button
-                    onClick={() => handleUnirse(liga.id)}
-                    disabled={llena || joining === liga.id}
-                    className="w-full text-sm py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
-                  >
-                    {llena ? 'Liga llena' : joining === liga.id ? 'Uniéndose...' : 'Unirse'}
-                  </button>
-                )}
-              </div>
+              <button
+                key={div}
+                onClick={() => setDivision(div)}
+                className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all border ${
+                  activo
+                    ? `${style.bg} ${style.text} ${style.border}`
+                    : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300'
+                }`}
+              >
+                {DIVISION_LABEL[div]}
+              </button>
             )
           })}
         </div>
-      )}
-    </main>
+
+        {loading ? (
+          <Spinner />
+        ) : fetchError ? (
+          <p className="text-red-400 text-center py-16">Error al conectar con el servidor.</p>
+        ) : !rankings ? (
+          <p className="text-gray-500 text-center py-16">Sin datos.</p>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-3">
+            <RankingCard
+              titulo="Jugadores por puntos"
+              icono="🏆"
+              vacio={rankings.jugadoresPorPuntos.length === 0}
+              vaciMsg="Sin puntuaciones aún"
+              divStyle={d}
+            >
+              {rankings.jugadoresPorPuntos.map((j, i) => (
+                <JugadorRow
+                  key={j.jugadorId}
+                  pos={i + 1}
+                  nombre={j.nombre}
+                  posicion={j.posicion}
+                  equipo={j.equipoNombre}
+                  valor={Number(j.totalPuntos ?? 0)}
+                  unidad="pts"
+                  divStyle={d}
+                  onClick={() => setModalJugador({ id: j.jugadorId, nombre: j.nombre, posicion: j.posicion, equipo: j.equipoNombre })}
+                />
+              ))}
+            </RankingCard>
+
+            <RankingCard
+              titulo="Jugadores más valiosos"
+              icono="💎"
+              vacio={rankings.jugadoresPorValor.length === 0}
+              vaciMsg="Sin jugadores registrados"
+              divStyle={d}
+            >
+              {rankings.jugadoresPorValor.map((j, i) => (
+                <JugadorRow
+                  key={j.jugadorId}
+                  pos={i + 1}
+                  nombre={j.nombre}
+                  posicion={j.posicion}
+                  equipo={j.equipoNombre}
+                  valor={j.valor}
+                  unidad="M"
+                  divStyle={d}
+                  onClick={() => setModalJugador({ id: j.jugadorId, nombre: j.nombre, posicion: j.posicion, equipo: j.equipoNombre })}
+                />
+              ))}
+            </RankingCard>
+
+            <RankingCard
+              titulo="Managers destacados"
+              icono="👑"
+              vacio={rankings.usuariosPorPuntos.length === 0}
+              vaciMsg="No hay ligas públicas activas"
+              divStyle={d}
+            >
+              {rankings.usuariosPorPuntos.map((u, i) => (
+                <UsuarioRow
+                  key={`${u.usuarioId}-${u.ligaId}`}
+                  pos={i + 1}
+                  username={u.username}
+                  liga={u.ligaNombre}
+                  puntuacion={u.puntuacion}
+                  divStyle={d}
+                  onClick={() => setModalUsuario({ ligaId: u.ligaId, miembroId: u.miembroLigaId, username: u.username })}
+                />
+              ))}
+            </RankingCard>
+          </div>
+        )}
+      </main>
+    </>
+  )
+}
+
+// ── Subcomponents ────────────────────────────────────────────────
+
+function RankingCard({
+  titulo, icono, vacio, vaciMsg, children, divStyle,
+}: {
+  titulo: string
+  icono: string
+  vacio: boolean
+  vaciMsg: string
+  children: React.ReactNode
+  divStyle: { bg: string; border: string; text: string; badge: string; bar: string }
+}) {
+  return (
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+      <div className={`px-4 py-3 ${divStyle.bg} border-b ${divStyle.border}`}>
+        <h2 className={`text-sm font-semibold ${divStyle.text} flex items-center gap-1.5`}>
+          <span>{icono}</span>
+          {titulo}
+        </h2>
+      </div>
+      <div className="divide-y divide-gray-50">
+        {vacio ? (
+          <p className="text-sm text-gray-400 text-center py-8 px-4">{vaciMsg}</p>
+        ) : children}
+      </div>
+    </div>
+  )
+}
+
+function JugadorRow({
+  pos, nombre, posicion, equipo, valor, unidad, divStyle, onClick,
+}: {
+  pos: number
+  nombre: string
+  posicion: string
+  equipo: string
+  valor: number
+  unidad: string
+  divStyle: { badge: string; text: string; bg: string; border: string; bar: string }
+  onClick: () => void
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors text-left"
+    >
+      <span className="w-5 text-center text-xs font-bold text-gray-400">{pos}</span>
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-medium text-gray-900 truncate hover:text-indigo-600">{nombre}</p>
+        <p className="text-xs text-gray-400 truncate">{equipo}</p>
+      </div>
+      <div className="text-right shrink-0">
+        <span className={`text-xs px-1.5 py-0.5 rounded font-semibold ${divStyle.badge}`}>
+          {POSICION_LABEL[posicion] ?? '?'}
+        </span>
+        <p className={`text-sm font-bold mt-0.5 ${divStyle.text}`}>{valor} {unidad}</p>
+      </div>
+    </button>
+  )
+}
+
+function UsuarioRow({
+  pos, username, liga, puntuacion, divStyle, onClick,
+}: {
+  pos: number
+  username: string
+  liga: string
+  puntuacion: number
+  divStyle: { text: string; bg: string; border: string; badge: string; bar: string }
+  onClick: () => void
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors text-left"
+    >
+      <span className="w-5 text-center text-xs font-bold text-gray-400">{pos}</span>
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-medium text-gray-900 truncate hover:text-indigo-600">{username}</p>
+        <p className="text-xs text-gray-400 truncate">{liga}</p>
+      </div>
+      <p className={`text-sm font-bold shrink-0 ${divStyle.text}`}>{puntuacion} pts</p>
+    </button>
   )
 }
