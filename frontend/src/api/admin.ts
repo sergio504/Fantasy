@@ -17,7 +17,8 @@ export const editarJornada        = (id: string, data: object) => api.patch(`/jo
 export const simularJornada       = (id: string)    => api.post(`/jornadas/${id}/simular`)
 export const generarSnapshot      = (id: string)    => api.post(`/jornadas/${id}/snapshot`)
 export const calcularPuntosPorJugador = (id: string) => api.post(`/jornadas/${id}/calcular-puntos`)
-export const calcularPuntuaciones     = (id: string) => api.post(`/jornadas/${id}/calcular`)
+export const calcularPuntuaciones          = (id: string) => api.post(`/jornadas/${id}/calcular`)
+export const importarEstadisticasArchivo   = (id: string, data: object) => api.post(`/jornadas/${id}/importar`, data)
 
 // Estadísticas
 export const getEstadisticasAdmin = (jornadaId: string) => api.get(`/admin/estadisticas/${jornadaId}`)

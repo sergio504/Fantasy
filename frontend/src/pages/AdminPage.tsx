@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { getJugadoresAdmin, crearJugador, editarJugador, crearFichaje, cerrarFichaje, getEquipos, getHistorial, getJornadas, crearJornada, editarJornada, simularJornada, generarSnapshot, calcularPuntosPorJugador, calcularPuntuaciones, getEstadisticasAdmin, editarEstadistica, getConfigPuntuacion, actualizarConfigPuntuacion, getConfigEconomia, actualizarConfigEconomia, getConfigRevalorizacion, actualizarConfigRevalorizacion, getUsuarios, toggleActivoUsuario, lanzarMercadoManual, getDashboard, getAliasesEquipos, crearAliasEquipo, eliminarAliasEquipo, getAliasesJugadores, crearAliasJugador, eliminarAliasJugador, getHistorialConfigAdmin } from '../api/admin'
+import { useEffect, useRef, useState } from 'react'
+import { getJugadoresAdmin, crearJugador, editarJugador, crearFichaje, cerrarFichaje, getEquipos, getHistorial, getJornadas, crearJornada, editarJornada, simularJornada, generarSnapshot, calcularPuntosPorJugador, calcularPuntuaciones, importarEstadisticasArchivo, getEstadisticasAdmin, editarEstadistica, getConfigPuntuacion, actualizarConfigPuntuacion, getConfigEconomia, actualizarConfigEconomia, getConfigRevalorizacion, actualizarConfigRevalorizacion, getUsuarios, toggleActivoUsuario, lanzarMercadoManual, getDashboard, getAliasesEquipos, crearAliasEquipo, eliminarAliasEquipo, getAliasesJugadores, crearAliasJugador, eliminarAliasJugador, getHistorialConfigAdmin } from '../api/admin'
 import { DIVISION_LABEL, DIVISIONES } from '../constants/divisiones'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
@@ -145,6 +145,8 @@ export default function AdminPage() {
 
   const [error, setError] = useState('')
   const [ok, setOk] = useState('')
+  const [importandoJornada, setImportandoJornada] = useState<string | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const cargar = async () => {
     const [jRes, eRes] = await Promise.all([getJugadoresAdmin(), getEquipos()])
@@ -505,6 +507,29 @@ export default function AdminPage() {
       {/* ── TAB JORNADAS ── */}
       {tab === 'jornadas' && (
         <div>
+          {/* Input oculto para subir fichero JSON */}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".json"
+            className="hidden"
+            onChange={async e => {
+              const file = e.target.files?.[0]
+              if (!file || !importandoJornada) return
+              e.target.value = ''
+              try {
+                const text = await file.text()
+                const data = JSON.parse(text)
+                const r = await importarEstadisticasArchivo(importandoJornada, data)
+                flash(r.data.mensaje)
+                const jr = await getJornadas(); setJornadas(jr.data)
+              } catch (err: any) {
+                flash(err.response?.data?.error ?? 'Error al importar el fichero', true)
+              } finally {
+                setImportandoJornada(null)
+              }
+            }}
+          />
           <div className="flex justify-end gap-2 mb-4">
             <button
               onClick={async () => {
@@ -594,6 +619,15 @@ export default function AdminPage() {
                           disabled={j.snapshotGenerado}
                           className="text-xs px-3 py-1.5 rounded-xl border border-purple-200 text-purple-600 hover:bg-purple-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
                           Snapshot
+                        </button>
+                        <button
+                          onClick={() => {
+                            setImportandoJornada(j.id)
+                            fileInputRef.current?.click()
+                          }}
+                          disabled={j.statsImportadas || j._count.estadisticas > 0}
+                          className="text-xs px-3 py-1.5 rounded-xl border border-teal-200 text-teal-600 hover:bg-teal-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
+                          Importar stats
                         </button>
                         <button
                           onClick={async () => {
