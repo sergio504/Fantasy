@@ -521,7 +521,11 @@ export default function AdminPage() {
                 const text = await file.text()
                 const data = JSON.parse(text)
                 const r = await importarEstadisticasArchivo(importandoJornada, data)
-                flash(r.data.mensaje)
+                if (r.data.procesoError) {
+                  flash(`${r.data.mensaje}. Importado OK, pero falló el resto del proceso: ${r.data.procesoError}`, true)
+                } else {
+                  flash(`${r.data.mensaje}. ${r.data.puntosMensaje}. ${r.data.puntuacionesMensaje}.`)
+                }
                 const jr = await getJornadas(); setJornadas(jr.data)
               } catch (err: any) {
                 flash(err.response?.data?.error ?? 'Error al importar el fichero', true)
