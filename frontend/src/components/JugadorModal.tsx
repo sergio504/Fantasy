@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, Cell, ReferenceLine } from 'recharts'
 import { getEstadisticasJugador, getHistorialValorJugador } from '../api/ligas'
 
 interface Desglose {
@@ -15,7 +16,7 @@ interface EstadisticaJornada {
   id: string
   convocado: boolean; titular: boolean; minutosJugados: number
   goles: number; tarjetasAmarillas: number; tarjetaRoja: boolean
-  resultado: string; puntosCalculados: number; desglose: Desglose | null
+  resultado: string | null; puntosCalculados: number; desglose: Desglose | null
   jornada: { numJornada: number; division: string; fechaInicioJornada: string | null }
   propietario: string | null
 }
@@ -98,6 +99,43 @@ function Desglose({ d: raw, e, esCapitan }: { d: Desglose | null; e: Estadistica
   )
 }
 
+function GraficaPuntos({ estadisticas }: { estadisticas: EstadisticaJornada[] }) {
+  if (estadisticas.length < 2) return null
+  const datos = [...estadisticas]
+    .sort((a, b) => a.jornada.numJornada - b.jornada.numJornada)
+    .map(e => ({ jornada: e.jornada.numJornada, puntos: e.puntosCalculados }))
+
+  return (
+    <div className="bg-gray-50 rounded-xl pt-3 pb-1 mb-2">
+      <p className="text-xs text-gray-400 px-3 mb-1">Puntos por jornada</p>
+      <ResponsiveContainer width="100%" height={100}>
+        <BarChart data={datos} margin={{ top: 4, right: 10, left: 10, bottom: 0 }}>
+          <XAxis
+            dataKey="jornada"
+            tickFormatter={n => `J${n}`}
+            tick={{ fontSize: 10, fill: '#9ca3af' }}
+            axisLine={false}
+            tickLine={false}
+            interval="preserveStartEnd"
+          />
+          <ReferenceLine y={0} stroke="#e5e7eb" />
+          <Tooltip
+            cursor={{ fill: 'rgba(99,102,241,0.08)' }}
+            formatter={(value: number) => [`${value} pts`, '']}
+            labelFormatter={l => `Jornada ${l}`}
+            contentStyle={{ fontSize: 12, borderRadius: 8, border: '1px solid #e5e7eb' }}
+          />
+          <Bar dataKey="puntos" radius={[3, 3, 3, 3]} maxBarSize={18}>
+            {datos.map((d, i) => (
+              <Cell key={i} fill={d.puntos > 0 ? '#16a34a' : d.puntos < 0 ? '#dc2626' : '#d1d5db'} />
+            ))}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  )
+}
+
 export default function JugadorModal({ jugadorId, nombre, posicion, equipo, ligaId, onClose }: Props) {
   const [estadisticas, setEstadisticas] = useState<EstadisticaJornada[]>([])
   const [loading, setLoading] = useState(true)
@@ -154,7 +192,7 @@ export default function JugadorModal({ jugadorId, nombre, posicion, equipo, liga
               </p>
             </div>
             <div className="flex items-center gap-3">
-              {estadisticas.length > 0 && (
+              {!loading && (
                 <div className="text-right">
                   <p className="text-xs text-gray-400">Total acumulado</p>
                   <p className="text-lg font-extrabold text-indigo-600">{totalPuntos} pts</p>
@@ -211,7 +249,7 @@ export default function JugadorModal({ jugadorId, nombre, posicion, equipo, liga
                 {stat('Goles', goles, goles > 0 ? 'text-green-600' : 'text-gray-900')}
                 {stat('Amarillas', amarillas, amarillas > 0 ? 'text-yellow-500' : 'text-gray-900')}
                 {stat('Rojas', rojas, rojas > 0 ? 'text-red-500' : 'text-gray-900')}
-                {stat('Jornadas', estadisticas.length)}
+                {stat('Jornadas', convocados)}
               </div>
             )
           })()}
@@ -255,7 +293,9 @@ export default function JugadorModal({ jugadorId, nombre, posicion, equipo, liga
           ) : estadisticas.length === 0 ? (
             <p className="text-center text-sm text-gray-400 py-8">Sin estadísticas disponibles</p>
           ) : (
-            estadisticas.map(e => {
+            <>
+            <GraficaPuntos estadisticas={estadisticas} />
+            {estadisticas.map(e => {
               const abierto = abiertos.has(e.id)
               return (
                 <div key={e.id} className="bg-gray-50 rounded-xl overflow-hidden">
@@ -277,6 +317,7 @@ export default function JugadorModal({ jugadorId, nombre, posicion, equipo, liga
                         e.puntosCalculados >= 8 ? 'text-green-600'
                         : e.puntosCalculados >= 4 ? 'text-indigo-600'
                         : e.puntosCalculados > 0 ? 'text-gray-700'
+                        : e.puntosCalculados === 0 ? 'text-gray-400'
                         : 'text-red-500'
                       }`}>
                         {e.puntosCalculados} pts
@@ -293,7 +334,8 @@ export default function JugadorModal({ jugadorId, nombre, posicion, equipo, liga
                   )}
                 </div>
               )
-            })
+            })}
+            </>
           )}
         </div>
       </div>
