@@ -301,7 +301,7 @@ export default function MercadoPage() {
                   </span>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1.5">
-                      <button onClick={() => setModalJugador({ id: oferta.jugador.id, nombre: oferta.jugador.nombre, posicion: oferta.jugador.posicion, equipo: equipoNombre(oferta.jugador), ligaId: ligaId ?? undefined })} className="font-semibold text-gray-900 hover:text-indigo-600 hover:underline text-left">
+                      <button onClick={() => setModalJugador({ id: oferta.jugador.id, nombre: oferta.jugador.nombreCompleto, posicion: oferta.jugador.posicion, equipo: equipoNombre(oferta.jugador), ligaId: ligaId ?? undefined })} className="font-semibold text-gray-900 hover:text-indigo-600 hover:underline text-left">
                         {oferta.jugador.nombre}
                       </button>
                       <PtsBadge puntos={ultimaStats?.stats[oferta.jugador.id]?.puntos} />

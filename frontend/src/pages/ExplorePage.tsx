@@ -16,6 +16,7 @@ const POSICION_LABEL: Record<string, string> = {
 interface JugadorRanking {
   jugadorId: string
   nombre: string
+  nombreCompleto: string
   posicion: string
   valor: number
   equipoNombre: string
@@ -141,7 +142,7 @@ export default function ExplorePage() {
                   valor={Number(j.totalPuntos ?? 0)}
                   unidad="pts"
                   divStyle={d}
-                  onClick={() => setModalJugador({ id: j.jugadorId, nombre: j.nombre, posicion: j.posicion, equipo: j.equipoNombre })}
+                  onClick={() => setModalJugador({ id: j.jugadorId, nombre: j.nombreCompleto, posicion: j.posicion, equipo: j.equipoNombre })}
                 />
               ))}
             </RankingCard>
@@ -163,7 +164,7 @@ export default function ExplorePage() {
                   valor={j.valor}
                   unidad="M"
                   divStyle={d}
-                  onClick={() => setModalJugador({ id: j.jugadorId, nombre: j.nombre, posicion: j.posicion, equipo: j.equipoNombre })}
+                  onClick={() => setModalJugador({ id: j.jugadorId, nombre: j.nombreCompleto, posicion: j.posicion, equipo: j.equipoNombre })}
                 />
               ))}
             </RankingCard>
