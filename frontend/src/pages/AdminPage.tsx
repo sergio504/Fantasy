@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { getJugadoresAdmin, crearJugador, editarJugador, crearFichaje, cerrarFichaje, getEquipos, getHistorial, getJornadas, crearJornada, editarJornada, simularJornada, generarSnapshot, calcularPuntosPorJugador, calcularPuntuaciones, importarEstadisticasArchivo, getEstadisticasAdmin, editarEstadistica, getEstadisticasSinRegistrar, borrarEstadisticaSinRegistrar, getConfigPuntuacion, actualizarConfigPuntuacion, getConfigEconomia, actualizarConfigEconomia, getConfigRevalorizacion, actualizarConfigRevalorizacion, getUsuarios, toggleActivoUsuario, lanzarMercadoManual, getDashboard, getAliasesEquipos, crearAliasEquipo, eliminarAliasEquipo, getAliasesJugadores, crearAliasJugador, eliminarAliasJugador, getHistorialConfigAdmin } from '../api/admin'
+import { getJugadoresAdmin, crearJugador, editarJugador, crearFichaje, cerrarFichaje, getEquipos, getHistorial, getJornadas, crearJornada, editarJornada, simularJornada, generarSnapshot, calcularPuntosPorJugador, calcularPuntuaciones, importarEstadisticasArchivo, getEstadisticasAdmin, editarEstadistica, getEstadisticasSinRegistrar, borrarEstadisticaSinRegistrar, reintentarEstadisticaSinRegistrar, getConfigPuntuacion, actualizarConfigPuntuacion, getConfigEconomia, actualizarConfigEconomia, getConfigRevalorizacion, actualizarConfigRevalorizacion, getUsuarios, toggleActivoUsuario, lanzarMercadoManual, getDashboard, getAliasesEquipos, crearAliasEquipo, eliminarAliasEquipo, getAliasesJugadores, crearAliasJugador, eliminarAliasJugador, getHistorialConfigAdmin } from '../api/admin'
 import { DIVISION_LABEL, DIVISIONES } from '../constants/divisiones'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
@@ -97,6 +97,7 @@ export default function AdminPage() {
   const [estadisticas, setEstadisticas] = useState<EstadisticaAdmin[]>([])
   const [estadisticasSinRegistrar, setEstadisticasSinRegistrar] = useState<EstadisticaSinRegistrar[]>([])
   const [equipoFiltro, setEquipoFiltro] = useState('')
+  const [mostrarSinRegistrar, setMostrarSinRegistrar] = useState(false)
   const [jornadaSeleccionada, setJornadaSeleccionada] = useState('')
   const [editandoEstat, setEditandoEstat] = useState<EstadisticaAdmin | null>(null)
   const [formEstat, setFormEstat] = useState<Partial<EstadisticaAdmin>>({})
@@ -770,6 +771,7 @@ export default function AdminPage() {
                 setJornadaSeleccionada(e.target.value)
                 setEditandoEstat(null)
                 setEquipoFiltro('')
+                setMostrarSinRegistrar(false)
                 if (e.target.value) {
                   const r = await getEstadisticasAdmin(e.target.value)
                   setEstadisticas(r.data)
@@ -805,39 +807,62 @@ export default function AdminPage() {
 
           {jornadaSeleccionada && estadisticasSinRegistrar.length > 0 && (
             <div className="mb-6">
-              <h3 className="text-sm font-semibold text-gray-700 mb-2">
-                ⚠️ Estadísticas sin registrar ({estadisticasSinRegistrar.length})
-              </h3>
-              <p className="text-xs text-gray-500 mb-3">
-                Jugadores que aparecieron en el scraping pero no se pudieron casar con ningún jugador de la BD. Añade un alias en la pestaña "Aliases" y vuelve a importar, o descártalos si no aplica.
-              </p>
-              <div className="bg-white rounded-2xl border border-amber-100 shadow-sm overflow-hidden">
-                <div className="divide-y divide-gray-50">
-                  {estadisticasSinRegistrar.map(e => (
-                    <div key={e.id} className="px-5 py-3 flex items-center gap-3">
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-gray-900">{e.nombreCompletoScraper}</p>
-                        <p className="text-xs text-gray-500">
-                          {e.nombreEquipoScraper}
-                          {' · '}{e.convocado ? (e.titular ? `Titular ${e.minutosJugados}'` : 'Convocado') : 'No conv.'}
-                          {e.goles > 0 && ` · ⚽${e.goles}`}
-                          {e.tarjetasAmarillas > 0 && ' · 🟨'}
-                          {e.tarjetaRoja && ' · 🟥'}
-                        </p>
-                      </div>
-                      <button
-                        onClick={async () => {
-                          await borrarEstadisticaSinRegistrar(e.id)
-                          setEstadisticasSinRegistrar(prev => prev.filter(x => x.id !== e.id))
-                        }}
-                        className="shrink-0 text-xs px-3 py-1.5 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors"
-                      >
-                        Descartar
-                      </button>
+              <button
+                onClick={() => setMostrarSinRegistrar(p => !p)}
+                className="w-full flex items-center justify-between px-4 py-3 rounded-2xl border border-amber-200 bg-amber-50 text-amber-800 text-sm font-semibold hover:bg-amber-100 transition-colors"
+              >
+                <span>⚠️ Estadísticas sin registrar ({estadisticasSinRegistrar.length})</span>
+                <span className="text-xs">{mostrarSinRegistrar ? '▲ ocultar' : '▼ ver'}</span>
+              </button>
+
+              {mostrarSinRegistrar && (
+                <div className="mt-2">
+                  <p className="text-xs text-gray-500 mb-3">
+                    Jugadores que aparecieron en el scraping pero no se pudieron casar con ningún jugador de la BD. Crea el jugador o añade un alias en la pestaña "Aliases" y luego pulsa "Reintentar" para casarlo sin reimportar toda la jornada.
+                  </p>
+                  <div className="bg-white rounded-2xl border border-amber-100 shadow-sm overflow-hidden">
+                    <div className="divide-y divide-gray-50">
+                      {estadisticasSinRegistrar.map(e => (
+                        <div key={e.id} className="px-5 py-3 flex items-center gap-3">
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-semibold text-gray-900">{e.nombreCompletoScraper}</p>
+                            <p className="text-xs text-gray-500">
+                              {e.nombreEquipoScraper}
+                              {' · '}{e.convocado ? (e.titular ? `Titular ${e.minutosJugados}'` : 'Convocado') : 'No conv.'}
+                              {e.goles > 0 && ` · ⚽${e.goles}`}
+                              {e.tarjetasAmarillas > 0 && ' · 🟨'}
+                              {e.tarjetaRoja && ' · 🟥'}
+                            </p>
+                          </div>
+                          <button
+                            onClick={async () => {
+                              try {
+                                const r = await reintentarEstadisticaSinRegistrar(e.id)
+                                flash(r.data.mensaje)
+                                setEstadisticasSinRegistrar(prev => prev.filter(x => x.id !== e.id))
+                                const r2 = await getEstadisticasAdmin(jornadaSeleccionada)
+                                setEstadisticas(r2.data)
+                              } catch (err: any) { flash(err.response?.data?.error ?? 'Sigue sin encontrarse', true) }
+                            }}
+                            className="shrink-0 text-xs px-3 py-1.5 rounded-xl border border-indigo-200 text-indigo-600 hover:bg-indigo-50 transition-colors"
+                          >
+                            Reintentar
+                          </button>
+                          <button
+                            onClick={async () => {
+                              await borrarEstadisticaSinRegistrar(e.id)
+                              setEstadisticasSinRegistrar(prev => prev.filter(x => x.id !== e.id))
+                            }}
+                            className="shrink-0 text-xs px-3 py-1.5 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors"
+                          >
+                            Descartar
+                          </button>
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           )}
 

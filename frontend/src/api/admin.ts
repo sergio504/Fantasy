@@ -27,6 +27,7 @@ export const editarEstadistica    = (id: string, data: object) => api.patch(`/ad
 // Estadísticas sin registrar (no se pudo casar el jugador al importar)
 export const getEstadisticasSinRegistrar = (jornadaId: string) => api.get(`/admin/estadisticas-sin-registrar/${jornadaId}`)
 export const borrarEstadisticaSinRegistrar = (id: string) => api.delete(`/admin/estadisticas-sin-registrar/${id}`)
+export const reintentarEstadisticaSinRegistrar = (id: string) => api.post(`/admin/estadisticas-sin-registrar/${id}/reintentar`)
 
 // Config puntuación
 export const getConfigPuntuacion        = ()                          => api.get('/admin/config-puntuacion')
