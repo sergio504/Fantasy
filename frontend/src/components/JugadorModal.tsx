@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, Cell, ReferenceLine } from 'recharts'
+import { LineChart, Line, XAxis, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts'
 import { getEstadisticasJugador, getHistorialValorJugador } from '../api/ligas'
 
 interface Desglose {
@@ -99,6 +99,16 @@ function Desglose({ d: raw, e, esCapitan }: { d: Desglose | null; e: Estadistica
   )
 }
 
+function colorPuntos(valor: number) {
+  return valor > 0 ? '#16a34a' : valor < 0 ? '#dc2626' : '#d1d5db'
+}
+
+function PuntoDot(props: { cx?: number; cy?: number; value?: number }) {
+  const { cx, cy, value } = props
+  if (cx == null || cy == null || value == null) return null
+  return <circle cx={cx} cy={cy} r={4} fill={colorPuntos(value)} stroke="#fff" strokeWidth={1.5} />
+}
+
 function GraficaPuntos({ estadisticas }: { estadisticas: EstadisticaJornada[] }) {
   if (estadisticas.length < 2) return null
   const datos = [...estadisticas]
@@ -109,7 +119,7 @@ function GraficaPuntos({ estadisticas }: { estadisticas: EstadisticaJornada[] })
     <div className="bg-gray-50 rounded-xl pt-3 pb-1 mb-2">
       <p className="text-xs text-gray-400 px-3 mb-1">Puntos por jornada</p>
       <ResponsiveContainer width="100%" height={100}>
-        <BarChart data={datos} margin={{ top: 4, right: 10, left: 10, bottom: 0 }}>
+        <LineChart data={datos} margin={{ top: 8, right: 10, left: 10, bottom: 0 }}>
           <XAxis
             dataKey="jornada"
             tickFormatter={n => `J${n}`}
@@ -120,17 +130,19 @@ function GraficaPuntos({ estadisticas }: { estadisticas: EstadisticaJornada[] })
           />
           <ReferenceLine y={0} stroke="#e5e7eb" />
           <Tooltip
-            cursor={{ fill: 'rgba(99,102,241,0.08)' }}
             formatter={(value: unknown) => [`${value} pts`, '']}
             labelFormatter={l => `Jornada ${l}`}
             contentStyle={{ fontSize: 12, borderRadius: 8, border: '1px solid #e5e7eb' }}
           />
-          <Bar dataKey="puntos" radius={[3, 3, 3, 3]} maxBarSize={18}>
-            {datos.map((d, i) => (
-              <Cell key={i} fill={d.puntos > 0 ? '#16a34a' : d.puntos < 0 ? '#dc2626' : '#d1d5db'} />
-            ))}
-          </Bar>
-        </BarChart>
+          <Line
+            type="monotone"
+            dataKey="puntos"
+            stroke="#a1a1aa"
+            strokeWidth={2}
+            dot={<PuntoDot />}
+            activeDot={{ r: 5 }}
+          />
+        </LineChart>
       </ResponsiveContainer>
     </div>
   )
