@@ -121,7 +121,7 @@ function GraficaPuntos({ estadisticas }: { estadisticas: EstadisticaJornada[] })
           <ReferenceLine y={0} stroke="#e5e7eb" />
           <Tooltip
             cursor={{ fill: 'rgba(99,102,241,0.08)' }}
-            formatter={(value: number) => [`${value} pts`, '']}
+            formatter={(value: unknown) => [`${value} pts`, '']}
             labelFormatter={l => `Jornada ${l}`}
             contentStyle={{ fontSize: 12, borderRadius: 8, border: '1px solid #e5e7eb' }}
           />
