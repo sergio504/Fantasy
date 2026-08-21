@@ -155,16 +155,18 @@ function ValorDot(props: { cx?: number; cy?: number; payload?: { diff: number } 
 }
 
 function GraficaValor({ historial }: { historial: HistorialValorEntry[] }) {
-  if (historial.length < 2) {
+  if (historial.length < 1) {
     return (
       <div className="bg-gray-50 rounded-xl px-3 py-3 mb-2">
-        <p className="text-xs text-gray-400">Hace falta al menos 2 jornadas con cambio de valor para dibujar la gráfica. De momento solo hay {historial.length}.</p>
+        <p className="text-xs text-gray-400">Todavía no hay cambios de valor registrados.</p>
       </div>
     )
   }
-  const datos = [...historial]
-    .sort((a, b) => a.numJornada - b.numJornada)
-    .map(h => ({ jornada: h.numJornada, valor: h.valorNuevo, diff: h.valorNuevo - h.valorAnterior }))
+  const ordenado = [...historial].sort((a, b) => a.numJornada - b.numJornada)
+  const datos = [
+    { jornada: 0, valor: ordenado[0].valorAnterior, diff: 0 },
+    ...ordenado.map(h => ({ jornada: h.numJornada, valor: h.valorNuevo, diff: h.valorNuevo - h.valorAnterior })),
+  ]
 
   return (
     <div className="bg-gray-50 rounded-xl pt-3 pb-1 mb-2">
@@ -173,7 +175,7 @@ function GraficaValor({ historial }: { historial: HistorialValorEntry[] }) {
         <LineChart data={datos} margin={{ top: 8, right: 10, left: 10, bottom: 0 }}>
           <XAxis
             dataKey="jornada"
-            tickFormatter={n => `J${n}`}
+            tickFormatter={n => n === 0 ? 'Inicio' : `J${n}`}
             tick={{ fontSize: 10, fill: '#9ca3af' }}
             axisLine={false}
             tickLine={false}
@@ -181,7 +183,7 @@ function GraficaValor({ historial }: { historial: HistorialValorEntry[] }) {
           />
           <Tooltip
             formatter={(value: unknown) => [`${Number(value).toLocaleString('es-ES')}`, '']}
-            labelFormatter={l => `Jornada ${l}`}
+            labelFormatter={l => l === 0 ? 'Precio inicial' : `Jornada ${l}`}
             contentStyle={{ fontSize: 12, borderRadius: 8, border: '1px solid #e5e7eb' }}
           />
           <Line
