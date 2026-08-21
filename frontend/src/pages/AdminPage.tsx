@@ -96,6 +96,7 @@ export default function AdminPage() {
   const [jornadas, setJornadas] = useState<Jornada[]>([])
   const [estadisticas, setEstadisticas] = useState<EstadisticaAdmin[]>([])
   const [estadisticasSinRegistrar, setEstadisticasSinRegistrar] = useState<EstadisticaSinRegistrar[]>([])
+  const [equipoFiltro, setEquipoFiltro] = useState('')
   const [jornadaSeleccionada, setJornadaSeleccionada] = useState('')
   const [editandoEstat, setEditandoEstat] = useState<EstadisticaAdmin | null>(null)
   const [formEstat, setFormEstat] = useState<Partial<EstadisticaAdmin>>({})
@@ -768,6 +769,7 @@ export default function AdminPage() {
               onChange={async e => {
                 setJornadaSeleccionada(e.target.value)
                 setEditandoEstat(null)
+                setEquipoFiltro('')
                 if (e.target.value) {
                   const r = await getEstadisticasAdmin(e.target.value)
                   setEstadisticas(r.data)
@@ -787,12 +789,62 @@ export default function AdminPage() {
                 </option>
               ))}
             </select>
+            {estadisticas.length > 0 && (
+              <select
+                value={equipoFiltro}
+                onChange={e => setEquipoFiltro(e.target.value)}
+                className="flex-1 border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                <option value="">Todos los equipos</option>
+                {[...new Set(estadisticas.map(e => e.jugadorEquipo.equipo.nombre))].sort().map(nombre => (
+                  <option key={nombre} value={nombre}>{nombre}</option>
+                ))}
+              </select>
+            )}
           </div>
+
+          {jornadaSeleccionada && estadisticasSinRegistrar.length > 0 && (
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-gray-700 mb-2">
+                ⚠️ Estadísticas sin registrar ({estadisticasSinRegistrar.length})
+              </h3>
+              <p className="text-xs text-gray-500 mb-3">
+                Jugadores que aparecieron en el scraping pero no se pudieron casar con ningún jugador de la BD. Añade un alias en la pestaña "Aliases" y vuelve a importar, o descártalos si no aplica.
+              </p>
+              <div className="bg-white rounded-2xl border border-amber-100 shadow-sm overflow-hidden">
+                <div className="divide-y divide-gray-50">
+                  {estadisticasSinRegistrar.map(e => (
+                    <div key={e.id} className="px-5 py-3 flex items-center gap-3">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-gray-900">{e.nombreCompletoScraper}</p>
+                        <p className="text-xs text-gray-500">
+                          {e.nombreEquipoScraper}
+                          {' · '}{e.convocado ? (e.titular ? `Titular ${e.minutosJugados}'` : 'Convocado') : 'No conv.'}
+                          {e.goles > 0 && ` · ⚽${e.goles}`}
+                          {e.tarjetasAmarillas > 0 && ' · 🟨'}
+                          {e.tarjetaRoja && ' · 🟥'}
+                        </p>
+                      </div>
+                      <button
+                        onClick={async () => {
+                          await borrarEstadisticaSinRegistrar(e.id)
+                          setEstadisticasSinRegistrar(prev => prev.filter(x => x.id !== e.id))
+                        }}
+                        className="shrink-0 text-xs px-3 py-1.5 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors"
+                      >
+                        Descartar
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
 
           {estadisticas.length > 0 && (
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
               <div className="divide-y divide-gray-50">
-                {estadisticas.map(e => {
+                {estadisticas.filter(e => !equipoFiltro || e.jugadorEquipo.equipo.nombre === equipoFiltro).map(e => {
                   const esEditando = editandoEstat?.id === e.id
                   return (
                     <div key={e.id} className="px-5 py-3">
@@ -890,44 +942,6 @@ export default function AdminPage() {
           )}
           {jornadaSeleccionada && estadisticas.length === 0 && (
             <p className="text-center py-8 text-sm text-gray-400">Esta jornada no tiene estadísticas generadas</p>
-          )}
-
-          {jornadaSeleccionada && estadisticasSinRegistrar.length > 0 && (
-            <div className="mt-6">
-              <h3 className="text-sm font-semibold text-gray-700 mb-2">
-                ⚠️ Estadísticas sin registrar ({estadisticasSinRegistrar.length})
-              </h3>
-              <p className="text-xs text-gray-500 mb-3">
-                Jugadores que aparecieron en el scraping pero no se pudieron casar con ningún jugador de la BD. Añade un alias en la pestaña "Aliases" y vuelve a importar, o descártalos si no aplica.
-              </p>
-              <div className="bg-white rounded-2xl border border-amber-100 shadow-sm overflow-hidden">
-                <div className="divide-y divide-gray-50">
-                  {estadisticasSinRegistrar.map(e => (
-                    <div key={e.id} className="px-5 py-3 flex items-center gap-3">
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-gray-900">{e.nombreCompletoScraper}</p>
-                        <p className="text-xs text-gray-500">
-                          {e.nombreEquipoScraper}
-                          {' · '}{e.convocado ? (e.titular ? `Titular ${e.minutosJugados}'` : 'Convocado') : 'No conv.'}
-                          {e.goles > 0 && ` · ⚽${e.goles}`}
-                          {e.tarjetasAmarillas > 0 && ' · 🟨'}
-                          {e.tarjetaRoja && ' · 🟥'}
-                        </p>
-                      </div>
-                      <button
-                        onClick={async () => {
-                          await borrarEstadisticaSinRegistrar(e.id)
-                          setEstadisticasSinRegistrar(prev => prev.filter(x => x.id !== e.id))
-                        }}
-                        className="shrink-0 text-xs px-3 py-1.5 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors"
-                      >
-                        Descartar
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
           )}
         </div>
       )}
