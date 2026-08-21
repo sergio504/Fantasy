@@ -409,10 +409,10 @@ export default function JugadorModal({ jugadorId, nombre, posicion, equipo, liga
                           </p>
                         </div>
                         <div className="shrink-0 text-right">
-                          <p className={`text-sm font-bold ${diff >= 0 ? 'text-green-600' : 'text-red-500'}`}>
-                            {diff >= 0 ? '+' : ''}{diff.toLocaleString('es-ES')}
+                          <p className={`text-sm font-bold ${diff > 0 ? 'text-green-600' : diff < 0 ? 'text-red-500' : 'text-gray-400'}`}>
+                            {diff > 0 ? '+' : ''}{diff.toLocaleString('es-ES')}
                           </p>
-                          {pct && <p className="text-xs text-gray-400">{diff >= 0 ? '+' : ''}{pct}%</p>}
+                          {pct && <p className="text-xs text-gray-400">{diff > 0 ? '+' : ''}{pct}%</p>}
                         </div>
                       </div>
                     )
