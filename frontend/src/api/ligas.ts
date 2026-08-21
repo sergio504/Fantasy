@@ -20,6 +20,8 @@ export const getHistorialMiembro      = (ligaId: string, miembroId: string) => a
 // Histórico
 export const getHistorialSaldo        = (ligaId: string) => api.get(`/ligas/${ligaId}/historial-saldo`)
 export const getHistorialValorJugador = (jugadorId: string) => api.get(`/jugadores/${jugadorId}/historial-valor`)
+export const getHistorialClausulaJugador = (jugadorId: string, ligaId: string) =>
+  api.get(`/jugadores/${jugadorId}/historial-clausula`, { params: { ligaId } })
 export const getClasificacion    = (ligaId: string, modo?: string, num?: number) =>
   api.get(`/ligas/${ligaId}/clasificacion`, { params: { modo, num } })
 

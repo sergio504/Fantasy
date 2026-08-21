@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { LineChart, Line, XAxis, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts'
-import { getEstadisticasJugador, getHistorialValorJugador } from '../api/ligas'
+import { getEstadisticasJugador, getHistorialValorJugador, getHistorialClausulaJugador } from '../api/ligas'
 
 interface Desglose {
   convocado?: number
@@ -27,6 +27,20 @@ interface HistorialValorEntry {
   valorNuevo: number
   numJornada: number
   creadoEn: string
+}
+
+interface HistorialClausulaEntry {
+  id: string
+  clausulaAnterior: number
+  clausulaNueva: number
+  motivo: string
+  creadoEn: string
+}
+
+const MOTIVO_CLAUSULA_LABEL: Record<string, string> = {
+  ADQUISICION: 'Fichaje',
+  INVERSION: 'Inversión en cláusula',
+  CLAUSULAZO_NUEVO_DUENO: 'Clausulazo',
 }
 
 interface Props {
@@ -204,9 +218,11 @@ export default function JugadorModal({ jugadorId, nombre, posicion, equipo, liga
   const [estadisticas, setEstadisticas] = useState<EstadisticaJornada[]>([])
   const [loading, setLoading] = useState(true)
   const [abiertos, setAbiertos] = useState<Set<string>>(new Set())
-  const [seccion, setSeccion] = useState<'stats' | 'valor'>('stats')
+  const [seccion, setSeccion] = useState<'stats' | 'valor' | 'clausula'>('stats')
   const [historialValor, setHistorialValor] = useState<HistorialValorEntry[]>([])
   const [loadingValor, setLoadingValor] = useState(false)
+  const [historialClausula, setHistorialClausula] = useState<HistorialClausulaEntry[]>([])
+  const [loadingClausula, setLoadingClausula] = useState(false)
 
   useEffect(() => {
     getEstadisticasJugador(jugadorId, ligaId)
@@ -228,6 +244,16 @@ export default function JugadorModal({ jugadorId, nombre, posicion, equipo, liga
       getHistorialValorJugador(jugadorId)
         .then(r => setHistorialValor(r.data))
         .finally(() => setLoadingValor(false))
+    }
+  }
+
+  const handleSeccionClausula = () => {
+    setSeccion('clausula')
+    if (ligaId && historialClausula.length === 0 && !loadingClausula) {
+      setLoadingClausula(true)
+      getHistorialClausulaJugador(jugadorId, ligaId)
+        .then(r => setHistorialClausula(r.data))
+        .finally(() => setLoadingClausula(false))
     }
   }
 
@@ -285,6 +311,14 @@ export default function JugadorModal({ jugadorId, nombre, posicion, equipo, liga
             >
               Valor de mercado
             </button>
+            {ligaId && (
+              <button
+                onClick={handleSeccionClausula}
+                className={`text-xs px-3 py-1 rounded-lg font-semibold transition-colors ${seccion === 'clausula' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
+              >
+                Cláusula
+              </button>
+            )}
           </div>
 
           {/* Estadísticas agregadas */}
@@ -321,7 +355,39 @@ export default function JugadorModal({ jugadorId, nombre, posicion, equipo, liga
 
         {/* Content */}
         <div className="overflow-y-auto flex-1 p-4 space-y-2">
-          {seccion === 'valor' ? (
+          {seccion === 'clausula' ? (
+            loadingClausula ? (
+              <p className="text-center text-sm text-gray-400 py-8">Cargando...</p>
+            ) : historialClausula.length === 0 ? (
+              <p className="text-center text-sm text-gray-400 py-8">Sin cambios de cláusula en esta liga</p>
+            ) : (
+              <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                <div className="divide-y divide-gray-50">
+                  {[...historialClausula].reverse().map(h => {
+                    const diff = h.clausulaNueva - h.clausulaAnterior
+                    return (
+                      <div key={h.id} className="flex items-center px-4 py-3 gap-3">
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs font-semibold text-gray-700">{MOTIVO_CLAUSULA_LABEL[h.motivo] ?? h.motivo}</p>
+                          <p className="text-xs text-gray-400">
+                            {h.clausulaAnterior.toLocaleString('es-ES')} → <span className="font-semibold text-gray-700">{h.clausulaNueva.toLocaleString('es-ES')}</span>
+                          </p>
+                          <p className="text-xs text-gray-400">
+                            {new Date(h.creadoEn).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })}
+                          </p>
+                        </div>
+                        <div className="shrink-0 text-right">
+                          <p className={`text-sm font-bold ${diff >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+                            {diff >= 0 ? '+' : ''}{diff.toLocaleString('es-ES')}
+                          </p>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )
+          ) : seccion === 'valor' ? (
             loadingValor ? (
               <p className="text-center text-sm text-gray-400 py-8">Cargando...</p>
             ) : historialValor.length === 0 ? (
