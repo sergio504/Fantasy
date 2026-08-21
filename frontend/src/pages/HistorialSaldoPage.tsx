@@ -22,6 +22,7 @@ const CONCEPTO_LABEL: Record<string, { label: string; color: string }> = {
   CLAUSULAZO_PAGO:     { label: 'Cláusula pagada',     color: 'bg-red-100 text-red-700'      },
   CLAUSULAZO_COBRO:    { label: 'Cláusula cobrada',    color: 'bg-green-100 text-green-700'  },
   INVERSION_CLAUSULA:  { label: 'Inversión cláusula',  color: 'bg-orange-100 text-orange-700'},
+  INGRESO_JORNADA:     { label: 'Ingreso jornada',     color: 'bg-emerald-100 text-emerald-700' },
 }
 
 function fmt(n: number) { return n.toLocaleString('es-ES') }
