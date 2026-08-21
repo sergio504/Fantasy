@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { getJugadoresAdmin, crearJugador, editarJugador, crearFichaje, cerrarFichaje, getEquipos, getHistorial, getJornadas, crearJornada, editarJornada, simularJornada, generarSnapshot, calcularPuntosPorJugador, calcularPuntuaciones, importarEstadisticasArchivo, getEstadisticasAdmin, editarEstadistica, getConfigPuntuacion, actualizarConfigPuntuacion, getConfigEconomia, actualizarConfigEconomia, getConfigRevalorizacion, actualizarConfigRevalorizacion, getUsuarios, toggleActivoUsuario, lanzarMercadoManual, getDashboard, getAliasesEquipos, crearAliasEquipo, eliminarAliasEquipo, getAliasesJugadores, crearAliasJugador, eliminarAliasJugador, getHistorialConfigAdmin } from '../api/admin'
+import { getJugadoresAdmin, crearJugador, editarJugador, crearFichaje, cerrarFichaje, getEquipos, getHistorial, getJornadas, crearJornada, editarJornada, simularJornada, generarSnapshot, calcularPuntosPorJugador, calcularPuntuaciones, importarEstadisticasArchivo, getEstadisticasAdmin, editarEstadistica, getEstadisticasSinRegistrar, borrarEstadisticaSinRegistrar, getConfigPuntuacion, actualizarConfigPuntuacion, getConfigEconomia, actualizarConfigEconomia, getConfigRevalorizacion, actualizarConfigRevalorizacion, getUsuarios, toggleActivoUsuario, lanzarMercadoManual, getDashboard, getAliasesEquipos, crearAliasEquipo, eliminarAliasEquipo, getAliasesJugadores, crearAliasJugador, eliminarAliasJugador, getHistorialConfigAdmin } from '../api/admin'
 import { DIVISION_LABEL, DIVISIONES } from '../constants/divisiones'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
@@ -34,6 +34,12 @@ interface EstadisticaAdmin {
   goles: number; tarjetasAmarillas: number; tarjetaRoja: boolean
   resultado: string; puntosCalculados: number
   jugadorEquipo: { jugador: { nombreCompleto: string; posicion: string }; equipo: { nombre: string } }
+}
+interface EstadisticaSinRegistrar {
+  id: string
+  nombreEquipoScraper: string; nombreJugadorScraper: string; nombreCompletoScraper: string
+  convocado: boolean; titular: boolean; minutosJugados: number
+  goles: number; tarjetasAmarillas: number; tarjetaRoja: boolean; resultado: string
 }
 interface ConfigPuntuacion {
   id: string; posicion: string | null; accion: string; puntos: number; descripcion: string | null
@@ -89,6 +95,7 @@ export default function AdminPage() {
   const [historial, setHistorial] = useState<EntradaHistorial[]>([])
   const [jornadas, setJornadas] = useState<Jornada[]>([])
   const [estadisticas, setEstadisticas] = useState<EstadisticaAdmin[]>([])
+  const [estadisticasSinRegistrar, setEstadisticasSinRegistrar] = useState<EstadisticaSinRegistrar[]>([])
   const [jornadaSeleccionada, setJornadaSeleccionada] = useState('')
   const [editandoEstat, setEditandoEstat] = useState<EstadisticaAdmin | null>(null)
   const [formEstat, setFormEstat] = useState<Partial<EstadisticaAdmin>>({})
@@ -764,8 +771,11 @@ export default function AdminPage() {
                 if (e.target.value) {
                   const r = await getEstadisticasAdmin(e.target.value)
                   setEstadisticas(r.data)
+                  const r2 = await getEstadisticasSinRegistrar(e.target.value)
+                  setEstadisticasSinRegistrar(r2.data)
                 } else {
                   setEstadisticas([])
+                  setEstadisticasSinRegistrar([])
                 }
               }}
               className="flex-1 border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -880,6 +890,44 @@ export default function AdminPage() {
           )}
           {jornadaSeleccionada && estadisticas.length === 0 && (
             <p className="text-center py-8 text-sm text-gray-400">Esta jornada no tiene estadísticas generadas</p>
+          )}
+
+          {jornadaSeleccionada && estadisticasSinRegistrar.length > 0 && (
+            <div className="mt-6">
+              <h3 className="text-sm font-semibold text-gray-700 mb-2">
+                ⚠️ Estadísticas sin registrar ({estadisticasSinRegistrar.length})
+              </h3>
+              <p className="text-xs text-gray-500 mb-3">
+                Jugadores que aparecieron en el scraping pero no se pudieron casar con ningún jugador de la BD. Añade un alias en la pestaña "Aliases" y vuelve a importar, o descártalos si no aplica.
+              </p>
+              <div className="bg-white rounded-2xl border border-amber-100 shadow-sm overflow-hidden">
+                <div className="divide-y divide-gray-50">
+                  {estadisticasSinRegistrar.map(e => (
+                    <div key={e.id} className="px-5 py-3 flex items-center gap-3">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-gray-900">{e.nombreCompletoScraper}</p>
+                        <p className="text-xs text-gray-500">
+                          {e.nombreEquipoScraper}
+                          {' · '}{e.convocado ? (e.titular ? `Titular ${e.minutosJugados}'` : 'Convocado') : 'No conv.'}
+                          {e.goles > 0 && ` · ⚽${e.goles}`}
+                          {e.tarjetasAmarillas > 0 && ' · 🟨'}
+                          {e.tarjetaRoja && ' · 🟥'}
+                        </p>
+                      </div>
+                      <button
+                        onClick={async () => {
+                          await borrarEstadisticaSinRegistrar(e.id)
+                          setEstadisticasSinRegistrar(prev => prev.filter(x => x.id !== e.id))
+                        }}
+                        className="shrink-0 text-xs px-3 py-1.5 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors"
+                      >
+                        Descartar
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           )}
         </div>
       )}

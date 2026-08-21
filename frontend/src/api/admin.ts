@@ -24,6 +24,10 @@ export const importarEstadisticasArchivo   = (id: string, data: object) => api.p
 export const getEstadisticasAdmin = (jornadaId: string) => api.get(`/admin/estadisticas/${jornadaId}`)
 export const editarEstadistica    = (id: string, data: object) => api.patch(`/admin/estadisticas/${id}`, data)
 
+// Estadísticas sin registrar (no se pudo casar el jugador al importar)
+export const getEstadisticasSinRegistrar = (jornadaId: string) => api.get(`/admin/estadisticas-sin-registrar/${jornadaId}`)
+export const borrarEstadisticaSinRegistrar = (id: string) => api.delete(`/admin/estadisticas-sin-registrar/${id}`)
+
 // Config puntuación
 export const getConfigPuntuacion        = ()                          => api.get('/admin/config-puntuacion')
 export const actualizarConfigPuntuacion = (id: string, data: object) => api.patch(`/admin/config-puntuacion/${id}`, data)
