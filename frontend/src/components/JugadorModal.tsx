@@ -148,6 +148,50 @@ function GraficaPuntos({ estadisticas }: { estadisticas: EstadisticaJornada[] })
   )
 }
 
+function ValorDot(props: { cx?: number; cy?: number; payload?: { diff: number } }) {
+  const { cx, cy, payload } = props
+  if (cx == null || cy == null || !payload) return null
+  return <circle cx={cx} cy={cy} r={4} fill={colorPuntos(payload.diff)} stroke="#fff" strokeWidth={1.5} />
+}
+
+function GraficaValor({ historial }: { historial: HistorialValorEntry[] }) {
+  if (historial.length < 2) return null
+  const datos = [...historial]
+    .sort((a, b) => a.numJornada - b.numJornada)
+    .map(h => ({ jornada: h.numJornada, valor: h.valorNuevo, diff: h.valorNuevo - h.valorAnterior }))
+
+  return (
+    <div className="bg-gray-50 rounded-xl pt-3 pb-1 mb-2">
+      <p className="text-xs text-gray-400 px-3 mb-1">Valor por jornada</p>
+      <ResponsiveContainer width="100%" height={100}>
+        <LineChart data={datos} margin={{ top: 8, right: 10, left: 10, bottom: 0 }}>
+          <XAxis
+            dataKey="jornada"
+            tickFormatter={n => `J${n}`}
+            tick={{ fontSize: 10, fill: '#9ca3af' }}
+            axisLine={false}
+            tickLine={false}
+            interval="preserveStartEnd"
+          />
+          <Tooltip
+            formatter={(value: unknown) => [`${Number(value).toLocaleString('es-ES')}`, '']}
+            labelFormatter={l => `Jornada ${l}`}
+            contentStyle={{ fontSize: 12, borderRadius: 8, border: '1px solid #e5e7eb' }}
+          />
+          <Line
+            type="monotone"
+            dataKey="valor"
+            stroke="#a1a1aa"
+            strokeWidth={2}
+            dot={<ValorDot />}
+            activeDot={{ r: 5 }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  )
+}
+
 export default function JugadorModal({ jugadorId, nombre, posicion, equipo, ligaId, onClose }: Props) {
   const [estadisticas, setEstadisticas] = useState<EstadisticaJornada[]>([])
   const [loading, setLoading] = useState(true)
@@ -275,6 +319,8 @@ export default function JugadorModal({ jugadorId, nombre, posicion, equipo, liga
             ) : historialValor.length === 0 ? (
               <p className="text-center text-sm text-gray-400 py-8">Sin historial de valor disponible</p>
             ) : (
+              <>
+              <GraficaValor historial={historialValor} />
               <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
                 <div className="divide-y divide-gray-50">
                   {[...historialValor].reverse().map(h => {
@@ -299,6 +345,7 @@ export default function JugadorModal({ jugadorId, nombre, posicion, equipo, liga
                   })}
                 </div>
               </div>
+              </>
             )
           ) : loading ? (
             <p className="text-center text-sm text-gray-400 py-8">Cargando...</p>
