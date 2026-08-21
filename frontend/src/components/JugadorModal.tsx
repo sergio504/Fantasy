@@ -155,7 +155,13 @@ function ValorDot(props: { cx?: number; cy?: number; payload?: { diff: number } 
 }
 
 function GraficaValor({ historial }: { historial: HistorialValorEntry[] }) {
-  if (historial.length < 2) return null
+  if (historial.length < 2) {
+    return (
+      <div className="bg-gray-50 rounded-xl px-3 py-3 mb-2">
+        <p className="text-xs text-gray-400">Hace falta al menos 2 jornadas con cambio de valor para dibujar la gráfica. De momento solo hay {historial.length}.</p>
+      </div>
+    )
+  }
   const datos = [...historial]
     .sort((a, b) => a.numJornada - b.numJornada)
     .map(h => ({ jornada: h.numJornada, valor: h.valorNuevo, diff: h.valorNuevo - h.valorAnterior }))

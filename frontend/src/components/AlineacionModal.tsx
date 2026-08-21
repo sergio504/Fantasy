@@ -177,6 +177,7 @@ export default function AlineacionModal({ ligaId, miembroId, username, onClose }
                           : jj.puntos >= 8   ? 'text-green-600'
                           : jj.puntos >= 4   ? 'text-indigo-600'
                           : jj.puntos > 0    ? 'text-gray-700'
+                          : jj.puntos === 0  ? 'text-gray-400'
                           : 'text-red-500'
                         }`}>
                           {jj.puntos !== null ? `${jj.puntos}p` : '—'}
